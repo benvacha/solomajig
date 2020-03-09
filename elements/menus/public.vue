@@ -12,7 +12,7 @@
       About</a> &bull;
     <a @click="$emit('goto', '/contact')">
       Contact</a> &bull;
-    <a @click="$emit('toggle')">
+    <a @click="$emit('open', 'signIn')">
       SignIn</a>
   </div>
 
