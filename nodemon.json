@@ -1,0 +1,6 @@
+{
+  "ignore": [
+    "elements/*", "routes/*",
+    "stores/*", "views/*"
+  ]
+}

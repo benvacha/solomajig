@@ -1,0 +1,14 @@
+# Copyright (C) 2020 BenVacha/Solomajig
+
+## OSX
+.DS_Store
+
+## NPM
+/node_modules
+
+## LOGS
+*.log
+
+## DOTENV
+.env
+.env.*

@@ -1,0 +1,17 @@
+# Copyright (C) 2020 BenVacha/Solomajig
+
+## SERVER
+PORT = 3000
+NODE_ENV = development
+
+## SOLOMAJIG
+SOLOMAJIG_USERNAME = username
+SOLOMAJIG_PASSWORD = password
+
+## BLUEBIRD
+BLUEBIRD_DEBUG = 0
+BLUEBIRD_W_FORGOTTEN_RETURN = false
+
+## MONGODB
+## mongodb://user:password@ds012345.mlab.com:56789/mydb
+MONGODB_URI = mongodb://localhost/solomajig
