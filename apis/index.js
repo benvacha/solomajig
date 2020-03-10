@@ -7,6 +7,8 @@ var app = Express();
 /*
 /* */
 
+app.use('/majig', __require('/apis/majig'));
+app.use('/majigs', __require('/apis/majigs'));
 app.use('/token', __require('/apis/token'));
 /* */
 app.use(function(req, res, next) {

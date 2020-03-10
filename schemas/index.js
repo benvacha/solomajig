@@ -59,11 +59,29 @@ return new Promise(function(resolve, reject) {
 // req:{}, input:*
 /// falsy || throw Error
 schema.statics.LOCALIZERS = {
+  majigId: function(req, res, input, required) {
+    if(required && !input) {
+      throw new Error.code(6000);
+    }
+    res.locals.majigId = input;
+  },
+  markdown: function(req, res, input, required) {
+    if(required && !input) {
+      throw new Error.code(6000);
+    }
+    res.locals.markdown = input;
+  },
   password: function(req, res, input, required) {
     if(required && !input) {
       throw new Error.code(6003);
     }
     res.locals.password = input;
+  },
+  path: function(req, res, input, required) {
+    if(required && !input) {
+      throw new Error.code(6000);
+    }
+    res.locals.path = input;
   },
   username: function(req, res, input, required) {
     if(required && !input) {

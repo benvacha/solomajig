@@ -38,7 +38,7 @@
 <script>
 import MenuPublic from 'elements/menus/public.vue';
 import MenuPrivate from 'elements/menus/private.vue';
-import ParabodyLeft from 'views/parabodys/left.vue';
+import ParabodyLeft from 'elements/parabodys/left.vue';
 import SignIn from 'views/signin.vue';
 export default {
   components: {

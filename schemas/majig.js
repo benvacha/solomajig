@@ -9,8 +9,8 @@ var ObjectId = Mongoose.Types.ObjectId;
 var schema = new Schema({
   path: { type:String, required:true },
   markdown: { type:String, required:true },
-  created: { type:Date, default:date.now },
-  updated: { type:Date, default:date.now },
+  created: { type:Date, default:Date.now },
+  updated: { type:Date, default:Date.now },
   published: { type:Date },
 }, {
   collation: { locale:'en_US', strength:1 },
