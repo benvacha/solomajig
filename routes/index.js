@@ -2,46 +2,20 @@
 /* /**/
 import Vue from 'vue/dist/vue.js';
 import VueRouter from 'vue-router';
-import About from 'views/about.vue';
-import Contact from 'views/contact.vue';
-import Dashboard from 'views/dashboard.vue';
-import Privacy from 'views/privacy.vue';
-import Terms from 'views/terms.vue';
-import Unknown from 'views/unknown.vue';
+import Majig from 'views/majig.vue';
+import Majigs from 'views/majigs.vue';
 /* */
 Vue.use(VueRouter);
 /* */
 export default new VueRouter({
-  // mode: 'history',
   routes: [
     {
-      path: '/contact',
-      component: Contact,
-    },
-    {
-      path: '/privacy',
-      component: Privacy,
-    },
-    {
-      path: '/terms',
-      component: Terms,
-    },
-    {
       path: '/',
-      component: {
-        template: '<component :is="root"></component>',
-        computed: { root () {
-          if(this.$store.getters['token/signed']) {
-            return Dashboard;
-          } else {
-            return About;
-          }
-        }},
-      },
+      component: Majigs,
     },
     {
       path: '*',
-      component: Unknown
+      component: Majig,
     },
   ],
   scrollBehavior (to, from, saved) {

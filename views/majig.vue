@@ -6,7 +6,7 @@
 
   <center>
     <br /><br /><br />
-    <h1 @click="signGet">Dashboard</h1>
+    <h1 @click="signGet">Majig</h1>
   </center>
 
 </div>

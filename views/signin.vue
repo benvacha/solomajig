@@ -18,13 +18,6 @@
       <input type="submit"
         value="sign in" />
     </form>
-    <h6><center>
-      by signing in, you agree to the<br />
-      <a @click="$emit('goto', '/terms')">
-        terms of service</a> and
-      <a @click="$emit('goto', '/privacy')">
-        privacy policy</a>.
-    </center></h6>
   </div>
   </div>
 

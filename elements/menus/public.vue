@@ -5,7 +5,7 @@
 
   <div class="lefter">
     <a @click="$emit('goto', '/')">
-      AbleChart</a>
+      Solomajig</a>
   </div>
   <div class="rghter">
     <a @click="$emit('goto', '/')">
