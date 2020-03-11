@@ -21,6 +21,7 @@
     />
     <input type="submit" value="update" />
   </form>
+  <div v-html="markeddown"></div>
 
 </div>
 </div>
@@ -29,10 +30,12 @@
 <!-- -->
 
 <script>
+import Marked from 'marked';
 import InputText from 'elements/inputs/text.vue';
 export default {
   components: {
     InputText,
+    Marked,
   },
   props: {
     majigId: {
@@ -60,6 +63,9 @@ export default {
       } else {
         return all[this.$route.path] || {};
       }
+    },
+    markeddown () {
+      return Marked(this.majig.markdown || '');
     },
   },
   methods: {

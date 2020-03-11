@@ -9,9 +9,9 @@
 <script>
 
 import Vue from 'vue/dist/vue.js';
-import App from './views/index.vue';
-import Store from './stores/index.js';
-import Router from './routes/index.js';
+import App from 'views/index.vue';
+import Store from 'stores/index.js';
+import Router from 'routes/index.js';
 
 Vue.config.productionTip = false;
 
@@ -28,5 +28,5 @@ export default new Vue({
 <!-- -->
 
 <style>
-@import './styles/uizzle.css';
+@import 'styles/uizzle.css';
 </style>
