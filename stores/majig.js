@@ -22,7 +22,6 @@ const mutations = {
 
 const actions = {
   async load ({commit}, inputs) {
-    console.log(inputs.path);
     return Axios.get('/apis/majig', {
       params: {
         majigId: inputs.majigId,

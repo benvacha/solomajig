@@ -1,29 +1,50 @@
 <!-- Copyright (C) 2020 BenVacha/Solomajig -->
 
 <template>
-<div class="subbody">
-<div class="bodyer thin">
+<div class="body">
 
-  <h1 @click="debug=!debug">
-    Majig
-    <span>{{ status }}</span>
-  </h1>
-  <ul v-if="debug">
-    <li v-for="(value, name, index) in majig"
-      :key="index">
-      {{ name }}: {{ value }}
-    </li>
-  </ul>
-  <form @submit.prevent="updateMajig">
-    <InputText
-      v-model="majig.markdown"
-      placeholder="markdown"
-    />
-    <input type="submit" value="update" />
-  </form>
-  <div v-html="markeddown"></div>
+  <div class="prebody tiny">
+    <div class="horzer">
+      <div class="lefter mask">{{status}}</div>
+      <div class="rghter" v-if="isMode('show')">
+        <a @click="toMode('edit')">edit</a>
+        &bull;
+        <a @click="toMode('reset')">reset</a>
+        &bull;
+        <a @click="toMode('save')">save</a>
+      </div>
+      <div class="rghter" v-if="isMode('edit')">
+        <a @click="toMode('show')">show</a>
+        &bull;
+        <a @click="toMode('reset')">reset</a>
+        &bull;
+        <a @click="toMode('save')">save</a>
+      </div>
+    </div>
+  </div>
 
-</div>
+  <div class="body">
+  <div class="subbody">
+  <div class="bodyer thick tall">
+
+    <div v-if="isMode('show')"
+      v-html="markeddown"></div>
+    <form @submit.prevent
+      class="editor"
+      v-if="isMode('edit')">
+      <pre><span>
+        {{markdown}}
+      </span><br /></pre>
+      <textarea
+        placeholder="markdown"
+        v-model="markdown">
+      </textarea>
+    </form>
+
+  </div>
+  </div>
+  </div>
+
 </div>
 </template>
 
@@ -35,7 +56,6 @@ import InputText from 'elements/inputs/text.vue';
 export default {
   components: {
     InputText,
-    Marked,
   },
   props: {
     majigId: {
@@ -45,8 +65,9 @@ export default {
   },
   data () {
     return {
-      debug: false,
+      mode: 'show',
       status: '',
+      markdown: '',
     };
   },
   created () {
@@ -65,17 +86,40 @@ export default {
       }
     },
     markeddown () {
-      return Marked(this.majig.markdown || '');
+      return Marked(this.markdown || '');
     },
   },
   methods: {
+    isMode (mode) {
+      return this.mode === mode;
+    },
+    toMode (mode) {
+      switch(mode) {
+        case 'reset':
+          this.markdown =
+            this.majig.markdown || '';
+          this.mode = 'show';
+          break;
+        case 'save':
+          this.updateMajig(
+          ).then(() => {
+            this.mode = 'show';
+          });
+          break;
+        default:
+          this.mode = mode;
+          break;
+      };
+    },
     loadMajig () {
       this.status = 'loading';
-      this.$store.dispatch('majig/load', {
+      this.markdown = this.majig.markdown || '';
+      return this.$store.dispatch('majig/load', {
         majigId: this.majigId,
         path: this.$route.path,
       }).then((majig) => {
         this.status = '';
+        this.markdown = majig.markdown;
       }).catch((errors) => {
         if(errors[0].status === 404) {
           this.status = '...';
@@ -86,12 +130,13 @@ export default {
     },
     updateMajig () {
       this.status = 'updating';
-      this.$store.dispatch('majig/update', {
+      return this.$store.dispatch('majig/update', {
         majigId: this.majigId,
         path: this.$route.path,
-        markdown: this.majig.markdown,
+        markdown: this.markdown,
       }).then((majig) => {
         this.status = '';
+        this.markdown = majig.markdown;
       }).catch((errors) => {
         this.status = errors[0].title;
       });

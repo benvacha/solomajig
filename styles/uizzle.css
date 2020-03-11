@@ -797,6 +797,34 @@ a.material-icons:hover {
 .bodyer form input:disabled:hover {
     border-bottom:none;
 }
+/* */
+
+.bodyer form.editor pre,
+.bodyer form.editor textarea {
+  position:relative;
+  display:block;
+  margin:0px;
+  width:100%;
+  height:auto;
+  min-height:100%;
+  padding:24px 16px;
+  padding-bottom:48px;
+  resize:none;
+  border:none;
+  outline:none;
+  font-size:.9em;
+  overflow:visible;
+  color:transparent;
+  white-space:pre-wrap;
+  word-wrap:break-word;
+  background-color:transparent;
+  font-family:'Roboto Mono', sans-serif;
+}
+.bodyer form.editor textarea {
+    position:absolute;
+    top:0px; left:0px;
+    color:#212121;
+}
 
 
 /*
@@ -1684,6 +1712,7 @@ a.material-icons:hover {
 
     /*
     /* */
+    .bodyer form pre,
     .bodyer form textarea {
         font-size:1em;
     }

@@ -134,7 +134,6 @@ export default {
     },
     loadMajigs () {
       this.status = 'loading';
-      console.log(this.$route.path);
       this.$store.dispatch('majigs/load', {
         path: this.$route.path,
       }).then(() => {
