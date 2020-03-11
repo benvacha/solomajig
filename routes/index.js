@@ -11,10 +11,20 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
+      name: 'majigs',
       component: Majigs,
     },
     {
+      path: '//:majigId',
+      name: 'submajig',
+      component: Majig,
+      props: (route) => ({
+        majigId: route.params.majigId
+      }),
+    },
+    {
       path: '*',
+      name: 'majig',
       component: Majig,
     },
   ],

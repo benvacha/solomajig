@@ -61,9 +61,19 @@ schema.statics.CODES = {
     USAGE
   */
   6000: { status:400, message:'usage error' },
+  //// majig
+  6007: { status:400, message:'majig required' },
+  6008: { status:400, message:'invalid majig' },
+  6013: { status:404, message:'unknown majig' },
+  //// markdown
+  6009: { status:400, message:'markdown required' },
+  6010: { status:400, message:'invalid markdown' },
   //// password
   6003: { status:400, message:'password required' },
   6004: { status:400, message:'invalid credential' },
+  //// path
+  6011: { status:400, message:'path required' },
+  6012: { status:400, message:'invalid path' },
   //// username
   6005: { status:400, message:'username required' },
   6006: { status:400, message:'invalid credential' },
@@ -71,7 +81,7 @@ schema.statics.CODES = {
   6002: { status:401, message:'invalid token' },
   6001: { status:401, message:'invalid token' },
   //// ,
-  6007: { status:400, message:'' }
+  6014: { status:400, message:'' }
 };
 
 /*

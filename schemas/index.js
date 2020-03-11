@@ -61,13 +61,13 @@ return new Promise(function(resolve, reject) {
 schema.statics.LOCALIZERS = {
   majigId: function(req, res, input, required) {
     if(required && !input) {
-      throw new Error.code(6000);
+      throw new Error.code(6007);
     }
     res.locals.majigId = input;
   },
   markdown: function(req, res, input, required) {
     if(required && !input) {
-      throw new Error.code(6000);
+      throw new Error.code(6009);
     }
     res.locals.markdown = input;
   },
@@ -79,7 +79,7 @@ schema.statics.LOCALIZERS = {
   },
   path: function(req, res, input, required) {
     if(required && !input) {
-      throw new Error.code(6000);
+      throw new Error.code(6011);
     }
     res.locals.path = input;
   },

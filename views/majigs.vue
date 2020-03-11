@@ -69,7 +69,12 @@
     <ul>
       <li v-for="majig in majigs"
         :key="majig.id">
-        {{ majig.markdown }}
+        <router-link :to="{
+          name: 'submajig', params: {
+            majigId: majig.id
+          }}">
+          {{ majig.markdown }}
+        </router-link>
       </li>
     </ul>
 

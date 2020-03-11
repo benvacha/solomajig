@@ -14,18 +14,27 @@ var app = Express();
 
 //
 /// { majig:Majig } || { Error }
-app.get('/:majigId', function(req, res) {
+app.get('/', function(req, res) {
   Index.localize(req, res, {
-    majigId: req.params.majigId,
   }, {
+    path: req.query.path,
+    majigId: req.query.majigId,
   }).then(function(locals) {
+    var query = {};
+    if(res.locals.majigId) {
+      query = { _id: res.locals.majigId };
+    } else if(res.locals.path) {
+      query = { path: res.locals.path };
+    } else {
+      throw new Error.code(6007);
+    };
     return Majig.findOne({
-      _id: res.locals.majigId,
+      ...query
     }).catch(function(err) {
       throw new Error.code(5000);
     });
   }).then(function(majig) {
-    if(!majig) throw new Error.code(6000);
+    if(!majig) throw new Error.code(6013);
     Index.respond(req, res, majig);
   }).catch(function(err) {
     Index.respond(req, res, null, err);
@@ -66,25 +75,42 @@ app.post('/', function(req, res) {
 
 //
 /// { majig:Majig } || { Error }
-app.put('/:majigId', function(req, res) {
+app.put('/', function(req, res) {
   Index.localize(req, res, {
-    majigId: req.params.majigId,
-  }, {
-    path: req.body.path,
     markdown: req.body.markdown,
+  }, {
+    majigId: req.body.majigId,
+    path: req.body.path,
   }).then(function(locals) {
+    var query = {};
+    if(res.locals.majigId) {
+      query = { _id: res.locals.majigId };
+    } else if(res.locals.path) {
+      query = { path: res.locals.path };
+    } else {
+      throw new Error.code(6007);
+    };
     return Majig.findOne({
-      _id: res.locals.majigId,
+      ...query
     }).catch(function(err) {
       throw new Error.code(5000);
     });
   }).then(function(majig) {
-    if(!majig) throw new Error.code(6000);
-    majig.path = res.locals.path ?
-      res.locals.path : majig.path;
-    majig.markdown = res.locals.markdown ?
-      res.locals.markdown : majig.markdown;
+    if(!majig) return majig;
+    majig.markdown = res.locals.markdown;
     return majig.save({
+    }).catch(function(errs) {
+      throw new Error.parsed(errs);
+    });
+  }).then(function(majig) {
+    if(majig) return majig;
+    return Majig({
+      path: res.locals.path,
+      markdown: res.locals.markdown,
+    }).save({
+    }).then(function(majig) {
+      res.locals.majig = majig;
+      return majig;
     }).catch(function(errs) {
       throw new Error.parsed(errs);
     });
@@ -92,6 +118,8 @@ app.put('/:majigId', function(req, res) {
     if(!majig) throw new Error.code(5000);
     Index.respond(req, res, majig);
   }).catch(function(err) {
+    if(res.locals.majig) {
+      res.locals.majig.remove(); }
     Index.respond(req, res, null, err);
   });
 });
@@ -103,7 +131,7 @@ app.put('/:majigId', function(req, res) {
 /// { majig:Majig } || { Error }
 app.delete('/:majigId', function(req, res) {
   Index.localize(req, res, {
-    majigId: req.params.majigId,
+    path: req.body.path,
   }, {
   }).then(function(locals) {
     throw new Error.code(5001);
