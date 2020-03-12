@@ -16,16 +16,16 @@
     </div>
     <div class="body">
     <div class="body">
-        <ParabodyLeft
-          :views="views"
-          :view="view"
-          @open="open"
-          @goto="goto" />
-        <div class="body">
-        <div class="body">
-          <router-view />
-        </div>
-        </div>
+      <ParabodyLeft
+        :views="views"
+        :view="view"
+        @open="open"
+        @goto="goto" />
+      <div class="body">
+      <div class="body">
+        <router-view />
+      </div>
+      </div>
     </div>
     </div>
 </div>
@@ -36,10 +36,16 @@
 <!-- -->
 
 <script>
-import MenuPublic from 'elements/menus/public.vue';
-import MenuPrivate from 'elements/menus/private.vue';
-import ParabodyLeft from 'elements/parabodys/left.vue';
-import SignIn from 'views/signin.vue';
+import MenuPublic
+  from 'elements/menus/public.vue';
+import MenuPrivate
+  from 'elements/menus/private.vue';
+import ParabodyLeft
+  from 'elements/parabodys/left.vue';
+import Search
+  from 'views/search.vue';
+import SignIn
+  from 'views/signin.vue';
 export default {
   components: {
     ParabodyLeft,
@@ -48,6 +54,7 @@ export default {
     return {
       status: '',
       views: {
+        search: Search,
         signIn: SignIn,
       },
       view: '',

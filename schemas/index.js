@@ -59,6 +59,12 @@ return new Promise(function(resolve, reject) {
 // req:{}, input:*
 /// falsy || throw Error
 schema.statics.LOCALIZERS = {
+  keyword: function(req, res, input, required) {
+    if(required && !input) {
+      throw new Error.code(6014);
+    }
+    res.locals.keyword = input;
+  },
   majigId: function(req, res, input, required) {
     if(required && !input) {
       throw new Error.code(6007);

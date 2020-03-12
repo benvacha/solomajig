@@ -8,10 +8,8 @@
       Solomajig</a>
   </div>
   <div class="rghter">
-    <a @click="$emit('goto', '/')">
-      About</a> &bull;
-    <a @click="$emit('goto', '/contact')">
-      Contact</a> &bull;
+    <a @click="$emit('open', 'search')">
+      Search</a> &bull;
     <a @click="$emit('open', 'signIn')">
       SignIn</a>
   </div>

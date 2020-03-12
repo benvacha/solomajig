@@ -36,6 +36,7 @@ const actions = {
     return Axios.get('/apis/majigs', {
       params: {
         path: inputs.path,
+        keyword: inputs.keyword,
       },
     }).then((response) => {
       commit('set', {

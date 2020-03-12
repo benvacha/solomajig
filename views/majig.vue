@@ -52,7 +52,8 @@
 
 <script>
 import Marked from 'marked';
-import InputText from 'elements/inputs/text.vue';
+import InputText
+  from 'elements/inputs/text.vue';
 export default {
   components: {
     InputText,

@@ -7,12 +7,11 @@
     <a @click="$emit('goto', '/')">
       Solomajig</a>
   </div>
-  <div class="rghter togler10">
-    <a @click="signOut">SignOut</a>
-  </div>
-  <div class="rghter togler01">
-    <a @click="signOut"
-      class="material-icons">exit_to_app</a>
+  <div class="rghter">
+    <a @click="$emit('open', 'search')">
+      Search</a> &bull;
+    <a @click="signOut">
+      SignOut</a>
   </div>
 
 </div>

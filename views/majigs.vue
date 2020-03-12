@@ -3,25 +3,32 @@
 <template>
 <div class="body">
 
-<div class="parabody right sticky"
-  :class="{open:opened}">
-  <div class="prebody">
-  <div class="horzer">
-      <div class="rghter mask">
-        {{status}}
+  <div class="prebody tiny">
+    <div class="horzer">
+      <div class="lefter mask">
+        <span>{{status}}</span>
       </div>
-      <div class="lefter full">
-        <a class="material-icons full"
-          @click="toggleOpen(false)">
-            chevron_right</a>
+      <div class="rghter">
+        <a @click="toggleFilter('created')"
+          :class="classFilter('created')">
+          Created</a> &bull;
+        <a @click="toggleFilter('updated')"
+          :class="classFilter('updated')">
+          Updated</a> &bull;
+        <span>
+          {{majigs.length || 0}}
+        </span>
       </div>
+    </div>
   </div>
-  </div>
+
   <div class="body">
   <div class="subbody">
-  <div class="bodyer thin tiny">
-    <h2>Create</h2>
-    <form @submit.prevent="addMajig">
+  <div class="bodyer thick">
+
+    <form v-if="!keyword"
+      @submit.prevent="addMajig">
+      <br /><br />
       <InputText
         v-model="markdown"
         placeholder="markdown"
@@ -29,61 +36,20 @@
       <input type="submit"
         value="create"
       />
+      <br /><br />
     </form>
-  </div>
-  </div>
-  </div>
-</div>
-<div class="body">
-<div class="body">
-
-  <div class="prebody tiny">
-    <div class="horzer">
-      <div class="lefter mask">{{status}}</div>
-      <div class="rghter">
-        <a @click="toggleOpen(true)">create</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="body">
-  <div class="subbody">
-  <div class="bodyer thin">
-
-    <h1>Majigs<ul>
-      <li>
-        {{majigs.length || 0}} majigs
-      </li>
-      <li>
-        <a @click="toggleFilter('alpha')"
-          :class="classFilter('alpha')">
-          alpha</a> &bull;
-        <a @click="toggleFilter('created')"
-          :class="classFilter('created')">
-          created</a> &bull;
-        <a @click="toggleFilter('updated')"
-          :class="classFilter('updated')">
-          updated</a>
-      </li>
-    </ul></h1>
     <ul>
       <li v-for="majig in majigs"
         :key="majig.id">
-        <router-link :to="{
-          name: 'submajig', params: {
-            majigId: majig.id
-          }}">
+        <a @click="gotoMajig(majig)">
           {{ majig.markdown }}
-        </router-link>
+        </a>
       </li>
     </ul>
 
   </div>
   </div>
   </div>
-
-</div>
-</div>
 
 </div>
 </template>
@@ -93,6 +59,12 @@ import InputText from 'elements/inputs/text.vue';
 export default {
   components: {
     InputText,
+  },
+  props: {
+    keyword: {
+      type: String,
+      required: false,
+    }
   },
   data () {
     return {
@@ -110,10 +82,24 @@ export default {
   },
   computed: {
     majigs () {
-      return this.$store.state.majigs.all;
+      return this.$store.state.majigs.all || [];
     },
   },
   methods: {
+    gotoMajig (majig) {
+      if(majig.path === '/') {
+        this.$router.push({
+          name: 'submajig',
+          params: {
+            majigId: majig.id
+          }
+        });
+      } else {
+        this.$router.push({
+          path: majig.path
+        });
+      }
+    },
     toggleOpen (opened) {
       this.opened = opened != undefined
         ? opened : !this.opened;
@@ -136,6 +122,7 @@ export default {
       this.status = 'loading';
       this.$store.dispatch('majigs/load', {
         path: this.$route.path,
+        keyword: this.keyword,
       }).then(() => {
         this.status = '';
       }).catch((errors) => {

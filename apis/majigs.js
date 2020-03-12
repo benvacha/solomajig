@@ -16,11 +16,22 @@ var app = Express();
 /// { majigs:[Majig] } || { Error }
 app.get('/', function(req, res) {
   Index.localize(req, res, {
-    path: req.query.path,
   }, {
+    path: req.query.path,
+    keyword: req.query.keyword,
   }).then(function(locals) {
-    return Majig.find({ 
-      path: req.query.path
+    var query = {};
+    if(res.locals.keyword) {
+      var regex = new RegExp(
+        res.locals.keyword, "i")
+      query = { markdown: regex };
+    } else if(res.locals.path) {
+      query = { path: res.locals.path };
+    } else {
+      throw new Error.code(6007);
+    };
+    return Majig.find({
+      ...query
     }).catch(function(err) {
       throw new Error.code(5000);
     });
