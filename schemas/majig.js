@@ -1,14 +1,16 @@
 /* Copyright (C) 2020 BenVacha/Solomajig *//*
 /* */
+var Promise = require('bluebird');
 var Mongoose = require('mongoose');
 var Schema = Mongoose.Schema;
 var ObjectId = Mongoose.Types.ObjectId;
+var Majig = __require('/models/majig');
 
 /* */
 
 var schema = new Schema({
-  path: { type:String, required:true },
-  markdown: { type:String, required:true },
+  path: { type:String },
+  markdown: { type:String, default:'' },
   created: { type:Date, default:Date.now },
   updated: { type:Date, default:Date.now },
   published: { type:Date },
@@ -20,6 +22,27 @@ var schema = new Schema({
     delete ret._id; delete ret.__v;
   }, virtuals:true }
 });
+
+/*
+/* VALIDATORS */
+
+//
+///
+schema.path('path')
+.validate(function(val) {
+  var self = this;
+  return new Promise(function(resolve) {
+    if(!val || !self.isModified('path')) {
+      return resolve(); }
+    Mongoose.models['Majig'].findOne({
+      path: val
+    }, function(err, majig) {
+      if(err || majig) {
+        return resolve(false); }
+      return resolve();
+    });
+  });
+}, 'path exists');
 
 /*
 /* */

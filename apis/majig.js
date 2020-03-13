@@ -22,15 +22,15 @@ app.get('/', function(req, res) {
   }).then(function(locals) {
     var query = {};
     if(res.locals.majigId) {
-      query = { _id: res.locals.majigId };
+      query._id = res.locals.majigId;
     } else if(res.locals.path) {
-      query = { path: res.locals.path };
+      query.path = res.locals.path;
     } else {
       throw new Error.code(6007);
     };
-    return Majig.findOne({
-      ...query
-    }).catch(function(err) {
+    return Majig.findOne(
+      query
+    ).catch(function(err) {
       throw new Error.code(5000);
     });
   }).then(function(majig) {

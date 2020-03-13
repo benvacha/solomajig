@@ -17,7 +17,6 @@ const mutations = {
 const actions = {
   async add ({commit}, inputs) {
     return Axios.post('/apis/majigs', {
-      path: inputs.path,
       markdown: inputs.markdown,
     }).then((response) => {
       commit('set', {
@@ -35,7 +34,6 @@ const actions = {
   async load ({commit}, inputs) {
     return Axios.get('/apis/majigs', {
       params: {
-        path: inputs.path,
         keyword: inputs.keyword,
       },
     }).then((response) => {

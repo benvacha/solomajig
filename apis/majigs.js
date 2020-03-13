@@ -12,27 +12,24 @@ var app = Express();
 /*
 /* GET */
 
-//
+// keyword:'',
 /// { majigs:[Majig] } || { Error }
 app.get('/', function(req, res) {
   Index.localize(req, res, {
   }, {
-    path: req.query.path,
     keyword: req.query.keyword,
   }).then(function(locals) {
-    var query = {};
-    if(res.locals.keyword) {
-      var regex = new RegExp(
-        res.locals.keyword, "i")
-      query = { markdown: regex };
-    } else if(res.locals.path) {
-      query = { path: res.locals.path };
-    } else {
-      throw new Error.code(6007);
+    var regex = new RegExp(
+      res.locals.keyword, "i");
+    var query = {
+      path: { $exists: false },
     };
-    return Majig.find({
-      ...query
-    }).catch(function(err) {
+    if(res.locals.keyword) {
+      query.markdown = regex;
+    }
+    return Majig.find(
+      query
+    ).catch(function(err) {
       throw new Error.code(5000);
     });
   }).then(function(majigs) {
@@ -46,16 +43,14 @@ app.get('/', function(req, res) {
 /*
 /* POST */
 
-// path:'', markdown:'',
+// markdown:'',
 /// { majigs:[Majig] } || { Error }
 app.post('/', function(req, res) {
   Index.localize(req, res, {
-    path: req.body.path,
     markdown: req.body.markdown,
   }, {
   }).then(function(locals) {
     return Majig({
-      path: res.locals.path,
       markdown: res.locals.markdown,
     }).save({
     }).catch(function(errs) {
@@ -65,7 +60,7 @@ app.post('/', function(req, res) {
     if(!majig) throw new Error.code(5000);
     res.locals.majig = majig;
     return Majig.find({
-      path: res.locals.path
+      path: { $exists: false },
     }).catch(function(err) {
       throw new Error.code(5000);
     });

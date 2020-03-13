@@ -87,16 +87,16 @@ export default {
   },
   methods: {
     gotoMajig (majig) {
-      if(majig.path === '/') {
+      if(majig.path) {
+        this.$router.push({
+          path: majig.path
+        });
+      } else {
         this.$router.push({
           name: 'submajig',
           params: {
             majigId: majig.id
           }
-        });
-      } else {
-        this.$router.push({
-          path: majig.path
         });
       }
     },
@@ -121,7 +121,6 @@ export default {
     loadMajigs () {
       this.status = 'loading';
       this.$store.dispatch('majigs/load', {
-        path: this.$route.path,
         keyword: this.keyword,
       }).then(() => {
         this.status = '';
@@ -132,8 +131,7 @@ export default {
     addMajig () {
       this.status = 'adding';
       this.$store.dispatch('majigs/add', {
-        path: this.$route.path,
-        markdown: this.markdown.trim(),
+        markdown: this.markdown,
       }).then(() => {
         this.status = '';
         this.markdown = '';
