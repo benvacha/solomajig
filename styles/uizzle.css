@@ -773,6 +773,12 @@ a.descend:hover {
 .bodyer form input[type=submit] {
     font-family:'Roboto', sans-serif;
 }
+.bodyer form input:last-child,
+.bodyer form input:only-child,
+.bodyer form input:last-child.ng-not-empty,
+.bodyer form input:only-child.ng-not-empty {
+    border-bottom:1px solid rgba(0,0,0,0);
+}
 .bodyer form input:last-child:focus,
 .bodyer form input:only-child:focus,
 .bodyer form input:last-child:hover,
@@ -804,7 +810,7 @@ a.descend:hover {
   height:auto;
   min-height:100%;
   padding:24px 16px;
-  padding-bottom:48px;
+  padding-bottom:96px;
   resize:none;
   border:none;
   outline:none;
@@ -821,7 +827,10 @@ a.descend:hover {
     top:0px; left:0px;
     color:#212121;
 }
-
+.bodyer form.editor.short pre,
+.bodyer form.editor.short textarea {
+  padding-bottom:12px;
+}
 
 /*
     <div class="header [tiny/tall]"></div>

@@ -9,6 +9,13 @@
         <span>{{status}}</span>
       </div>
       <div class="rghter">
+        <a @click="editMode=true"
+          v-if="!editMode">
+          Edit</a>
+        <a @click="editMode=false"
+          v-if="editMode">
+          Show</a>
+        &bull;
         <a @click="toggleFilter('created')"
           :class="classFilter('created')">
           Created</a> &bull;
@@ -24,7 +31,7 @@
 
   <div class="body">
   <div class="subbody">
-  <div class="bodyer thick">
+  <div class="bodyer thick tall">
 
     <form v-if="!keyword"
       @submit.prevent="addMajig">
@@ -41,9 +48,30 @@
     <ul>
       <li v-for="majig in majigs"
         :key="majig.id">
-        <a @click="gotoMajig(majig)">
-          {{ majig.markdown }}
-        </a>
+        <span v-if="!editMode"
+          v-html="marked(majig.markdown)">
+        </span>
+        <form @submit.prevent
+          v-if="editMode"
+          class="editor short">
+          <pre><span>
+            {{majig.markdown}}
+          </span><br /></pre>
+          <textarea
+            placeholder="markdown"
+            v-model="majig.markdown">
+          </textarea>
+        </form>
+        <span v-if="editMode">
+          <a @click="gotoMajig(majig)">
+            goto
+          </a> &bull; &bull;
+          <a @click="removeMajig(majig)">
+            remove
+          </a> &bull;
+          <a @click="updateMajig(majig)">
+            save</a>
+        </span>
       </li>
     </ul>
 
@@ -55,6 +83,7 @@
 </template>
 
 <script>
+import Marked from 'marked';
 import InputText from 'elements/inputs/text.vue';
 export default {
   components: {
@@ -72,6 +101,7 @@ export default {
       opened: false,
       filter: 'created',
       markdown: '',
+      editMode: false,
     };
   },
   created () {
@@ -86,6 +116,9 @@ export default {
     },
   },
   methods: {
+    marked (markdown) {
+      return Marked(markdown);
+    },
     gotoMajig (majig) {
       if(majig.path) {
         this.$router.push({
@@ -136,6 +169,27 @@ export default {
         this.status = '';
         this.markdown = '';
         this.opened = false;
+      }).catch((errors) => {
+        this.status = errors[0].title;
+      });
+    },
+    updateMajig (majig) {
+      this.status = 'updating';
+      this.$store.dispatch('majigs/update', {
+        majigId: majig.id,
+        markdown: majig.markdown,
+      }).then(() => {
+        this.status = '';
+      }).catch((errors) => {
+        this.status = errors[0].title;
+      });
+    },
+    removeMajig (majig) {
+      this.status = 'removing';
+      this.$store.dispatch('majigs/remove', {
+        majigId: majig.id,
+      }).then(() => {
+        this.status = '';
       }).catch((errors) => {
         this.status = errors[0].title;
       });

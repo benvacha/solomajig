@@ -45,5 +45,17 @@ schema.path('path')
 }, 'path exists');
 
 /*
+/* HOOKS */
+
+//
+///
+schema.pre('save', function(next) {
+  if(this.isModified('markdown')) {
+    this.updated = Date.now();
+  }
+  return next();
+});
+
+/*
 /* */
 module.exports = schema;
