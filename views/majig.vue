@@ -9,12 +9,16 @@
       <div class="rghter" v-if="isMode('show')">
         <a @click="toMode('edit')">edit</a>
         &bull;
+        <a @click="toMode('remove')">remove</a>
+        &bull;
         <a @click="toMode('reset')">reset</a>
         &bull;
         <a @click="toMode('save')">save</a>
       </div>
       <div class="rghter" v-if="isMode('edit')">
         <a @click="toMode('show')">show</a>
+        &bull;
+        <a @click="toMode('remove')">remove</a>
         &bull;
         <a @click="toMode('reset')">reset</a>
         &bull;
@@ -96,6 +100,12 @@ export default {
     },
     toMode (mode) {
       switch(mode) {
+        case 'remove':
+          this.removeMajig(
+          ).then(() => {
+            this.mode = 'show';
+          });
+          break;
         case 'reset':
           this.markdown =
             this.majig.markdown || '';
@@ -132,12 +142,22 @@ export default {
     updateMajig () {
       this.status = 'updating';
       return this.$store.dispatch('majig/update', {
-        majigId: this.majigId,
+        majigId: this.majig.id,
         path: this.$route.path,
         markdown: this.markdown,
       }).then((majig) => {
         this.status = '';
         this.markdown = majig.markdown;
+      }).catch((errors) => {
+        this.status = errors[0].title;
+      });
+    },
+    removeMajig () {
+      this.status = 'removing';
+      return this.$store.dispatch('majig/remove', {
+        majigId: this.majig.id,
+      }).then((majig) => {
+        this.$router.push('/');
       }).catch((errors) => {
         this.status = errors[0].title;
       });

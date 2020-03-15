@@ -42,6 +42,8 @@ import MenuPrivate
   from 'elements/menus/private.vue';
 import ParabodyLeft
   from 'elements/parabodys/left.vue';
+import Create
+  from 'views/create.vue';
 import Search
   from 'views/search.vue';
 import SignIn
@@ -54,6 +56,7 @@ export default {
     return {
       status: '',
       views: {
+        create: Create,
         search: Search,
         signIn: SignIn,
       },

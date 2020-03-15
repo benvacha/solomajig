@@ -16,7 +16,9 @@ const mutations = {
     state.all = {...state.all};
   },
   clear (state, data) {
-    state.all = {};
+    delete state.all[data.id];
+    delete state.all[data.path];
+    state.all = {...state.all};
   },
 };
 
@@ -27,6 +29,21 @@ const actions = {
         majigId: inputs.majigId,
         path: inputs.path,
       },
+    }).then((response) => {
+      commit('majig', response.data.data);
+      return response.data.data;
+    }).catch((error) => {
+      if(error.response) {
+        throw error.response.data.errors;
+      } else {
+        throw [{title:'client error'}];
+      }
+    });
+  },
+  async add ({commit}, inputs) {
+    return Axios.post('/apis/majig', {
+      path: inputs.path,
+      markdown: inputs.markdown,
     }).then((response) => {
       commit('majig', response.data.data);
       return response.data.data;
@@ -54,8 +71,19 @@ const actions = {
       }
     });
   },
-  async clear ({commit}, inputs) {
-    commit('clear', inputs);
+  async remove ({commit}, inputs) {
+    return Axios.delete('/apis/majig/'
+      + inputs.majigId, {
+    }).then((response) => {
+      commit('clear', response.data.data);
+      return response.data.data;
+    }).catch((error) => {
+      if(error.response) {
+        throw error.response.data.errors;
+      } else {
+        throw [{title:'client error'}];
+      }
+    });
   },
 };
 

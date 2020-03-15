@@ -17,19 +17,19 @@ export default new VueRouter({
       component: Majigs,
     },
     {
-      path: '//:majigId',
+      path: '//:keyword',
       name: 'submajig',
-      component: Majig,
-      props: (route) => ({
-        majigId: route.params.majigId
-      }),
-    },
-    {
-      path: '///:keyword',
-      name: 'supmajig',
       component: Majigs,
       props: (route) => ({
         keyword: route.params.keyword
+      }),
+    },
+    {
+      path: '///:majigId',
+      name: 'supmajig',
+      component: Majig,
+      props: (route) => ({
+        majigId: route.params.majigId
       }),
     },
     {

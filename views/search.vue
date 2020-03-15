@@ -23,7 +23,8 @@
 <!-- -->
 
 <script>
-import InputText from 'elements/inputs/text.vue';
+import InputText
+  from 'elements/inputs/text.vue';
 export default {
   components: {
     InputText,
@@ -41,7 +42,7 @@ export default {
       }
       this.$emit('open', false);
       this.$router.push({
-        name: 'supmajig',
+        name: 'submajig',
         params: {
           keyword: this.keyword,
         },

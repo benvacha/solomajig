@@ -126,7 +126,7 @@ export default {
         });
       } else {
         this.$router.push({
-          name: 'submajig',
+          name: 'supmajig',
           params: {
             majigId: majig.id
           }

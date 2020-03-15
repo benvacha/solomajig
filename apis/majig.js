@@ -48,21 +48,22 @@ app.get('/', function(req, res) {
 /// { majig:Majig } || { Error }
 app.post('/', function(req, res) {
   Index.localize(req, res, {
+  }, {
     path: req.body.path,
     markdown: req.body.markdown,
-  }, {
   }).then(function(locals) {
     return Majig({
       path: res.locals.path,
       markdown: res.locals.markdown,
     }).save({
+    }).then(function(majig) {
+      return res.locals.majig = majig;
     }).catch(function(errs) {
       throw new Error.parsed(errs);
     });
   }).then(function(majig) {
     if(!majig) throw new Error.code(5000);
-    res.locals.majig = majig;
-    Index.respond(req, res, majigs);
+    Index.respond(req, res, majig);
   }).catch(function(err) {
     if(res.locals.majig) {
       res.locals.majig.remove(); }
@@ -73,25 +74,16 @@ app.post('/', function(req, res) {
 /*
 /* PUT */
 
-//
+// path, markdown:'',
 /// { majig:Majig } || { Error }
 app.put('/', function(req, res) {
   Index.localize(req, res, {
-    markdown: req.body.markdown,
   }, {
-    majigId: req.body.majigId,
     path: req.body.path,
+    markdown: req.body.markdown,
   }).then(function(locals) {
-    var query = {};
-    if(res.locals.majigId) {
-      query = { _id: res.locals.majigId };
-    } else if(res.locals.path) {
-      query = { path: res.locals.path };
-    } else {
-      throw new Error.code(6007);
-    };
     return Majig.findOne({
-      ...query
+      path: res.locals.path
     }).catch(function(err) {
       throw new Error.code(5000);
     });
@@ -124,18 +116,58 @@ app.put('/', function(req, res) {
   });
 });
 
+// majigId:ObjectId, markdown:'',
+/// { majig:Majig } || { Error }
+app.put('/:majigId', function(req, res) {
+  Index.localize(req, res, {
+    majigId: req.params.majig,
+  }, {
+    markdown: req.body.markdown,
+  }).then(function(locals) {
+    return Majig.findOne({
+      _id: res.locals.majigId
+    }).catch(function(err) {
+      throw new Error.code(5000);
+    });
+  }).then(function(majig) {
+    if(!majig) throw new Error.code(6013);
+    majig.markdown = res.locals.markdown;
+    return majig.save({
+    }).catch(function(errs) {
+      throw new Error.parsed(errs);
+    });
+  }).then(function(majig) {
+    if(!majig) throw new Error.code(5000);
+    Index.respond(req, res, majig);
+  }).catch(function(err) {
+    Index.respond(req, res, null, err);
+  });
+});
+
 /*
 /* DELETE */
 
-//
+// majigId:ObjectId,
 /// { majig:Majig } || { Error }
 app.delete('/:majigId', function(req, res) {
   Index.localize(req, res, {
-    path: req.body.path,
+    majigId: req.params.majigId,
   }, {
   }).then(function(locals) {
-    throw new Error.code(5001);
-    Index.respond(req, res, {});
+    return Majig.findOne({
+      _id: res.locals.majigId
+    }).catch(function(err) {
+      throw new Error.code(5000);
+    });
+  }).then(function(majig) {
+    if(!majig) throw new Error.code(6013);
+    return majig.remove({
+    }).catch(function(err) {
+      throw new Error.code(5000);
+    });
+  }).then(function(majig) {
+    if(!majig) throw new Error.code(5000);
+    Index.respond(req, res, majig);
   }).catch(function(err) {
     Index.respond(req, res, null, err);
   });

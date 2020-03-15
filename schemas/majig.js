@@ -30,6 +30,9 @@ var schema = new Schema({
 ///
 schema.path('path')
 .validate(function(val) {
+    return /^\/.*[^\/]$/.test(val);
+}, 'invalid path')
+.validate(function(val) {
   var self = this;
   return new Promise(function(resolve) {
     if(!val || !self.isModified('path')) {

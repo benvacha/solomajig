@@ -62,37 +62,40 @@ schema.statics.LOCALIZERS = {
   keyword: function(req, res, input, required) {
     if(required && !input) {
       throw new Error.code(6014);
-    }
+    } else if(!input) { return; }
     res.locals.keyword = input;
   },
   majigId: function(req, res, input, required) {
     if(required && !input) {
       throw new Error.code(6007);
-    }
+    } else if(!input) { return; }
     res.locals.majigId = input;
   },
   markdown: function(req, res, input, required) {
     if(required && !input) {
       throw new Error.code(6009);
-    }
+    } else if(!input) { return; }
     res.locals.markdown = input;
   },
   password: function(req, res, input, required) {
     if(required && !input) {
       throw new Error.code(6003);
-    }
+    } else if(!input) { return; }
     res.locals.password = input;
   },
   path: function(req, res, input, required) {
     if(required && !input) {
       throw new Error.code(6011);
+    } else if(!input) { return; }
+    if(!/^\/.*[^\/]$/.test(input)) {
+      throw new Error.code(6012)
     }
     res.locals.path = input;
   },
   username: function(req, res, input, required) {
     if(required && !input) {
       throw new Error.code(6005);
-    }
+    } else if(!input) { return; }
     res.locals.username = input;
   },
 };
