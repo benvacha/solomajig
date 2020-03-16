@@ -56,8 +56,9 @@ const actions = {
     });
   },
   async update ({commit}, inputs) {
-    return Axios.put('/apis/majig', {
-      majigId: inputs.majigId,
+    return Axios.put(inputs.majigId
+      ? '/apis/majig/' + inputs.majigId
+      : '/apis/majig', {
       path: inputs.path,
       markdown: inputs.markdown,
     }).then((response) => {

@@ -120,7 +120,7 @@ app.put('/', function(req, res) {
 /// { majig:Majig } || { Error }
 app.put('/:majigId', function(req, res) {
   Index.localize(req, res, {
-    majigId: req.params.majig,
+    majigId: req.params.majigId,
   }, {
     markdown: req.body.markdown,
   }).then(function(locals) {
