@@ -19,6 +19,7 @@
   </div>
   
   <component
+    :majig="viewed"
     @goto="goto"
     @open="open"
     @notify="notify"
@@ -42,6 +43,10 @@ export default {
       type: String,
       default: '',
     },
+    viewed: {
+      type: Object,
+      default: null,
+    },
   },
   watch: {
     view (newView, oldView) {
@@ -61,8 +66,8 @@ export default {
     goto (path) {
       this.$emit('goto', path);
     },
-    open (view) {
-      this.$emit('open', view);
+    open (view, viewed) {
+      this.$emit('open', view, viewed);
     },
     notify (status) {
       this.status = status;
