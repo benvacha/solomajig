@@ -41,21 +41,21 @@ const mutations = {
 /* */
 
 const actions = {
-  async signIn ({commit}, inputs) {
+  async sign ({commit}, inputs) {
     return Axios.put('/apis/token', {
       username: inputs.username,
       password: inputs.password,
     }).then((response) => {
       commit('slug', response.data.data);
+    }).catch((error) => {
+      if(error.response) {
+        throw error.response.data.errors;
+      } else {
+        throw [{title:'client error'}];
+      }
     });
   },
-  async signGet ({commit}, inputs) {
-    return Axios.get('/apis/token', {
-    }).then((response) => {
-      commit('slug', response.data.data);
-    });
-  },
-  async signOut ({commit}, inputs) {
+  async clear ({commit}, inputs) {
     commit('clear', inputs);
   },
 };

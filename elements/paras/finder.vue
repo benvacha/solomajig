@@ -12,7 +12,7 @@
         placeholder="keyword"
       />
       <input type="submit"
-        value="search" />
+        value="Search" />
     </form>
   </div>
   </div>

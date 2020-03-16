@@ -16,7 +16,7 @@
         placeholder="markdown"
       />
       <input type="submit"
-        value="create" />
+        value="Create" />
     </form>
   </div>
   </div>
@@ -47,7 +47,6 @@ export default {
         markdown: this.markdown,
       }).then((majig) => {
         this.$emit('open', false);
-        this.$emit('notify', '');
         if(majig.path
         && majig.path != this.$route.path) {
           this.$router.push({

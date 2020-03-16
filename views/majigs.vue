@@ -64,9 +64,9 @@
 <script>
 import Marked from 'marked';
 import ParabodyRight
-  from 'elements/parabodys/right.vue';
+  from 'elements/paras/right.vue';
 import Editor
-  from 'views/editor.vue';
+  from 'elements/paras/editor.vue';
 export default {
   components: {
     ParabodyRight,

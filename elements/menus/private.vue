@@ -5,15 +5,15 @@
 
   <div class="lefter">
     <a @click="$emit('goto', '/')">
-      Solomajig</a>
+      SoloMajig</a>
   </div>
   <div class="rghter">
-    <a @click="$emit('open', 'create')">
+    <a @click="$emit('open', 'creator')">
       Create</a> &bull;
-    <a @click="$emit('open', 'search')">
-      Search</a> &bull;
-    <a @click="signOut">
-      SignOut</a>
+    <a @click="$emit('open', 'finder')">
+      Find</a> &bull;
+    <a @click="unsign()">
+      Leave</a>
   </div>
 
 </div>
@@ -27,14 +27,14 @@ export default {
   props: {},
   computed: {
     signed () {
-      return this.$store.getters['token/signed'];
+      return this.$store.getters[
+        'token/signed'];
     },
   },
   methods: {
-    signOut () {
-      this.$store.dispatch('token/signOut'
-      ).finally(() => {
-        return this.$router.push('/');
+    unsign () {
+      this.$emit('open', false);
+      this.$store.dispatch('token/clear', {
       }).catch(err => {});
     },
   }

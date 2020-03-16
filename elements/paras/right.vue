@@ -19,11 +19,11 @@
   </div>
   
   <component
-    :majig="viewed"
+    :is="views[view]"
+    :viewed="viewed"
     @goto="goto"
     @open="open"
-    @notify="notify"
-    :is="views[view]" />
+    @notify="notify" />
 
 </div>
 </template>

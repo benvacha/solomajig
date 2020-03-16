@@ -5,24 +5,30 @@
 
   <div class="prebody tiny">
     <div class="horzer">
-      <div class="lefter mask">{{status}}</div>
-      <div class="rghter" v-if="isMode('show')">
-        <a @click="toMode('edit')">edit</a>
-        &bull;
-        <a @click="toMode('remove')">remove</a>
-        &bull;
-        <a @click="toMode('reset')">reset</a>
-        &bull;
-        <a @click="toMode('save')">save</a>
+      <div class="lefter mask">
+        {{status}}
       </div>
-      <div class="rghter" v-if="isMode('edit')">
-        <a @click="toMode('show')">show</a>
-        &bull;
-        <a @click="toMode('remove')">remove</a>
-        &bull;
-        <a @click="toMode('reset')">reset</a>
-        &bull;
-        <a @click="toMode('save')">save</a>
+      <div class="rghter"
+        v-if="isMode('show')">
+        <a @click="toMode('edit')">
+          Edit</a>&bull;
+        <a @click="toMode('remove')">
+          Remove</a> &bull;
+        <a @click="toMode('reset')">
+          Reset</a> &bull;
+        <a @click="toMode('save')">
+          Save</a>
+      </div>
+      <div class="rghter"
+        v-if="isMode('edit')">
+        <a @click="toMode('show')">
+          Show</a> &bull;
+        <a @click="toMode('remove')">
+          Remove</a> &bull;
+        <a @click="toMode('reset')">
+          Reset</a> &bull;
+        <a @click="toMode('save')">
+          Save</a>
       </div>
     </div>
   </div>

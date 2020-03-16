@@ -5,14 +5,18 @@
 
   <div class="subbody">
   <div class="bodyer thin tiny">
-    <h2>Edit</h2>
-    <form @submit.prevent="update">
+    <h2>Authorize</h2>
+    <form @submit.prevent="sign">
       <InputText
-        v-model="majig.markdown"
-        placeholder="markdown"
+        v-model="username"
+        placeholder="username"
+      />
+      <InputPassword
+        v-model="password"
+        placeholder="password"
       />
       <input type="submit"
-        value="update" />
+        value="Authorize" />
     </form>
   </div>
   </div>
@@ -25,29 +29,28 @@
 <script>
 import InputText
   from 'elements/inputs/text.vue';
+import InputPassword
+  from 'elements/inputs/password.vue';
 export default {
   components: {
     InputText,
-  },
-  props: {
-    majig: {
-      type: Object,
-      required: true,
-    },
+    InputPassword,
   },
   data () {
     return {
+      username: '',
+      password: '',
     };
   },
   methods: {
-    update () {
-      this.$emit('notify', 'updating');
-      this.$store.dispatch('majigs/update', {
-        majigId: this.majig.id,
-        markdown: this.majig.markdown,
-      }).then((majig) => {
+    sign () {
+      this.$emit('notify', 'signing');
+      this.$store.dispatch('token/sign', {
+        username: this.username,
+        password: this.password,
+      }).then(() => {
         this.$emit('open', false);
-        this.$emit('notify', '');
+        this.password = '';
       }).catch((errors) => {
         this.$emit('notify',
           errors[0].title);

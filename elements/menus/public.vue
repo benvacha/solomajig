@@ -5,15 +5,13 @@
 
   <div class="lefter">
     <a @click="$emit('goto', '/')">
-      Solomajig</a>
+      SoloMajig</a>
   </div>
   <div class="rghter">
-    <a @click="$emit('open', 'create')">
-      Create</a> &bull;
-    <a @click="$emit('open', 'search')">
-      Search</a> &bull;
-    <a @click="$emit('open', 'signIn')">
-      SignIn</a>
+    <a @click="$emit('open', 'finder')">
+      Find</a> &bull;
+    <a @click="$emit('open', 'signer')">
+      Author</a>
   </div>
 
 </div>
