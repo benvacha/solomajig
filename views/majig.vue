@@ -35,8 +35,8 @@
 
   <div class="body">
   <div class="subbody">
-  <div class="bodyer thick tall">
-
+  <div class="bodyer thin stack"></div>
+  <div class="bodyer thin stack">
     <div v-if="isMode('show')"
       v-html="markeddown"></div>
     <form @submit.prevent
@@ -50,8 +50,8 @@
         v-model="markdown">
       </textarea>
     </form>
-
   </div>
+  <div class="bodyer thin stack"></div>
   </div>
   </div>
 

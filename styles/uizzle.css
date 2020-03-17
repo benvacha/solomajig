@@ -516,7 +516,7 @@ a.descend:hover {
 }
 .bodyer.stack:first-child {
   margin-top:0px;
-  min-height:48px;
+  min-height:32px;
   background:#FAFAFA;
 }
 .bodyer.stack:last-child {
