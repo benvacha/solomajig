@@ -33,26 +33,30 @@
 
     <div class="body">
     <div class="subbody">
-    <div class="bodyer thick tall">
-      <ul>
-        <li v-for="majig in majigs"
-          :key="majig.id">
-          <span
-            v-html="marked(majig.markdown)">
-          </span>
-          <span>
-            <a @click="gotoMajig(majig)">
-              goto
-            </a> &bull; &bull;
-            <a @click="removeMajig(majig)">
-              remove
-            </a> &bull;
-            <a @click="open('editor', majig)">
-              edit</a>
-          </span>
-        </li>
-      </ul>
+    <div class="bodyer thin stack"></div>
+    <div class="bodyer thin stack"
+      v-if="!majigs.length">
+      <p>No Results</p>
     </div>
+    <div class="bodyer thin stack"
+      v-for="majig in majigs"
+      :key="majig.id">
+      <div v-html="marked(majig.markdown)"></div>
+      <div class="horzer dim"
+        v-if="signed">
+        <div class="rghter">
+          <a @click="gotoMajig(majig)">
+            goto
+          </a> &bull; &bull;
+          <a @click="removeMajig(majig)">
+            remove
+          </a> &bull;
+          <a @click="open('editor', majig)">
+            edit</a>
+        </div>
+      </div>
+    </div>
+    <div class="bodyer thin stack"></div>
     </div>
     </div>
 
@@ -95,6 +99,10 @@ export default {
     '$route': 'loadMajigs',
   },
   computed: {
+    signed () {
+      return this.$store.getters[
+        'token/signed'];
+    },
     majigs () {
       return this.$store.state.majigs.all || [];
     },

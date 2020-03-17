@@ -505,6 +505,25 @@ a.descend:hover {
     padding-top:22px;
     padding-bottom:48px;
 }
+.bodyer.stack {
+  padding-bottom:8px;
+  min-height:0px;
+  margin-top:12px;
+  margin-bottom:12px;
+  -webkit-box-shadow:0 0 20px rgba(0,0,0,.1);
+     -moz-box-shadow:0 0 20px rgba(0,0,0,.1);
+          box-shadow:8px 6px 20px rgba(0,0,0,.05);
+}
+.bodyer.stack:first-child {
+  margin-top:0px;
+  min-height:48px;
+  background:#FAFAFA;
+}
+.bodyer.stack:last-child {
+  margin-bottom:0px;
+  min-height:96px;
+  background:#FAFAFA;
+}
 /* */
 .bodyer.full,
 .bodyer.full01,
@@ -1305,6 +1324,17 @@ a.descend:hover {
     color:inherit;
     text-decoration:none;
     cursor:default;
+}
+/* */
+.horzer.dim,
+.horzer.dim a {
+  font-size:.90em;
+  text-decoration:none;
+  color:rgba(0,0,0,.54);
+}
+.horzer.dim a:hover {
+  text-decoration:line-through;
+  color:rgba(0,0,0,.95);
 }
 /* */
 .horzer.dark {
