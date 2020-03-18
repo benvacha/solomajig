@@ -4,9 +4,12 @@
 <div class="body">
 
   <div class="subbody">
-  <div class="bodyer thin tiny">
-    <h2>Authorize</h2>
+  <div class="bodyer para">
+    <h1>Sign In</h1>
     <form @submit.prevent="sign">
+      <input type="submit"
+        value="Authorize" />
+      <h2>Credentials</h2>
       <InputText
         v-model="username"
         placeholder="username"
@@ -15,8 +18,6 @@
         v-model="password"
         placeholder="password"
       />
-      <input type="submit"
-        value="Authorize" />
     </form>
   </div>
   </div>

@@ -4,19 +4,28 @@
 <div class="body">
 
   <div class="subbody">
-  <div class="bodyer thin tiny">
-    <h2>Create</h2>
-    <form @submit.prevent="add">
+  <div class="bodyer para">
+    <h1>New Majig</h1>
+    <form @submit.prevent="add"
+      class="editor">
+      <input type="submit"
+        value="Create" />
+      <h2>Path</h2>
       <InputText
         v-model="path"
         placeholder="/path"
       />
-      <InputText
-        v-model="markdown"
+    </form>
+    <h2>Markdown</h2>
+    <form @submit.prevent="add"
+      class="editor">
+      <pre><span>
+        {{markdown}}
+      </span><br /></pre>
+      <textarea
         placeholder="markdown"
-      />
-      <input type="submit"
-        value="Create" />
+        v-model="markdown">
+      </textarea>
     </form>
   </div>
   </div>

@@ -4,15 +4,16 @@
 <div class="body">
 
   <div class="subbody">
-  <div class="bodyer thin tiny">
-    <h2>Search</h2>
+  <div class="bodyer para">
+    <h1>Find Majig</h1>
     <form @submit.prevent="search">
+      <input type="submit"
+        value="Search" />
+      <h2>Keyword</h2>
       <InputText
         v-model="keyword"
         placeholder="keyword"
       />
-      <input type="submit"
-        value="Search" />
     </form>
   </div>
   </div>

@@ -819,7 +819,6 @@ a.descend:hover {
     border-bottom:none;
 }
 /* */
-
 .bodyer form.editor pre,
 .bodyer form.editor textarea {
   position:relative;
@@ -849,6 +848,205 @@ a.descend:hover {
 .bodyer form.editor.short pre,
 .bodyer form.editor.short textarea {
   padding-bottom:12px;
+}
+/* */
+.bodyer.para {
+  padding:0px 0px 48px;
+}
+.bodyer.para h1,
+.bodyer.para h2 {
+    position:relative;
+    margin:0px;
+    width:100%;
+    height:auto;
+    padding:8px 12px;
+    font-size:.9em;
+    font-weight:500;
+    background:#FFFFFF;
+    margin-top:-1px;
+    border-top:1px solid #DDD;
+    border-bottom:1px solid #DDD;
+}
+.bodyer.para h1:after,
+.bodyer.para h2:after {
+    content:'';
+    clear:both;
+    display:block;
+}
+.bodyer.para h2 {
+    font-size:.8em;
+    padding:4px 12px;
+}
+.bodyer.para h1 > span,
+.bodyer.para h2 > span {
+    float:right;
+    font-weight:400;
+}
+.bodyer.para h1 a,
+.bodyer.para h2 a {
+    cursor:pointer;
+    text-decoration:none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
+}
+.bodyer.para h1 a.sortedBy,
+.bodyer.para h2 a.sortedBy {
+    text-decoration:underline;
+}
+.bodyer.para h1 .ascending a.sortedBy,
+.bodyer.para h2 .ascending a.sortedBy {
+    text-decoration:overline;
+}
+.bodyer.para h1 a:hover,
+.bodyer.para h2 a:hover {
+    text-decoration:line-through;
+}
+.bodyer.para h1 a.sortedBy:hover,
+.bodyer.para h2 a.sortedBy:hover {
+    text-decoration:underline line-through;
+}
+.bodyer.para h1 .ascending a.sortedBy:hover,
+.bodyer.para h2 .ascending a.sortedBy:hover {
+    text-decoration:overline line-through;
+}
+.bodyer.para ul,
+.bodyer.para ul li {
+    position:relative;
+    margin:0px;
+    width:100%;
+    height:auto;
+    padding:0px;
+    list-style:none;
+}
+.bodyer.para ul li > a,
+.bodyer.para ul li > div {
+    position:relative;
+    display:block;
+    margin:0px;
+    width:100%;
+    height:auto;
+    font-size:.9em;
+    font-weight:400;
+    padding:12px 16px;
+    text-decoration:none;
+    border-bottom:1px solid #EEE;
+}
+.bodyer.para ul li > a p,
+.bodyer.para ul li > div p {
+    margin:0px;
+}
+.bodyer.para ul li > a > h5,
+.bodyer.para ul li > div > h5 {
+    margin-top:4px;
+    margin-bottom:0px;
+    font-weight:500;
+    font-size:.9em;
+}
+.bodyer.para ul li > a i,
+.bodyer.para ul li > div i {
+    display:inline-block;
+    font-style:normal;
+    min-height:3.55em;
+    max-height:3.55em;
+    overflow:hidden;
+}
+.bodyer.para ul li > a i h1,
+.bodyer.para ul li > a i h2,
+.bodyer.para ul li > a i h3,
+.bodyer.para ul li > div i h1,
+.bodyer.para ul li > div i h2,
+.bodyer.para ul li > div i h3 {
+    padding:0px;
+    margin:0px;
+    border:none;
+    font-weight:500;
+    font-size:1em;
+    line-height:1.2em;
+}
+.bodyer.para ul li > a i a {
+    color:inherit;
+    text-decoration:none;
+    pointer-events:none;
+}
+.bodyer.para ul li > a i img {
+    max-width:100%;
+}
+.bodyer.para ul li > a i ul {
+    list-style:none;
+    margin:0px;
+    font-size:1em;
+    line-height:1.2em;
+}
+.bodyer.para ul li > a i p,
+.bodyer.para ul li > div i p {
+    padding:0px;
+    font-size:1em;
+    line-height:1.2em;
+}
+.bodyer.para ul li > a:hover i {
+    text-decoration:underline;
+}
+.bodyer.para ul li > a > span,
+.bodyer.para ul li > div > span {
+    display:block;
+    font-size:.9em;
+    width:100%;
+}
+.bodyer.para ul li > div > span a {
+    text-decoration:none;
+    font-weight:500;
+    cursor:pointer;
+}
+.bodyer.para ul li > div > span a:hover {
+    text-decoration:line-through;
+}
+.bodyer.para form {
+    position:relative;
+    margin:0px;
+    width:100%;
+    height:auto;
+    padding:0px;
+}
+.bodyer.para form input,
+.bodyer.para form select {
+    display:inline-block;
+    margin:0px;
+    width:100%;
+    height:auto;
+    border:none;
+    outline:none;
+    font-size:.9em;
+    padding:8px 16px;
+    background:#FFFFFF;
+    border-bottom:1px solid #EEE;
+    font-family:'Roboto Mono', sans-serif;
+    -webkit-border-radius:0px;
+       -moz-border-radius:0px;
+            border-radius:0px;
+}
+.bodyer.para form select {
+    cursor:pointer;
+}
+.bodyer.para form .half {
+    width:50%;
+}
+.bodyer.para form .third {
+    width:33.33%;
+}
+.bodyer.para form input[type=submit] {
+    cursor:pointer;
+    text-align:center;
+    font-family:'Roboto', sans-serif;
+}
+.bodyer.para form input[type=submit]:hover,
+.bodyer.para form input[type=submit]:focus {
+    text-decoration:line-through;
+    border-bottom:1px solid #DDD;
+}
+.bodyer.para form input[type=submit]:disabled {
+    cursor:default;
+    text-decoration:none;
 }
 
 /*
@@ -1734,6 +1932,15 @@ a.descend:hover {
     .parabody.perm.thin ~ .parabody.right.open,
     .parabody.perm.thick ~ .parabody.right.open {
         margin-right:0px;
+    }
+
+    /*
+    /* */
+    .bodyer.para ul li > a,
+    .bodyer.para ul li > div,
+    .bodyer.para form input,
+    .bodyer.para form select {
+        font-size:1em;
     }
 
     /*

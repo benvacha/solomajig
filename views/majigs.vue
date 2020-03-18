@@ -165,6 +165,7 @@ export default {
       } else { return ''; }
     },
     loadMajigs () {
+      this.open(false);
       this.status = 'loading';
       this.$store.dispatch('majigs/load', {
         filter: this.filter,

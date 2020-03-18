@@ -4,15 +4,22 @@
 <div class="body">
 
   <div class="subbody">
-  <div class="bodyer thin tiny">
-    <h2>Update</h2>
+  <div class="bodyer para">
+    <h2>Edit Majig</h2>
     <form @submit.prevent="update">
-      <InputText
-        v-model="majig.markdown"
-        placeholder="markdown"
-      />
       <input type="submit"
         value="Update" />
+    </form>
+    <h2>Markdown</h2>
+    <form @submit.prevent="update"
+      class="editor">
+      <pre><span>
+        {{majig.markdown}}
+      </span><br /></pre>
+      <textarea
+        placeholder="markdown"
+        v-model="majig.markdown">
+      </textarea>
     </form>
   </div>
   </div>
