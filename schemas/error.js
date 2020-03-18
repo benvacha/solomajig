@@ -61,6 +61,9 @@ schema.statics.CODES = {
     USAGE
   */
   6000: { status:400, message:'usage error' },
+  //// filter
+  6016: { status:400, message:'filter required' },
+  6017: { status:400, message:'invalid filter' },
   //// keyword
   6014: { status:400, message:'keyword required' },
   6015: { status:400, message:'invalid keyword' },
@@ -84,7 +87,7 @@ schema.statics.CODES = {
   6002: { status:401, message:'invalid token' },
   6001: { status:401, message:'invalid token' },
   //// ,
-  6016: { status:400, message:'' }
+  6018: { status:400, message:'' }
 };
 
 /*

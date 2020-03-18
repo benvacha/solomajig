@@ -18,6 +18,7 @@ app.get('/', function(req, res) {
   Index.localize(req, res, {
   }, {
     keyword: req.query.keyword,
+    filter: req.query.filter,
   }).then(function(locals) {
     var regex = new RegExp(
       res.locals.keyword, "i");
@@ -30,7 +31,7 @@ app.get('/', function(req, res) {
     return Majig.find(
       query
     ).sort(
-      '-updated'
+      res.locals.filter || '-updated'
     ).catch(function(err) {
       throw new Error.code(5000);
     });
@@ -51,6 +52,8 @@ app.post('/', function(req, res) {
   Index.localize(req, res, {
   }, {
     markdown: req.body.markdown,
+    filter: req.body.filter,
+    keyword: req.body.keyword,
   }).then(function(locals) {
     return Majig({
       markdown: res.locals.markdown,
@@ -61,10 +64,18 @@ app.post('/', function(req, res) {
   }).then(function(majig) {
     if(!majig) throw new Error.code(5000);
     res.locals.majig = majig;
-    return Majig.find({
+    var regex = new RegExp(
+      res.locals.keyword, "i");
+    var query = {
       path: { $exists: false },
-    }).sort(
-      '-updated'
+    };
+    if(res.locals.keyword) {
+      query.markdown = regex;
+    }
+    return Majig.find(
+      query
+    ).sort(
+      res.locals.filter || '-updated'
     ).catch(function(err) {
       throw new Error.code(5000);
     });
@@ -88,6 +99,8 @@ app.put('/:majigId', function(req, res) {
     majigId: req.params.majigId,
   }, {
     markdown: req.body.markdown,
+    filter: req.body.filter,
+    keyword: req.body.keyword,
   }).then(function(locals) {
     return Majig.findOne({
       _id: res.locals.majigId,
@@ -103,10 +116,18 @@ app.put('/:majigId', function(req, res) {
     });
   }).then(function(majig) {
     if(!majig) throw new Error.code(5000);
-    return Majig.find({
+    var regex = new RegExp(
+      res.locals.keyword, "i");
+    var query = {
       path: { $exists: false },
-    }).sort(
-      '-updated'
+    };
+    if(res.locals.keyword) {
+      query.markdown = regex;
+    }
+    return Majig.find(
+      query
+    ).sort(
+      res.locals.filter || '-updated'
     ).catch(function(err) {
       throw new Error.code(5000);
     });
@@ -127,6 +148,8 @@ app.delete('/:majigId', function(req, res) {
   Index.localize(req, res, {
     majigId: req.params.majigId,
   }, {
+    filter: req.query.filter,
+    keyword: req.query.keyword,
   }).then(function(locals) {
     return Majig.findOne({
       _id: res.locals.majigId,
@@ -141,10 +164,18 @@ app.delete('/:majigId', function(req, res) {
     });
   }).then(function(majig) {
     if(!majig) throw new Error.code(5000);
-    return Majig.find({
+    var regex = new RegExp(
+      res.locals.keyword, "i");
+    var query = {
       path: { $exists: false },
-    }).sort(
-      '-updated'
+    };
+    if(res.locals.keyword) {
+      query.markdown = regex;
+    }
+    return Majig.find(
+      query
+    ).sort(
+      res.locals.filter || '-updated'
     ).catch(function(err) {
       throw new Error.code(5000);
     });

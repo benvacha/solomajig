@@ -42,9 +42,9 @@
       v-for="majig in majigs"
       :key="majig.id">
       <div v-html="marked(majig.markdown)"></div>
-      <div class="horzer dim"
-        v-if="signed">
-        <div class="rghter">
+      <div class="horzer dim">
+        <div class="rghter"
+          v-if="signed">
           <a @click="gotoMajig(majig)">
             goto
           </a> &bull; &bull;
@@ -84,7 +84,6 @@ export default {
   data () {
     return {
       status: '',
-      filter: 'created',
       views: {
         editor: Editor,
       },
@@ -102,6 +101,9 @@ export default {
     signed () {
       return this.$store.getters[
         'token/signed'];
+    },
+    filter () {
+      return this.$store.state.majigs.filter;
     },
     majigs () {
       return this.$store.state.majigs.all || [];
@@ -144,21 +146,28 @@ export default {
     },
     toggleFilter (filter) {
       if(this.filter == filter) {
-        this.filter = '!' + filter;
+        this.$store.dispatch('majigs/load', {
+          filter: '-' + filter,
+          keyword: this.keyword,
+        });
       } else {
-        this.filter = filter;
+        this.$store.dispatch('majigs/load', {
+          filter: filter,
+          keyword: this.keyword,
+        });
       }
     },
     classFilter (filter) {
       if(this.filter == filter) {
         return 'descend';
-      } else if(this.filter == '!' + filter) {
+      } else if(this.filter == '-' + filter) {
         return 'ascend';
       } else { return ''; }
     },
     loadMajigs () {
       this.status = 'loading';
       this.$store.dispatch('majigs/load', {
+        filter: this.filter,
         keyword: this.keyword,
       }).then(() => {
         this.status = '';
