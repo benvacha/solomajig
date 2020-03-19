@@ -40,12 +40,13 @@
       v-for="majig in majigs"
       :key="majig.id">
       <div v-html="marked(majig.markdown)"></div>
-      <div class="horzer dim">
+      <div class="supstack"></div>
+      <div class="substack horzer dim">
         <div class="lefter thin">
           {{ majig.created | datetime }} &bull;
           {{ majig.updated | datetime }}
         </div>
-        <div class="rghter"
+        <div class="rghter thin"
           v-if="signed">
           <a @click="gotoMajig(majig)">
             goto
