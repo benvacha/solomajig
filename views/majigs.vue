@@ -36,13 +36,17 @@
     <div class="bodyer thin stack"></div>
     <div class="bodyer thin stack"
       v-if="!majigs.length">
-      <p>No Results</p>
+      <p>Majigs Not Found</p>
     </div>
     <div class="bodyer thin stack"
       v-for="majig in majigs"
       :key="majig.id">
       <div v-html="marked(majig.markdown)"></div>
       <div class="horzer dim">
+        <div class="lefter thin">
+          {{ majig.created | datetime }} &bull;
+          {{ majig.updated | datetime }}
+        </div>
         <div class="rghter"
           v-if="signed">
           <a @click="gotoMajig(majig)">
@@ -74,6 +78,12 @@ import Editor
 export default {
   components: {
     ParabodyRight,
+  },
+  filters: {
+    datetime: (value) => {
+      var when = new Date(value);
+      return when.toLocaleString('sv-SE');
+    },
   },
   props: {
     keyword: {
@@ -145,15 +155,24 @@ export default {
       }
     },
     toggleFilter (filter) {
+      this.status = 'sorting';
       if(this.filter == filter) {
         this.$store.dispatch('majigs/load', {
           filter: '-' + filter,
           keyword: this.keyword,
+        }).then(() => {
+          this.status = '';
+        }).catch((errors) => {
+          this.status = errors[0].title;
         });
       } else {
         this.$store.dispatch('majigs/load', {
           filter: filter,
           keyword: this.keyword,
+        }).then(() => {
+          this.status = '';
+        }).catch((errors) => {
+          this.status = errors[0].title;
         });
       }
     },

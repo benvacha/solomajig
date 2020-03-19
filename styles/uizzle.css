@@ -1374,6 +1374,10 @@ a.descend:hover {
     float:right;
     text-align:right;
 }
+.horzer .thin {
+  padding-left:0px;
+  padding-right:0px;
+}
 /* */
 .horzer > .mask {
   position:absolute;

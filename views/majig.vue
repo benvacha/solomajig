@@ -3,7 +3,8 @@
 <template>
 <div class="body">
 
-  <div class="prebody tiny">
+  <div class="prebody tiny"
+    v-if="signed">
     <div class="horzer">
       <div class="lefter mask">
         {{status}}
@@ -36,7 +37,12 @@
   <div class="body">
   <div class="subbody">
   <div class="bodyer thin stack"></div>
-  <div class="bodyer thin stack">
+  <div class="bodyer thin stack"
+    v-if="!majig.id">
+    <p>Majig Not Found</p>
+  </div>
+  <div class="bodyer thin stack"
+    v-if="majig.id">
     <div v-if="isMode('show')"
       v-html="markeddown"></div>
     <form @submit.prevent
@@ -50,6 +56,12 @@
         v-model="markdown">
       </textarea>
     </form>
+    <div class="horzer dim">
+      <div class="lefter thin">
+        {{ majig.created | datetime }} &bull;
+        {{ majig.updated | datetime }}
+      </div>
+    </div>
   </div>
   <div class="bodyer thin stack"></div>
   </div>
@@ -67,6 +79,12 @@ import InputText
 export default {
   components: {
     InputText,
+  },
+  filters: {
+    datetime: (value) => {
+      var when = new Date(value);
+      return when.toLocaleString('sv-SE');
+    },
   },
   props: {
     majigId: {
@@ -88,6 +106,10 @@ export default {
     '$route': 'loadMajig',
   },
   computed: {
+    signed () {
+      return this.$store.getters[
+        'token/signed'];
+    },
     majig () {
       const all = this.$store.state.majig.all;
       if(this.majigId) {
