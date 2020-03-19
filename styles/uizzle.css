@@ -506,6 +506,7 @@ a.descend:hover {
     padding-bottom:48px;
 }
 .bodyer.stack {
+  padding-top:12px;
   padding-bottom:8px;
   min-height:0px;
   margin-top:12px;
@@ -1374,7 +1375,10 @@ a.descend:hover {
     float:right;
     text-align:right;
 }
-.horzer .thin {
+.horzer .thin,
+.horzer.thin .lefter,
+.horzer.thin .rghter,
+.horzer.thin .cntrer {
   padding-left:0px;
   padding-right:0px;
 }
@@ -1473,28 +1477,6 @@ a.descend:hover {
 .horzer a.material-icons:hover {
     text-decoration:none;
 }
-.horzer a.ascend,
-.horzer a.descend {
-  text-decoration:overline;
-  -webkit-user-select:none;
-     -moz-user-select:none;
-      -ms-user-select:none;
-          user-select:none;
-}
-.horzer a.descend {
-  text-decoration:underline;
-}
-.horzer a:hover {
-    text-decoration:line-through;
-}
-.horzer a.ascend:hover {
-  text-decoration:overline
-    line-through;
-}
-.horzer a.descend:hover {
-  text-decoration:underline
-    line-through;
-}
 /* */
 .horzer select,
 .horzer label {
@@ -1529,6 +1511,7 @@ a.descend:hover {
 }
 /* */
 .horzer.dim,
+.horzer.dim span,
 .horzer.dim a {
   font-size:.90em;
   text-decoration:none;
@@ -1620,6 +1603,29 @@ a.descend:hover {
 }
 .footer.tall .horzer {
     line-height:56px;
+}
+/* */
+.horzer a.ascend,
+.horzer a.descend {
+  text-decoration:overline;
+  -webkit-user-select:none;
+     -moz-user-select:none;
+      -ms-user-select:none;
+          user-select:none;
+}
+.horzer a.descend {
+  text-decoration:underline;
+}
+.horzer a:hover {
+    text-decoration:line-through;
+}
+.horzer a.ascend:hover {
+  text-decoration:overline
+    line-through;
+}
+.horzer a.descend:hover {
+  text-decoration:underline
+    line-through;
 }
 
 

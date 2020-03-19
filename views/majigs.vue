@@ -12,10 +12,12 @@
 
   <div class="body">
 
-    <div class="prebody tiny">
-      <div class="horzer">
-        <div class="lefter mask">
-          <span>{{status}}</span>
+    <div class="body">
+    <div class="subbody">
+    <div class="bodyer thin stack">
+      <div class="horzer dim thin">
+        <div class="lefter">
+          <span>{{status || $route.path}}</span>
         </div>
         <div class="rghter">
           <a @click="toggleFilter('created')"
@@ -30,10 +32,6 @@
         </div>
       </div>
     </div>
-
-    <div class="body">
-    <div class="subbody">
-    <div class="bodyer thin stack"></div>
     <div class="bodyer thin stack"
       v-if="!majigs.length">
       <p>Majigs Not Found</p>

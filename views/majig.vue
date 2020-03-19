@@ -3,40 +3,56 @@
 <template>
 <div class="body">
 
-  <div class="prebody tiny"
-    v-if="signed">
-    <div class="horzer">
-      <div class="lefter mask">
-        {{status}}
+  <div class="body">
+  <div class="subbody">
+  <div class="bodyer thin stack">
+    <div class="horzer dim thin">
+      <div class="lefter togler10">
+        {{status || $route.path}}
       </div>
-      <div class="rghter"
-        v-if="isMode('show')">
-        <a @click="toMode('edit')">
-          Edit</a>&bull;
-        <a @click="toMode('remove')">
-          Remove</a> &bull;
-        <a @click="toMode('reset')">
-          Reset</a> &bull;
+      <div class="rghter togler10"
+        v-if="signed">
+        <template v-if="isMode('show')">
+          <a @click="toMode('edit')">
+            Edit</a> &bull;
+        </template>
+        <template v-if="isMode('edit')">
+          <a @click="toMode('show')">
+            Show</a> &bull;
+        </template>
+        <template v-if="majig.id">
+          <a @click="toMode('remove')">
+            Remove</a> &bull;
+          <a @click="toMode('reset')">
+            Reset</a> &bull;
+        </template>
         <a @click="toMode('save')">
           Save</a>
       </div>
-      <div class="rghter"
-        v-if="isMode('edit')">
-        <a @click="toMode('show')">
-          Show</a> &bull;
-        <a @click="toMode('remove')">
-          Remove</a> &bull;
-        <a @click="toMode('reset')">
-          Reset</a> &bull;
+      <div class="cntrer togler01">
+        {{status || $route.path}}
+      </div>
+      <div class="cntrer togler01"
+        v-if="signed">
+        <template v-if="isMode('show')">
+          <a @click="toMode('edit')">
+            Edit</a> &bull;
+        </template>
+        <template v-if="isMode('edit')">
+          <a @click="toMode('show')">
+            Show</a> &bull;
+        </template>
+        <template v-if="majig.id">
+          <a @click="toMode('remove')">
+            Remove</a> &bull;
+          <a @click="toMode('reset')">
+            Reset</a> &bull;
+        </template>
         <a @click="toMode('save')">
           Save</a>
       </div>
     </div>
   </div>
-
-  <div class="body">
-  <div class="subbody">
-  <div class="bodyer thin stack"></div>
   <div class="bodyer thin stack">
     <div v-if="isMode('show')"
       v-html="markeddown"></div>
@@ -51,14 +67,16 @@
         v-model="markdown">
       </textarea>
     </form>
+  </div>
+  <div class="bodyer thin stack">
     <div class="horzer dim">
-      <div class="lefter thin">
-        {{ majig.created | datetime }} &bull;
+      <div class="cntrer thin">
+        {{ majig.created | datetime }}
+        &bull; &bull; &bull;
         {{ majig.updated | datetime }}
       </div>
     </div>
   </div>
-  <div class="bodyer thin stack"></div>
   </div>
   </div>
 
@@ -158,7 +176,7 @@ export default {
         this.markdown = majig.markdown;
       }).catch((errors) => {
         if(errors[0].status === 404) {
-          this.status = '...';
+          this.status = '';
         } else {
           this.status = errors[0].title;
         }
