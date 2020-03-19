@@ -15,6 +15,7 @@ var app = Express();
 app.get('/',
 function(req, res, next) {
   Index.authorize(req, res, {
+    required: true,
   }).then(function(token) {
     next();
   }).catch(function(err) {

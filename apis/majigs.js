@@ -50,6 +50,7 @@ app.get('/', function(req, res) {
 /// { majigs:[Majig] } || { Error }
 app.post('/', function(req, res) {
   Index.localize(req, res, {
+    token: res.locals.token,
   }, {
     markdown: req.body.markdown,
     filter: req.body.filter,
@@ -96,6 +97,7 @@ app.post('/', function(req, res) {
 /// { majig:Majig } || { Error }
 app.put('/:majigId', function(req, res) {
   Index.localize(req, res, {
+    token: res.locals.token,
     majigId: req.params.majigId,
   }, {
     markdown: req.body.markdown,
@@ -146,6 +148,7 @@ app.put('/:majigId', function(req, res) {
 /// { majig:Majig } || { Error }
 app.delete('/:majigId', function(req, res) {
   Index.localize(req, res, {
+    token: res.locals.token,
     majigId: req.params.majigId,
   }, {
     filter: req.query.filter,

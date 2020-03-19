@@ -37,12 +37,7 @@
   <div class="body">
   <div class="subbody">
   <div class="bodyer thin stack"></div>
-  <div class="bodyer thin stack"
-    v-if="!majig.id">
-    <p>Majig Not Found</p>
-  </div>
-  <div class="bodyer thin stack"
-    v-if="majig.id">
+  <div class="bodyer thin stack">
     <div v-if="isMode('show')"
       v-html="markeddown"></div>
     <form @submit.prevent
@@ -82,6 +77,7 @@ export default {
   },
   filters: {
     datetime: (value) => {
+      if(!value) value = Date.now();
       var when = new Date(value);
       return when.toLocaleString('sv-SE');
     },
@@ -119,7 +115,8 @@ export default {
       }
     },
     markeddown () {
-      return Marked(this.markdown || '');
+      return Marked(
+        this.markdown || 'Majig Not Found');
     },
   },
   methods: {

@@ -1,8 +1,21 @@
 /* Copyright (C) 2020 BenVacha/Solomajig *//*
 /* /**/
 var Express = require('express');
+var Index = __require('/models/index');
 /* */
 var app = Express();
+
+/*
+/* */
+
+app.use(function(req, res, next) {
+  Index.authorize(req, res, {
+  }).then(function(token) {
+    next();
+  }).catch(function(err) {
+    Index.respond(req, res, null, err);
+  });
+});
 
 /*
 /* */

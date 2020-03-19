@@ -34,14 +34,18 @@ var schema = new Schema({
 /*
 /* AUTHORIZE */
 
-//
-///
+// options:{ required }
+/// token || throw Error
 schema.statics.authorize =
 function(req, res, options) {
 return new Promise(function(resolve, reject) {
   var xToken = req.headers['x-token']
     || req.query['xtoken'];
-  if(!xToken) reject(new Error.code(6002));
+  if(options.required && !xToken) {
+    reject(new Error.code(6002));
+  } else if(!xToken) {
+    resolve();
+  };
   Token.verify(
     xToken
   ).then(function(token) {
@@ -97,6 +101,12 @@ schema.statics.LOCALIZERS = {
       throw new Error.code(6012)
     }
     res.locals.path = input;
+  },
+  token: function(req, res, input, required) {
+    if(required && !input) {
+      throw new Error.code(6002);
+    } else if(!input) { return; }
+    res.locals.token = input;
   },
   username: function(req, res, input, required) {
     if(required && !input) {
