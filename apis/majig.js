@@ -28,6 +28,11 @@ app.get('/', function(req, res) {
     } else {
       throw new Error.code(6007);
     };
+    if(!res.locals.token) {
+      query.published = {
+        $exists: true
+      };
+    }
     return Majig.findOne(
       query
     ).catch(function(err) {
@@ -135,6 +140,64 @@ app.put('/:majigId', function(req, res) {
   }).then(function(majig) {
     if(!majig) throw new Error.code(6013);
     majig.markdown = res.locals.markdown;
+    return majig.save({
+    }).catch(function(errs) {
+      throw new Error.parsed(errs);
+    });
+  }).then(function(majig) {
+    if(!majig) throw new Error.code(5000);
+    Index.respond(req, res, majig);
+  }).catch(function(err) {
+    Index.respond(req, res, null, err);
+  });
+});
+
+// majigId:ObjectId,
+/// { majig:Majig } || { Error }
+app.put('/:majigId/published',
+function(req, res) {
+  Index.localize(req, res, {
+    token: res.locals.token,
+    majigId: req.params.majigId,
+  }, {
+  }).then(function(locals) {
+    return Majig.findOne({
+      _id: res.locals.majigId
+    }).catch(function(err) {
+      throw new Error.code(5000);
+    });
+  }).then(function(majig) {
+    if(!majig) throw new Error.code(6013);
+    majig.published = Date.now();
+    return majig.save({
+    }).catch(function(errs) {
+      throw new Error.parsed(errs);
+    });
+  }).then(function(majig) {
+    if(!majig) throw new Error.code(5000);
+    Index.respond(req, res, majig);
+  }).catch(function(err) {
+    Index.respond(req, res, null, err);
+  });
+});
+
+// majigId:ObjectId,
+/// { majig:Majig } || { Error }
+app.put('/:majigId/unpublished',
+function(req, res) {
+  Index.localize(req, res, {
+    token: res.locals.token,
+    majigId: req.params.majigId,
+  }, {
+  }).then(function(locals) {
+    return Majig.findOne({
+      _id: res.locals.majigId
+    }).catch(function(err) {
+      throw new Error.code(5000);
+    });
+  }).then(function(majig) {
+    if(!majig) throw new Error.code(6013);
+    majig.published = undefined;
     return majig.save({
     }).catch(function(errs) {
       throw new Error.parsed(errs);

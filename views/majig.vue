@@ -21,6 +21,12 @@
             Show</a> &bull;
         </template>
         <template v-if="majig.id">
+          <a @click="toMode('publish')"
+            v-if="!majig.published">
+            Publish</a>
+          <a @click="toMode('unpublish')"
+            v-if="majig.published">
+            UnPublish</a> &bull;
           <a @click="toMode('remove')">
             Remove</a> &bull;
           <a @click="toMode('reset')">
@@ -43,6 +49,14 @@
             Show</a> &bull;
         </template>
         <template v-if="majig.id">
+          <a @click="toMode('publish')"
+            v-if="!majig.published">
+            Publish</a>
+          <a @click="toMode('unpublish')"
+            v-if="majig.published">
+            UnPublish</a> &bull;
+          <a @click="toMode('publish')">
+            Publish</a> &bull;
           <a @click="toMode('remove')">
             Remove</a> &bull;
           <a @click="toMode('reset')">
@@ -74,6 +88,8 @@
         {{ majig.created | datetime }}
         &bull; &bull; &bull;
         {{ majig.updated | datetime }}
+        <br />
+        {{ majig.published | datetime }}
       </div>
     </div>
   </div>
@@ -95,7 +111,7 @@ export default {
   },
   filters: {
     datetime: (value) => {
-      if(!value) value = Date.now();
+      if(!value) return '000-00-00 00:00:00';
       var when = new Date(value);
       return when.toLocaleString('sv-SE');
     },
@@ -133,8 +149,8 @@ export default {
       }
     },
     markeddown () {
-      return Marked(
-        this.markdown || 'Majig Not Found');
+      return Marked(this.markdown
+        || 'Majig Not Found');
     },
   },
   methods: {
@@ -143,6 +159,18 @@ export default {
     },
     toMode (mode) {
       switch(mode) {
+        case 'publish':
+          this.publishMajig(
+          ).then(() => {
+            this.mode = 'show';
+          });
+          break;
+        case 'unpublish':
+          this.unpublishMajig(
+          ).then(() => {
+            this.mode = 'show';
+          });
+          break;
         case 'remove':
           this.removeMajig(
           ).then(() => {
@@ -167,8 +195,10 @@ export default {
     },
     loadMajig () {
       this.status = 'loading';
-      this.markdown = this.majig.markdown || '';
-      return this.$store.dispatch('majig/load', {
+      this.markdown = this.majig
+        ? this.majig.markdown : '';
+      return this.$store.dispatch(
+        'majig/load', {
         majigId: this.majigId,
         path: this.$route.path,
       }).then((majig) => {
@@ -184,7 +214,8 @@ export default {
     },
     updateMajig () {
       this.status = 'updating';
-      return this.$store.dispatch('majig/update', {
+      return this.$store.dispatch(
+        'majig/update', {
         majigId: this.majig.id,
         path: this.$route.path,
         markdown: this.markdown,
@@ -195,9 +226,32 @@ export default {
         this.status = errors[0].title;
       });
     },
+    publishMajig (published) {
+      this.status = 'publishing';
+      return this.$store.dispatch(
+        'majig/publish', {
+        majigId: this.majig.id,
+      }).then((majig) => {
+        this.status = '';
+      }).catch((errors) => {
+        this.status = errors[0].title;
+      });
+    },
+    unpublishMajig () {
+      this.status = 'unpublishing';
+      return this.$store.dispatch(
+        'majig/unpublish', {
+        majigId: this.majig.id,
+      }).then((majig) => {
+        this.status = '';
+      }).catch((errors) => {
+        this.status = errors[0].title;
+      });
+    },
     removeMajig () {
       this.status = 'removing';
-      return this.$store.dispatch('majig/remove', {
+      return this.$store.dispatch(
+        'majig/remove', {
         majigId: this.majig.id,
       }).then((majig) => {
         this.$router.push('/');

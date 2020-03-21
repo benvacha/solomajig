@@ -72,6 +72,34 @@ const actions = {
       }
     });
   },
+  async publish ({commit}, inputs) {
+    return Axios.put('/apis/majig/'
+      + inputs.majigId + '/published', {
+    }).then((response) => {
+      commit('majig', response.data.data);
+      return response.data.data;
+    }).catch((error) => {
+      if(error.response) {
+        throw error.response.data.errors;
+      } else {
+        throw [{title:'client error'}];
+      }
+    });
+  },
+  async unpublish ({commit}, inputs) {
+    return Axios.put('/apis/majig/'
+      + inputs.majigId + '/unpublished', {
+    }).then((response) => {
+      commit('majig', response.data.data);
+      return response.data.data;
+    }).catch((error) => {
+      if(error.response) {
+        throw error.response.data.errors;
+      } else {
+        throw [{title:'client error'}];
+      }
+    });
+  },
   async remove ({commit}, inputs) {
     return Axios.delete('/apis/majig/'
       + inputs.majigId, {
