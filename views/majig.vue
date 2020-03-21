@@ -134,6 +134,7 @@ export default {
   },
   watch: {
     '$route': 'loadMajig',
+    'signed': 'loadMajig',
   },
   computed: {
     signed () {

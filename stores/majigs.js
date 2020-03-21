@@ -22,6 +22,9 @@ const mutations = {
     state.keyword = data.keyword
       || undefined;
   },
+  clear (state, data) {
+    state.all = [];
+  }
 };
 
 const actions = {
@@ -106,6 +109,9 @@ const actions = {
         throw [{title:'client error'}];
       }
     });
+  },
+  async clear ({commit}, inputs) {
+    commit('clear', inputs);
   },
 };
 

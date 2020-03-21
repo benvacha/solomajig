@@ -15,10 +15,13 @@ const mutations = {
     state.all[data.path] = data;
     state.all = {...state.all};
   },
-  clear (state, data) {
+  remove (state, data) {
     delete state.all[data.id];
     delete state.all[data.path];
     state.all = {...state.all};
+  },
+  clear (state, data) {
+    state.all = {};
   },
 };
 
@@ -104,7 +107,7 @@ const actions = {
     return Axios.delete('/apis/majig/'
       + inputs.majigId, {
     }).then((response) => {
-      commit('clear', response.data.data);
+      commit('remove', response.data.data);
       return response.data.data;
     }).catch((error) => {
       if(error.response) {
@@ -113,6 +116,9 @@ const actions = {
         throw [{title:'client error'}];
       }
     });
+  },
+  async clear ({commit}, inputs) {
+    commit('clear', inputs);
   },
 };
 

@@ -34,8 +34,17 @@ export default {
   methods: {
     unsign () {
       this.$emit('open', false);
-      this.$store.dispatch('token/clear', {
-      }).catch(err => {});
+      this.$store.dispatch(
+        'majig/clear', {
+      }).then(() => {
+        return this.$store.dispatch(
+          'majigs/clear', {});
+      }).then(() => {
+        return this.$store.dispatch(
+          'token/clear', {});
+      }).catch(err => {
+        console.log(err);
+      });
     },
   }
 };
