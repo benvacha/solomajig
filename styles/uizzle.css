@@ -532,8 +532,8 @@ a.descend:hover {
   position:relative;
   margin:0px 0px;
   width:100%;
-  height:36px;
-  padding:0px;
+  height:auto;
+  padding:20px 12px 8px;
 }
 .bodyer.stack .substack {
   position:absolute;

@@ -40,22 +40,27 @@
       v-for="majig in majigs"
       :key="majig.id">
       <div v-html="marked(majig.markdown)"></div>
-      <div class="supstack"></div>
+      <div class="supstack"><br /></div>
       <div class="substack horzer dim">
-        <div class="lefter thin">
+        <div class="cntrer thin">
+          <span>
           {{ majig.created | datetime }} &bull;
           {{ majig.updated | datetime }}
-        </div>
-        <div class="rghter thin"
-          v-if="signed">
+          </span><br />
+          <template v-if="signed">
+            <a @click="open('editor', majig)">
+              edit
+            </a> &bull;
+            <a @click="open('metas', majig)">
+              meta
+            </a> &bull;
+          </template>
           <a @click="gotoMajig(majig)">
             goto
-          </a> &bull; &bull;
-          <a @click="removeMajig(majig)">
-            remove
           </a> &bull;
-          <a @click="open('editor', majig)">
-            edit</a>
+          <span>
+            {{ majig.published | datetime }}
+          </span>
         </div>
       </div>
     </div>
@@ -74,6 +79,8 @@ import ParabodyRight
   from 'elements/paras/right.vue';
 import Editor
   from 'elements/paras/editor.vue';
+import Metas
+  from 'elements/paras/metas.vue';
 export default {
   components: {
     ParabodyRight,
@@ -96,6 +103,7 @@ export default {
       status: '',
       views: {
         editor: Editor,
+        metas: Metas,
       },
       view: '',
       viewed: null,
