@@ -28,6 +28,11 @@ app.get('/', function(req, res) {
     if(res.locals.keyword) {
       query.markdown = regex;
     }
+    if(!res.locals.token) {
+      query.published = {
+        $exists: true
+      };
+    }
     return Majig.find(
       query
     ).sort(

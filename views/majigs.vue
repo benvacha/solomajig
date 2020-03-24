@@ -105,6 +105,7 @@ export default {
   },
   watch: {
     '$route': 'loadMajigs',
+    'signed': 'loadMajigs',
   },
   computed: {
     signed () {
