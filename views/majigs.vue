@@ -80,6 +80,7 @@ export default {
   },
   filters: {
     datetime: (value) => {
+      if(!value) return '000-00-00 00:00:00';
       var when = new Date(value);
       return when.toLocaleString('sv-SE');
     },
