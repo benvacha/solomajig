@@ -53,6 +53,22 @@ const actions = {
       }
     });
   },
+  async search ({commit, state}, inputs) {
+    return Axios.get('/apis/majigs', {
+      params: {
+        keyword: inputs.keyword,
+        filter: inputs.filter,
+      },
+    }).then((response) => {
+      return response.data.data;
+    }).catch((error) => {
+      if(error.response) {
+        throw error.response.data.errors;
+      } else {
+        throw [{title:'client error'}];
+      }
+    });
+  },
   async add ({commit, state}, inputs) {
     return Axios.post('/apis/majigs', {
       markdown: inputs.markdown,
