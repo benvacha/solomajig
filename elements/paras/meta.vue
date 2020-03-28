@@ -20,7 +20,6 @@
         <span>{{viewed.created | datetime}}</span>
       </div></li>
     </ul>
-    <h2>Publish Majig</h2>
     <form @submit.prevent="publish"
       v-if="!viewed.published">
       <input type="submit"
@@ -33,6 +32,17 @@
         :disabled="!viewed.id"
         value="UnPublish" />
     </form>
+    <h2>Tag Majig</h2>
+    <form @submit.prevent="retag">
+      <InputText
+        v-model="viewed.tags"
+        placeholder="tags"
+      />
+      <input type="submit"
+        :disabled="!viewed.id"
+        value="ReTag" />
+    </form>
+    <h6></h6>
     <h2>Remove Majig</h2>
     <form @submit.prevent="remove">
       <input type="submit"
@@ -74,6 +84,19 @@ export default {
   computed: {
   },
   methods: {
+    retag () {
+      this.$emit('notify', 'tagging');
+      return this.$store.dispatch(
+        'majig/update', {
+        majigId: this.viewed.id,
+        tags: this.viewed.tags,
+      }).then((majig) => {
+        this.$emit('notify', '');
+      }).catch((errors) => {
+        this.$emit('notify',
+          errors[0].title);
+      });
+    },
     publish () {
       this.$emit('notify', 'publishing');
       this.$store.dispatch('majig/publish', {
@@ -112,3 +135,9 @@ export default {
   },
 };
 </script>
+
+<style>
+  .bodyer.para ul li {
+    border-top:none;
+  }
+</style>

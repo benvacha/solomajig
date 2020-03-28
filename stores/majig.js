@@ -46,6 +46,7 @@ const actions = {
   async add ({commit}, inputs) {
     return Axios.post('/apis/majig', {
       path: inputs.path,
+      tags: inputs.tags,
       markdown: inputs.markdown,
     }).then((response) => {
       commit('majig', response.data.data);
@@ -63,6 +64,7 @@ const actions = {
       ? '/apis/majig/' + inputs.majigId
       : '/apis/majig', {
       path: inputs.path,
+      tags: inputs.tags,
       markdown: inputs.markdown,
     }).then((response) => {
       commit('majig', response.data.data);

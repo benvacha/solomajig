@@ -10,6 +10,7 @@ var Majig = __require('/models/majig');
 
 var schema = new Schema({
   path: { type:String },
+  tags: { type:String, default:'' },
   markdown: { type:String, default:'' },
   created: { type:Date, default:Date.now },
   updated: { type:Date, default:Date.now },

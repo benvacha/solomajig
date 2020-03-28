@@ -80,6 +80,9 @@ schema.statics.CODES = {
   //// path
   6011: { status:400, message:'path required' },
   6012: { status:400, message:'invalid path' },
+  //// tags
+  6018: { status:400, message:'tags required' },
+  6019: { status:400, message:'invalid tags' },
   //// username
   6005: { status:400, message:'username required' },
   6006: { status:400, message:'invalid credential' },
@@ -87,7 +90,7 @@ schema.statics.CODES = {
   6002: { status:401, message:'invalid token' },
   6001: { status:401, message:'invalid token' },
   //// ,
-  6018: { status:400, message:'' }
+  6020: { status:400, message:'' }
 };
 
 /*

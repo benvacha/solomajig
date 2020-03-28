@@ -82,9 +82,9 @@ schema.statics.LOCALIZERS = {
     res.locals.majigId = input;
   },
   markdown: function(req, res, input, required) {
-    if(required && !input) {
+    if(required && input === undefined) {
       throw new Error.code(6009);
-    } else if(!input) { return; }
+    } else if(input === undefined) { return; }
     res.locals.markdown = input;
   },
   password: function(req, res, input, required) {
@@ -101,6 +101,12 @@ schema.statics.LOCALIZERS = {
       throw new Error.code(6012)
     }
     res.locals.path = input;
+  },
+  tags: function(req, res, input, required) {
+    if(required && input === undefined) {
+      throw new Error.code(6018);
+    } else if(input === undefined) { return; }
+    res.locals.tags = input;
   },
   token: function(req, res, input, required) {
     if(required && !input) {

@@ -20,7 +20,6 @@
         <span>{{viewed.created | datetime}}</span>
       </div></li>
     </ul>
-    <h2>Publish Majig</h2>
     <form @submit.prevent="publish"
       v-if="!viewed.published">
       <input type="submit"
@@ -32,6 +31,16 @@
       <input type="submit"
         :disabled="!viewed.id"
         value="UnPublish" />
+    </form>
+    <h2>Tag Majig</h2>
+    <form @submit.prevent="retag">
+      <InputText
+        v-model="viewed.tags"
+        placeholder="tags"
+      />
+      <input type="submit"
+        :disabled="!viewed.id"
+        value="ReTag" />
     </form>
     <h2>Remove Majig</h2>
     <form @submit.prevent="remove">

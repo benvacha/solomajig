@@ -56,10 +56,12 @@ app.post('/', function(req, res) {
     token: res.locals.token,
   }, {
     path: req.body.path,
+    tags: req.body.tags,
     markdown: req.body.markdown,
   }).then(function(locals) {
     return Majig({
       path: res.locals.path,
+      tags: res.locals.tags,
       markdown: res.locals.markdown,
     }).save({
     }).then(function(majig) {
@@ -87,6 +89,7 @@ app.put('/', function(req, res) {
     token: res.locals.token,
   }, {
     path: req.body.path,
+    tags: req.body.tags,
     markdown: req.body.markdown,
   }).then(function(locals) {
     return Majig.findOne({
@@ -96,7 +99,12 @@ app.put('/', function(req, res) {
     });
   }).then(function(majig) {
     if(!majig) return majig;
-    majig.markdown = res.locals.markdown;
+    if(res.locals.tags !== undefined) {
+      majig.tags = res.locals.tags;
+    }
+    if(res.locals.markdown  !== undefined) {
+      majig.markdown = res.locals.markdown;
+    }
     return majig.save({
     }).catch(function(errs) {
       throw new Error.parsed(errs);
@@ -105,6 +113,7 @@ app.put('/', function(req, res) {
     if(majig) return majig;
     return Majig({
       path: res.locals.path,
+      tags: res.locals.tags,
       markdown: res.locals.markdown,
     }).save({
     }).then(function(majig) {
@@ -130,6 +139,8 @@ app.put('/:majigId', function(req, res) {
     token: res.locals.token,
     majigId: req.params.majigId,
   }, {
+    path: req.body.path,
+    tags: req.body.tags,
     markdown: req.body.markdown,
   }).then(function(locals) {
     return Majig.findOne({
@@ -139,7 +150,15 @@ app.put('/:majigId', function(req, res) {
     });
   }).then(function(majig) {
     if(!majig) throw new Error.code(6013);
-    majig.markdown = res.locals.markdown;
+    if(res.locals.path !== undefined) {
+      majig.path = res.locals.path;
+    }
+    if(res.locals.tags !== undefined) {
+      majig.tags = res.locals.tags;
+    }
+    if(res.locals.markdown !== undefined) {
+      majig.markdown = res.locals.markdown;
+    }
     return majig.save({
     }).catch(function(errs) {
       throw new Error.parsed(errs);

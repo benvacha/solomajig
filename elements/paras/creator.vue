@@ -8,13 +8,16 @@
     <h1>New Majig</h1>
     <form @submit.prevent="add"
       class="editor">
-      <input type="submit"
-        value="Create" />
-      <h2>Path</h2>
       <InputText
         v-model="path"
         placeholder="/path"
       />
+      <InputText
+        v-model="tags"
+        placeholder="tags"
+      />
+      <input type="submit"
+        value="Create" />
     </form>
     <h2>Markdown</h2>
     <form @submit.prevent="add"
@@ -45,6 +48,7 @@ export default {
   data () {
     return {
       path: '',
+      tags: '',
       markdown: '',
     };
   },
@@ -53,11 +57,11 @@ export default {
       this.$emit('notify', 'creating');
       this.$store.dispatch('majig/add', {
         path: this.path,
+        tags: this.tags,
         markdown: this.markdown,
       }).then((majig) => {
         this.$emit('open', false);
-        if(majig.path
-        && majig.path != this.$route.path) {
+        if(majig.path) {
           this.$router.push({
             path: majig.path
           }).catch(() => {});
