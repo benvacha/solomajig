@@ -42,6 +42,7 @@
         :disabled="!viewed.id"
         value="ReTag" />
     </form>
+    <h6></h6>
     <h2>Remove Majig</h2>
     <form @submit.prevent="remove">
       <input type="submit"
@@ -83,9 +84,26 @@ export default {
   computed: {
   },
   methods: {
+    retag () {
+      this.$emit('notify',
+        'tagging');
+      return this.$store.dispatch(
+        'majigs/update', {
+        majigId: this.viewed.id,
+        tags: this.viewed.tags,
+      }).then((majig) => {
+        // this.$emit('notify', '');
+        this.$emit('open', false);
+      }).catch((errors) => {
+        this.$emit('notify',
+          errors[0].title);
+      });
+    },
     publish () {
-      this.$emit('notify', 'publishing');
-      this.$store.dispatch('majigs/publish', {
+      this.$emit('notify',
+        'publishing');
+      this.$store.dispatch(
+        'majigs/publish', {
         majigId: this.viewed.id,
       }).then((majig) => {
         // this.$emit('notify', '');
@@ -96,8 +114,10 @@ export default {
       });
     },
     unpublish () {
-      this.$emit('notify', 'unpublishing');
-      this.$store.dispatch('majigs/unpublish', {
+      this.$emit('notify',
+        'unpublishing');
+      this.$store.dispatch(
+        'majigs/unpublish', {
         majigId: this.viewed.id,
       }).then((majig) => {
         // this.$emit('notify', '');
@@ -108,8 +128,10 @@ export default {
       });
     },
     remove () {
-      this.$emit('notify', 'removing');
-      this.$store.dispatch('majigs/remove', {
+      this.$emit('notify',
+        'removing');
+      this.$store.dispatch(
+        'majigs/remove', {
         majigId: this.viewed.id,
       }).then((majig) => {
         this.$emit('open', false);

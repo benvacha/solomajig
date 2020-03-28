@@ -71,6 +71,7 @@ const actions = {
   },
   async add ({commit, state}, inputs) {
     return Axios.post('/apis/majigs', {
+      tags: inputs.tags,
       markdown: inputs.markdown,
       keyword: state.keyword,
       filter: state.filter,
@@ -90,6 +91,7 @@ const actions = {
   async update ({commit, state}, inputs) {
     return Axios.put('/apis/majigs/'
       + inputs.majigId, {
+      tags: inputs.tags,
       markdown: inputs.markdown,
       keyword: state.keyword,
       filter: state.filter,

@@ -57,11 +57,13 @@ app.post('/', function(req, res) {
   Index.localize(req, res, {
     token: res.locals.token,
   }, {
+    tags: req.body.tags,
     markdown: req.body.markdown,
     filter: req.body.filter,
     keyword: req.body.keyword,
   }).then(function(locals) {
     return Majig({
+      tags: res.locals.tags,
       markdown: res.locals.markdown,
     }).save({
     }).catch(function(errs) {
@@ -105,6 +107,7 @@ app.put('/:majigId', function(req, res) {
     token: res.locals.token,
     majigId: req.params.majigId,
   }, {
+    tags: req.body.tags,
     markdown: req.body.markdown,
     filter: req.body.filter,
     keyword: req.body.keyword,
@@ -116,7 +119,12 @@ app.put('/:majigId', function(req, res) {
     });
   }).then(function(majig) {
     if(!majig) throw new Error.code(6013);
-    majig.markdown = res.locals.markdown;
+    if(res.locals.tags !== undefined) {
+      majig.tags = res.locals.tags;
+    }
+    if(res.locals.markdown !== undefined) {
+      majig.markdown = res.locals.markdown;
+    }
     return majig.save({
     }).catch(function(errs) {
       throw new Error.parsed(errs);
