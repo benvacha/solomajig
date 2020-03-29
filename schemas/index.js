@@ -63,6 +63,12 @@ return new Promise(function(resolve, reject) {
 // req:{}, input:*
 /// falsy || throw Error
 schema.statics.LOCALIZERS = {
+  flags: function(req, res, input, required) {
+    if(required && !input) {
+      throw new Error.code(6020);
+    } else if(!input) { return; }
+    res.locals.flags = input;
+  },
   filter: function(req, res, input, required) {
     if(required && !input) {
       throw new Error.code(6016);

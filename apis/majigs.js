@@ -17,16 +17,24 @@ var app = Express();
 app.get('/', function(req, res) {
   Index.localize(req, res, {
   }, {
+    flags: req.query.flags,
     keyword: req.query.keyword,
     filter: req.query.filter,
   }).then(function(locals) {
-    var regex = new RegExp(
-      res.locals.keyword, "i");
-    var query = {
-      path: { $exists: false },
-    };
+    var query = {};
     if(res.locals.keyword) {
-      query.markdown = regex;
+      query.markdown = new RegExp(
+        res.locals.keyword, "i");
+    } else {
+      query.path = { $exists: false };
+    }
+    if(res.locals.flags) {
+      query.$or = [];
+      res.locals.flags.forEach(flag => {
+        query.$or.push({
+          tags: new RegExp(flag, "i")
+        });
+      });
     }
     if(!res.locals.token) {
       query.published = {
@@ -59,8 +67,9 @@ app.post('/', function(req, res) {
   }, {
     tags: req.body.tags,
     markdown: req.body.markdown,
-    filter: req.body.filter,
+    flags: req.body.flags,
     keyword: req.body.keyword,
+    filter: req.body.filter,
   }).then(function(locals) {
     return Majig({
       tags: res.locals.tags,
@@ -72,13 +81,20 @@ app.post('/', function(req, res) {
   }).then(function(majig) {
     if(!majig) throw new Error.code(5000);
     res.locals.majig = majig;
-    var regex = new RegExp(
-      res.locals.keyword, "i");
-    var query = {
-      path: { $exists: false },
-    };
+    var query = {};
     if(res.locals.keyword) {
-      query.markdown = regex;
+      query.markdown = new RegExp(
+        res.locals.keyword, "i");
+    } else {
+      query.path = { $exists: false };
+    }
+    if(res.locals.flags) {
+      query.$or = [];
+      res.locals.flags.forEach(flag => {
+        query.$or.push({
+          tags: new RegExp(flag, "i")
+        });
+      });
     }
     return Majig.find(
       query
@@ -109,8 +125,9 @@ app.put('/:majigId', function(req, res) {
   }, {
     tags: req.body.tags,
     markdown: req.body.markdown,
-    filter: req.body.filter,
+    flags: req.body.flags,
     keyword: req.body.keyword,
+    filter: req.body.filter,
   }).then(function(locals) {
     return Majig.findOne({
       _id: res.locals.majigId,
@@ -131,13 +148,20 @@ app.put('/:majigId', function(req, res) {
     });
   }).then(function(majig) {
     if(!majig) throw new Error.code(5000);
-    var regex = new RegExp(
-      res.locals.keyword, "i");
-    var query = {
-      path: { $exists: false },
-    };
+    var query = {};
     if(res.locals.keyword) {
-      query.markdown = regex;
+      query.markdown = new RegExp(
+        res.locals.keyword, "i");
+    } else {
+      query.path = { $exists: false };
+    }
+    if(res.locals.flags) {
+      query.$or = [];
+      res.locals.flags.forEach(flag => {
+        query.$or.push({
+          tags: new RegExp(flag, "i")
+        });
+      });
     }
     return Majig.find(
       query
@@ -161,8 +185,9 @@ app.put('/:majigId/published', function(req, res) {
     token: res.locals.token,
     majigId: req.params.majigId,
   }, {
-    filter: req.body.filter,
+    flags: req.body.flags,
     keyword: req.body.keyword,
+    filter: req.body.filter,
   }).then(function(locals) {
     return Majig.findOne({
       _id: res.locals.majigId,
@@ -178,13 +203,20 @@ app.put('/:majigId/published', function(req, res) {
     });
   }).then(function(majig) {
     if(!majig) throw new Error.code(5000);
-    var regex = new RegExp(
-      res.locals.keyword, "i");
-    var query = {
-      path: { $exists: false },
-    };
+    var query = {};
     if(res.locals.keyword) {
-      query.markdown = regex;
+      query.markdown = new RegExp(
+        res.locals.keyword, "i");
+    } else {
+      query.path = { $exists: false };
+    }
+    if(res.locals.flags) {
+      query.$or = [];
+      res.locals.flags.forEach(flag => {
+        query.$or.push({
+          tags: new RegExp(flag, "i")
+        });
+      });
     }
     return Majig.find(
       query
@@ -208,8 +240,9 @@ app.put('/:majigId/unpublished', function(req, res) {
     token: res.locals.token,
     majigId: req.params.majigId,
   }, {
-    filter: req.body.filter,
+    flags: req.body.flags,
     keyword: req.body.keyword,
+    filter: req.body.filter,
   }).then(function(locals) {
     return Majig.findOne({
       _id: res.locals.majigId,
@@ -225,13 +258,20 @@ app.put('/:majigId/unpublished', function(req, res) {
     });
   }).then(function(majig) {
     if(!majig) throw new Error.code(5000);
-    var regex = new RegExp(
-      res.locals.keyword, "i");
-    var query = {
-      path: { $exists: false },
-    };
+    var query = {};
     if(res.locals.keyword) {
-      query.markdown = regex;
+      query.markdown = new RegExp(
+        res.locals.keyword, "i");
+    } else {
+      query.path = { $exists: false };
+    }
+    if(res.locals.flags) {
+      query.$or = [];
+      res.locals.flags.forEach(flag => {
+        query.$or.push({
+          tags: new RegExp(flag, "i")
+        });
+      });
     }
     return Majig.find(
       query
@@ -258,8 +298,9 @@ app.delete('/:majigId', function(req, res) {
     token: res.locals.token,
     majigId: req.params.majigId,
   }, {
-    filter: req.query.filter,
+    flags: req.query.flags,
     keyword: req.query.keyword,
+    filter: req.query.filter,
   }).then(function(locals) {
     return Majig.findOne({
       _id: res.locals.majigId,
@@ -274,13 +315,20 @@ app.delete('/:majigId', function(req, res) {
     });
   }).then(function(majig) {
     if(!majig) throw new Error.code(5000);
-    var regex = new RegExp(
-      res.locals.keyword, "i");
-    var query = {
-      path: { $exists: false },
-    };
+    var query = {};
     if(res.locals.keyword) {
-      query.markdown = regex;
+      query.markdown = new RegExp(
+        res.locals.keyword, "i");
+    } else {
+      query.path = { $exists: false };
+    }
+    if(res.locals.flags) {
+      query.$or = [];
+      res.locals.flags.forEach(flag => {
+        query.$or.push({
+          tags: new RegExp(flag, "i")
+        });
+      });
     }
     return Majig.find(
       query

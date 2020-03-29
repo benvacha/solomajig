@@ -5,7 +5,7 @@ import Axios from 'axios';
 const state = {
   all: [],
   filter: '-updated',
-  keyword: undefined,
+  flags: undefined,
 };
 
 const getters = {};
@@ -18,8 +18,8 @@ const mutations = {
     state.filter = data.filter
       || '-updated';
   },
-  keyword (state, data) {
-    state.keyword = data.keyword
+  flags (state, data) {
+    state.flags = data.flags
       || undefined;
   },
   clear (state, data) {
@@ -31,7 +31,7 @@ const actions = {
   async load ({commit, state}, inputs) {
     return Axios.get('/apis/majigs', {
       params: {
-        keyword: inputs.keyword,
+        flags: inputs.flags,
         filter: inputs.filter,
       },
     }).then((response) => {
@@ -41,8 +41,8 @@ const actions = {
       commit('filter', {
         filter: inputs.filter,
       });
-      commit('keyword', {
-        keyword: inputs.keyword,
+      commit('flags', {
+        flags: inputs.flags,
       });
       return response.data.data;
     }).catch((error) => {
@@ -57,7 +57,6 @@ const actions = {
     return Axios.get('/apis/majigs', {
       params: {
         keyword: inputs.keyword,
-        filter: inputs.filter,
       },
     }).then((response) => {
       return response.data.data;
@@ -73,7 +72,7 @@ const actions = {
     return Axios.post('/apis/majigs', {
       tags: inputs.tags,
       markdown: inputs.markdown,
-      keyword: state.keyword,
+      flags: state.flags,
       filter: state.filter,
     }).then((response) => {
       commit('set', {
@@ -93,7 +92,7 @@ const actions = {
       + inputs.majigId, {
       tags: inputs.tags,
       markdown: inputs.markdown,
-      keyword: state.keyword,
+      flags: state.flags,
       filter: state.filter,
     }).then((response) => {
       commit('set', {
@@ -111,7 +110,7 @@ const actions = {
   async publish ({commit}, inputs) {
     return Axios.put('/apis/majigs/'
       + inputs.majigId + '/published', {
-      keyword: state.keyword,
+      flags: state.flags,
       filter: state.filter,
     }).then((response) => {
       commit('set', {
@@ -129,7 +128,7 @@ const actions = {
   async unpublish ({commit}, inputs) {
     return Axios.put('/apis/majigs/'
       + inputs.majigId + '/unpublished', {
-      keyword: state.keyword,
+      flags: state.flags,
       filter: state.filter,
     }).then((response) => {
       commit('set', {
@@ -148,7 +147,7 @@ const actions = {
     return Axios.delete('/apis/majigs/'
       + inputs.majigId, {
       params: {
-        keyword: state.keyword,
+        flags: state.flags,
         filter: state.filter,
       },
     }).then((response) => {

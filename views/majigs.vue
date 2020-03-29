@@ -93,8 +93,8 @@ export default {
     },
   },
   props: {
-    keyword: {
-      type: String,
+    flags: {
+      type: Array,
       required: false,
     }
   },
@@ -168,7 +168,7 @@ export default {
       if(this.filter == filter) {
         this.$store.dispatch('majigs/load', {
           filter: '-' + filter,
-          keyword: this.keyword,
+          flags: this.flags,
         }).then(() => {
           this.status = '';
         }).catch((errors) => {
@@ -177,7 +177,7 @@ export default {
       } else {
         this.$store.dispatch('majigs/load', {
           filter: filter,
-          keyword: this.keyword,
+          flags: this.flags,
         }).then(() => {
           this.status = '';
         }).catch((errors) => {
@@ -197,7 +197,7 @@ export default {
       this.status = 'loading';
       this.$store.dispatch('majigs/load', {
         filter: this.filter,
-        keyword: this.keyword,
+        flags: this.flags,
       }).then(() => {
         this.status = '';
       }).catch((errors) => {

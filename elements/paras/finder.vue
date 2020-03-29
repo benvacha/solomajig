@@ -33,7 +33,7 @@
       <li v-for="majig in majigs">
         <a @click="gotoMajig(majig)">
           <span>
-            {{majig.markdown | previewed(keyword)}}
+            {{majig.markdown | previewed(searched)}}
           </span>
           <h5>{{majig.path}}</h5>
         </a>
@@ -68,6 +68,7 @@ export default {
     return {
       path: '',
       keyword: '',
+      searched: '',
       majigs: [],
     };
   },
@@ -85,14 +86,14 @@ export default {
       if(majig.path) {
         this.$router.push({
           path: majig.path
-        });
+        }).catch(() => {});
       } else {
         this.$router.push({
           name: 'supmajig',
           params: {
             majigId: majig.id
           }
-        });
+        }).catch(() => {});
       }
       this.$emit('open', false);
     },
@@ -107,6 +108,7 @@ export default {
         keyword: this.keyword,
       }).then((majigs) => {
         this.$emit('notify', '');
+        this.searched = this.keyword;
         this.majigs = majigs;
       }).catch((errors) => {
         this.status = errors[0].title;

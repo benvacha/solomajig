@@ -17,11 +17,14 @@ export default new VueRouter({
       component: Majigs,
     },
     {
-      path: '//:keyword',
+      path: '//:flags*',
       name: 'submajig',
       component: Majigs,
       props: (route) => ({
-        keyword: route.params.keyword
+        flags: route.params.flags
+          .split('/').filter(flag => {
+            return Boolean(flag);
+          }),
       }),
     },
     {
