@@ -203,7 +203,7 @@ export default {
           this.mode = 'show';
           break;
         case 'save':
-          this.updateMajig(
+          this.saveMajig(
           ).then(() => {
             this.mode = 'show';
           });
@@ -234,11 +234,10 @@ export default {
         }
       });
     },
-    updateMajig () {
-      this.status = 'updating';
+    addMajig () {
+      this.status = 'adding';
       return this.$store.dispatch(
-        'majig/update', {
-        majigId: this.majig.id,
+        'majig/add', {
         path: this.$route.path,
         markdown: this.markdown,
       }).then((majig) => {
@@ -246,6 +245,26 @@ export default {
       }).catch((errors) => {
         this.status = errors[0].title;
       });
+    },
+    updateMajig () {
+      this.status = 'updating';
+      return this.$store.dispatch(
+        'majig/update', {
+        majigId: this.majig.id,
+        markdown: this.markdown,
+      }).then((majig) => {
+        this.status = '';
+      }).catch((errors) => {
+        this.status = errors[0].title;
+      });
+    },
+    saveMajig () {
+      this.status = 'saving';
+      if(this.majig.id) {
+        return this.updateMajig();
+      } else {
+        return this.addMajig();
+      }
     },
   },
 };

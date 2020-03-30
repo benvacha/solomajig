@@ -60,9 +60,8 @@ const actions = {
     });
   },
   async update ({commit}, inputs) {
-    return Axios.put(inputs.majigId
-      ? '/apis/majig/' + inputs.majigId
-      : '/apis/majig', {
+    return Axios.put('/apis/majig/'
+      + inputs.majigId, {
       path: inputs.path,
       tags: inputs.tags,
       markdown: inputs.markdown,

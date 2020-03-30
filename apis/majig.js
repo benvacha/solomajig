@@ -82,56 +82,6 @@ app.post('/', function(req, res) {
 /*
 /* PUT */
 
-// path, markdown:'',
-/// { majig:Majig } || { Error }
-app.put('/', function(req, res) {
-  Index.localize(req, res, {
-    token: res.locals.token,
-  }, {
-    path: req.body.path,
-    tags: req.body.tags,
-    markdown: req.body.markdown,
-  }).then(function(locals) {
-    return Majig.findOne({
-      path: res.locals.path
-    }).catch(function(err) {
-      throw new Error.code(5000);
-    });
-  }).then(function(majig) {
-    if(!majig) return majig;
-    if(res.locals.tags !== undefined) {
-      majig.tags = res.locals.tags;
-    }
-    if(res.locals.markdown  !== undefined) {
-      majig.markdown = res.locals.markdown;
-    }
-    return majig.save({
-    }).catch(function(errs) {
-      throw new Error.parsed(errs);
-    });
-  }).then(function(majig) {
-    if(majig) return majig;
-    return Majig({
-      path: res.locals.path,
-      tags: res.locals.tags,
-      markdown: res.locals.markdown,
-    }).save({
-    }).then(function(majig) {
-      res.locals.majig = majig;
-      return majig;
-    }).catch(function(errs) {
-      throw new Error.parsed(errs);
-    });
-  }).then(function(majig) {
-    if(!majig) throw new Error.code(5000);
-    Index.respond(req, res, majig);
-  }).catch(function(err) {
-    if(res.locals.majig) {
-      res.locals.majig.remove(); }
-    Index.respond(req, res, null, err);
-  });
-});
-
 // majigId:ObjectId, markdown:'',
 /// { majig:Majig } || { Error }
 app.put('/:majigId', function(req, res) {
