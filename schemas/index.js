@@ -108,6 +108,20 @@ schema.statics.LOCALIZERS = {
     }
     res.locals.path = input;
   },
+  published: function(req, res, input, required) {
+    if(required && !input) {
+      throw new Error.code(6022);
+    } else if(input === false) {
+      return res.locals.published = false;
+    } else if(input === true) {
+      return res.locals.published = Date.now();
+    } else if(!input) { return; }
+    const published = Date.parse(input);
+    if(isNaN(published)) {
+      throw new Error.code(6023);
+    }
+    res.locals.published = published;
+  },
   tags: function(req, res, input, required) {
     if(required && input === undefined) {
       throw new Error.code(6018);

@@ -92,6 +92,7 @@ app.put('/:majigId', function(req, res) {
     path: req.body.path,
     tags: req.body.tags,
     markdown: req.body.markdown,
+    published: req.body.published,
   }).then(function(locals) {
     return Majig.findOne({
       _id: res.locals.majigId
@@ -109,64 +110,11 @@ app.put('/:majigId', function(req, res) {
     if(res.locals.markdown !== undefined) {
       majig.markdown = res.locals.markdown;
     }
-    return majig.save({
-    }).catch(function(errs) {
-      throw new Error.parsed(errs);
-    });
-  }).then(function(majig) {
-    if(!majig) throw new Error.code(5000);
-    Index.respond(req, res, majig);
-  }).catch(function(err) {
-    Index.respond(req, res, null, err);
-  });
-});
-
-// majigId:ObjectId,
-/// { majig:Majig } || { Error }
-app.put('/:majigId/published',
-function(req, res) {
-  Index.localize(req, res, {
-    token: res.locals.token,
-    majigId: req.params.majigId,
-  }, {
-  }).then(function(locals) {
-    return Majig.findOne({
-      _id: res.locals.majigId
-    }).catch(function(err) {
-      throw new Error.code(5000);
-    });
-  }).then(function(majig) {
-    if(!majig) throw new Error.code(6013);
-    majig.published = Date.now();
-    return majig.save({
-    }).catch(function(errs) {
-      throw new Error.parsed(errs);
-    });
-  }).then(function(majig) {
-    if(!majig) throw new Error.code(5000);
-    Index.respond(req, res, majig);
-  }).catch(function(err) {
-    Index.respond(req, res, null, err);
-  });
-});
-
-// majigId:ObjectId,
-/// { majig:Majig } || { Error }
-app.put('/:majigId/unpublished',
-function(req, res) {
-  Index.localize(req, res, {
-    token: res.locals.token,
-    majigId: req.params.majigId,
-  }, {
-  }).then(function(locals) {
-    return Majig.findOne({
-      _id: res.locals.majigId
-    }).catch(function(err) {
-      throw new Error.code(5000);
-    });
-  }).then(function(majig) {
-    if(!majig) throw new Error.code(6013);
-    majig.published = undefined;
+    if(res.locals.published === false) {
+      majig.published = undefined;
+    } else if(res.locals.published !== undefined) {
+      majig.published = res.locals.published;
+    }
     return majig.save({
     }).catch(function(errs) {
       throw new Error.parsed(errs);

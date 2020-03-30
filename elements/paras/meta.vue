@@ -85,7 +85,8 @@ export default {
   },
   methods: {
     retag () {
-      this.$emit('notify', 'tagging');
+      this.$emit('notify',
+        'tagging');
       return this.$store.dispatch(
         'majig/update', {
         majigId: this.viewed.id,
@@ -98,9 +99,12 @@ export default {
       });
     },
     publish () {
-      this.$emit('notify', 'publishing');
-      this.$store.dispatch('majig/publish', {
+      this.$emit('notify',
+        'publishing');
+      this.$store.dispatch(
+        'majig/update', {
         majigId: this.viewed.id,
+        published: new Date(),
       }).then((majig) => {
         this.$emit('notify', '');
         // this.$emit('open', false);
@@ -110,9 +114,12 @@ export default {
       });
     },
     unpublish () {
-      this.$emit('notify', 'unpublishing');
-      this.$store.dispatch('majig/unpublish', {
+      this.$emit('notify',
+        'unpublishing');
+      this.$store.dispatch(
+        'majig/update', {
         majigId: this.viewed.id,
+        published: false,
       }).then((majig) => {
         this.$emit('notify', '');
         // this.$emit('open', false);
@@ -122,8 +129,10 @@ export default {
       });
     },
     remove () {
-      this.$emit('notify', 'removing');
-      this.$store.dispatch('majig/remove', {
+      this.$emit('notify',
+        'removing');
+      this.$store.dispatch(
+        'majig/remove', {
         majigId: this.viewed.id,
       }).then((majig) => {
         this.$emit('open', false);
