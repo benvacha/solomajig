@@ -117,6 +117,20 @@ import Configer
   from 'elements/paras/configer.vue';
 import InputText
   from 'elements/inputs/text.vue';
+//
+const Renderer = new Marked.Renderer();
+const Renderers = {
+  link: Renderer.link.bind(Renderer),
+};
+Renderer.link = (href, title, text) => {
+  if(href[0] === '/') {
+    href = '#' + href;
+  } else if(href[0] !== '#') {
+    href = '#/' + href;
+  }
+  return Renderers.link(href, title, text);
+};
+//
 export default {
   components: {
     InputText,
@@ -170,7 +184,8 @@ export default {
     },
     markeddown () {
       return Marked(this.markdown
-        || 'Majig Not Found');
+        || '404 Not Found',
+        { renderer: Renderer });
     },
   },
   methods: {

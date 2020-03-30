@@ -35,7 +35,7 @@
     </div>
     <div class="bodyer thin stack"
       v-if="!majigs.length">
-      <p>Majigs Not Found</p>
+      <p>404 Not Found</p>
     </div>
     <div class="bodyer thin stack"
       v-for="majig in majigs"
@@ -82,6 +82,20 @@ import Editor
   from 'elements/paras/editor.vue';
 import Configer
   from 'elements/paras/configer.vue';
+//
+const Renderer = new Marked.Renderer();
+const Renderers = {
+  link: Renderer.link.bind(Renderer),
+};
+Renderer.link = (href, title, text) => {
+  if(href[0] === '/') {
+    href = '#' + href;
+  } else if(href[0] !== '#') {
+    href = '#/' + href;
+  }
+  return Renderers.link(href, title, text);
+};
+//
 export default {
   components: {
     ParabodyRight,
@@ -131,7 +145,9 @@ export default {
   },
   methods: {
     marked (markdown) {
-      return Marked(markdown);
+      return Marked(markdown
+        || '404 Not Found',
+        { renderer: Renderer });
     },
     goto (path) {
       this.open(false);
