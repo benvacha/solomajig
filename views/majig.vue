@@ -40,7 +40,7 @@
           <a @click="toMode('save')">
             Save</a> &bull;
         </template>
-        <a @click="open('meta', majig)">
+        <a @click="open('configer', majig)">
           Meta</a>
       </div>
       <div class="cntrer togler01">
@@ -68,7 +68,7 @@
           <a @click="toMode('save')">
             Save</a> &bull;
         </template>
-        <a @click="open('meta', majig)">
+        <a @click="open('configer', majig)">
           Meta</a>
       </div>
     </div>
@@ -113,8 +113,8 @@
 import Marked from 'marked';
 import ParabodyRight
   from 'elements/paras/right.vue';
-import Meta
-  from 'elements/paras/meta.vue';
+import Configer
+  from 'elements/paras/configer.vue';
 import InputText
   from 'elements/inputs/text.vue';
 export default {
@@ -141,7 +141,7 @@ export default {
       status: '',
       markdown: '',
       views: {
-        meta: Meta,
+        configer: Configer,
       },
       view: '',
       viewed: null,

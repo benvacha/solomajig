@@ -7,6 +7,7 @@
     :views="views"
     :view="view"
     :viewed="viewed"
+    :stacked="true"
     @open="open"
     @goto="goto" />
 
@@ -51,7 +52,7 @@
             <a @click="open('editor', majig)">
               edit
             </a> &bull;
-            <a @click="open('metas', majig)">
+            <a @click="open('configer', majig)">
               meta
             </a> &bull;
           </template>
@@ -79,8 +80,8 @@ import ParabodyRight
   from 'elements/paras/right.vue';
 import Editor
   from 'elements/paras/editor.vue';
-import Metas
-  from 'elements/paras/metas.vue';
+import Configer
+  from 'elements/paras/configer.vue';
 export default {
   components: {
     ParabodyRight,
@@ -103,7 +104,7 @@ export default {
       status: '',
       views: {
         editor: Editor,
-        metas: Metas,
+        configer: Configer,
       },
       view: '',
       viewed: null,

@@ -21,6 +21,7 @@
   <component
     :is="views[view]"
     :viewed="viewed"
+    :stacked="stacked"
     @goto="goto"
     @open="open"
     @notify="notify" />
@@ -47,6 +48,10 @@ export default {
       type: Object,
       default: null,
     },
+    stacked: {
+      type: Boolean,
+      default: false,
+    }
   },
   watch: {
     view (newView, oldView) {

@@ -72,6 +72,10 @@ export default {
     },
   },
   props: {
+    stacked: {
+      type: Boolean,
+      default: false,
+    },
     viewed: {
       type: Object,
       required: true,
@@ -88,11 +92,17 @@ export default {
       this.$emit('notify',
         'tagging');
       return this.$store.dispatch(
-        'majig/update', {
+        this.stacked
+          ? 'majigs/update'
+          : 'majig/update', {
         majigId: this.viewed.id,
         tags: this.viewed.tags,
       }).then((majig) => {
-        this.$emit('notify', '');
+        if(this.stacked) {
+          this.$emit('open', false);
+        } else {
+          this.$emit('notify', '');
+        }
       }).catch((errors) => {
         this.$emit('notify',
           errors[0].title);
@@ -102,12 +112,17 @@ export default {
       this.$emit('notify',
         'publishing');
       this.$store.dispatch(
-        'majig/update', {
+        this.stacked
+          ? 'majigs/update'
+          : 'majig/update', {
         majigId: this.viewed.id,
         published: new Date(),
       }).then((majig) => {
-        this.$emit('notify', '');
-        // this.$emit('open', false);
+        if(this.stacked) {
+          this.$emit('open', false);
+        } else {
+          this.$emit('notify', '');
+        }
       }).catch((errors) => {
         this.$emit('notify',
           errors[0].title);
@@ -117,12 +132,17 @@ export default {
       this.$emit('notify',
         'unpublishing');
       this.$store.dispatch(
-        'majig/update', {
+        this.stacked
+          ? 'majigs/update'
+          : 'majig/update', {
         majigId: this.viewed.id,
         published: false,
       }).then((majig) => {
-        this.$emit('notify', '');
-        // this.$emit('open', false);
+        if(this.stacked) {
+          this.$emit('open', false);
+        } else {
+          this.$emit('notify', '');
+        }
       }).catch((errors) => {
         this.$emit('notify',
           errors[0].title);
@@ -132,7 +152,9 @@ export default {
       this.$emit('notify',
         'removing');
       this.$store.dispatch(
-        'majig/remove', {
+        this.stacked
+          ? 'majigs/remove'
+          : 'majig/remove', {
         majigId: this.viewed.id,
       }).then((majig) => {
         this.$emit('open', false);
