@@ -943,6 +943,7 @@ a.descend:hover {
     height:auto;
     padding:0px;
     list-style:none;
+    border-top:none;
 }
 .bodyer.para ul li > a,
 .bodyer.para ul li > div {

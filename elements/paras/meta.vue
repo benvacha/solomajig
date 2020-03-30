@@ -144,9 +144,3 @@ export default {
   },
 };
 </script>
-
-<style>
-  .bodyer.para ul li {
-    border-top:none;
-  }
-</style>

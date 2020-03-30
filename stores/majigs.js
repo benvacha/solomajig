@@ -92,42 +92,7 @@ const actions = {
       + inputs.majigId, {
       tags: inputs.tags,
       markdown: inputs.markdown,
-      flags: state.flags,
-      filter: state.filter,
-    }).then((response) => {
-      commit('set', {
-        majigs: response.data.data
-      });
-      return response.data.data;
-    }).catch((error) => {
-      if(error.response) {
-        throw error.response.data.errors;
-      } else {
-        throw [{title:'client error'}];
-      }
-    });
-  },
-  async publish ({commit}, inputs) {
-    return Axios.put('/apis/majigs/'
-      + inputs.majigId + '/published', {
-      flags: state.flags,
-      filter: state.filter,
-    }).then((response) => {
-      commit('set', {
-        majigs: response.data.data
-      });
-      return response.data.data;
-    }).catch((error) => {
-      if(error.response) {
-        throw error.response.data.errors;
-      } else {
-        throw [{title:'client error'}];
-      }
-    });
-  },
-  async unpublish ({commit}, inputs) {
-    return Axios.put('/apis/majigs/'
-      + inputs.majigId + '/unpublished', {
+      published: inputs.published,
       flags: state.flags,
       filter: state.filter,
     }).then((response) => {

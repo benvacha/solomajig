@@ -103,8 +103,9 @@ export default {
       this.$emit('notify',
         'publishing');
       this.$store.dispatch(
-        'majigs/publish', {
+        'majigs/update', {
         majigId: this.viewed.id,
+        published: new Date(),
       }).then((majig) => {
         // this.$emit('notify', '');
         this.$emit('open', false);
@@ -117,8 +118,9 @@ export default {
       this.$emit('notify',
         'unpublishing');
       this.$store.dispatch(
-        'majigs/unpublish', {
+        'majigs/update', {
         majigId: this.viewed.id,
+        published: false,
       }).then((majig) => {
         // this.$emit('notify', '');
         this.$emit('open', false);
