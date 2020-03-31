@@ -102,6 +102,8 @@ schema.statics.LOCALIZERS = {
   path: function(req, res, input, required) {
     if(required && !input) {
       throw new Error.code(6011);
+    } else if(input === false) {
+      return res.locals.path = false;
     } else if(!input) { return; }
     if(!/^\/.*[^\/]$/.test(input)) {
       throw new Error.code(6012)

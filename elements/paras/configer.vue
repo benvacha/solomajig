@@ -43,6 +43,16 @@
         value="ReTag" />
     </form>
     <h6></h6>
+    <h2>Move Majig</h2>
+    <form @submit.prevent="move">
+      <InputText
+        v-model="viewed.path"
+        placeholder="/path"
+      />
+      <input type="submit"
+        :disabled="!viewed.id"
+        value="Move" />
+    </form>
     <h2>Remove Majig</h2>
     <form @submit.prevent="remove">
       <input type="submit"
@@ -88,6 +98,24 @@ export default {
   computed: {
   },
   methods: {
+    move () {
+      this.$emit('notify',
+        'moving');
+      return this.$store.dispatch(
+        'majig/update', {
+        majigId: this.viewed.id,
+        path: this.viewed.path
+          || false,
+      }).then((majig) => {
+        this.$emit('open', false);
+        this.$router.push(
+          majig.path || '/'
+        ).catch(err => {});
+      }).catch((errors) => {
+        this.$emit('notify',
+          errors[0].title);
+      });
+    },
     retag () {
       this.$emit('notify',
         'tagging');
@@ -97,7 +125,7 @@ export default {
           : 'majig/update', {
         majigId: this.viewed.id,
         tags: this.viewed.tags,
-      }).then((majig) => {
+      }).then(() => {
         if(this.stacked) {
           this.$emit('open', false);
         } else {
@@ -117,7 +145,7 @@ export default {
           : 'majig/update', {
         majigId: this.viewed.id,
         published: new Date(),
-      }).then((majig) => {
+      }).then(() => {
         if(this.stacked) {
           this.$emit('open', false);
         } else {
@@ -137,7 +165,7 @@ export default {
           : 'majig/update', {
         majigId: this.viewed.id,
         published: false,
-      }).then((majig) => {
+      }).then(() => {
         if(this.stacked) {
           this.$emit('open', false);
         } else {
@@ -156,7 +184,7 @@ export default {
           ? 'majigs/remove'
           : 'majig/remove', {
         majigId: this.viewed.id,
-      }).then((majig) => {
+      }).then(() => {
         this.$emit('open', false);
       }).catch((errors) => {
         this.$emit('notify',

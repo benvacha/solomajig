@@ -101,7 +101,9 @@ app.put('/:majigId', function(req, res) {
     });
   }).then(function(majig) {
     if(!majig) throw new Error.code(6013);
-    if(res.locals.path !== undefined) {
+    if(res.locals.path === false) {
+      majig.path = undefined;
+    } else if(res.locals.path !== undefined) {
       majig.path = res.locals.path;
     }
     if(res.locals.tags !== undefined) {
