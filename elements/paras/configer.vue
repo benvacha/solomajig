@@ -1,4 +1,4 @@
-<!-- Copyright (C) 2020 BenVacha/Solomajig -->
+<!-- Copyright (C) 2020 BenVacha/SoloMajig -->
 
 <template>
 <div class="body">
@@ -77,7 +77,7 @@ export default {
   filters: {
     datetime: (value) => {
       if(!value) return '000-00-00 00:00:00';
-      var when = new Date(value);
+      const when = new Date(value);
       return when.toLocaleString('sv-SE');
     },
   },

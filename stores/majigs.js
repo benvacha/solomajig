@@ -1,14 +1,22 @@
-/* Copyright (C) 2020 AbleChart LLC *//*
+/* Copyright (C) 2020 BenVacha/SoloMajig *//*
 /* /**/
 import Axios from 'axios';
 
+/*
+/* */
 const state = {
   all: [],
   filter: '-updated',
   flags: undefined,
 };
 
+/*
+/* */
+
 const getters = {};
+
+/*
+/* */
 
 const mutations = {
   set (state, data) {
@@ -26,6 +34,9 @@ const mutations = {
     state.all = [];
   }
 };
+
+/*
+/* */
 
 const actions = {
   async load ({commit, state}, inputs) {
@@ -133,6 +144,8 @@ const actions = {
   },
 };
 
+/*
+/* */
 export default {
   namespaced: true,
   state,

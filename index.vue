@@ -1,4 +1,4 @@
-<!-- Copyright (C) 2020 BenVacha/Solomajig -->
+<!-- Copyright (C) 2020 BenVacha/SoloMajig -->
 <!-- -->
 
 <template>
@@ -28,5 +28,5 @@ export default new Vue({
 <!-- -->
 
 <style>
-@import 'styles/uizzle.css';
+@import 'styles/index.css';
 </style>

@@ -1,4 +1,4 @@
-<!-- Copyright (C) 2020 BenVacha/Solomajig -->
+<!-- Copyright (C) 2020 BenVacha/SoloMajig -->
 
 <template>
 <div class="body">
@@ -75,14 +75,15 @@
 </template>
 
 <script>
-import Marked from 'marked';
+import Marked
+  from 'marked';
 import ParabodyRight
   from 'elements/paras/right.vue';
 import Editor
   from 'elements/paras/editor.vue';
 import Configer
   from 'elements/paras/configer.vue';
-//
+/* */
 const Renderer = new Marked.Renderer();
 const Renderers = {
   link: Renderer.link.bind(Renderer),
@@ -95,7 +96,7 @@ Renderer.link = (href, title, text) => {
   }
   return Renderers.link(href, title, text);
 };
-//
+/* */
 export default {
   components: {
     ParabodyRight,
@@ -103,7 +104,7 @@ export default {
   filters: {
     datetime: (value) => {
       if(!value) return '000-00-00 00:00:00';
-      var when = new Date(value);
+      const when = new Date(value);
       return when.toLocaleString('sv-SE');
     },
   },

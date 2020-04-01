@@ -1,36 +1,36 @@
-<!-- Copyright (C) 2020 BenVacha/Solomajig -->
+<!-- Copyright (C) 2020 BenVacha/SoloMajig -->
 
 <template>
 <div class="body">
 
 <div class="body">
-    <div class="prebody tiny togler10">
-      <component
-        :is="menu"
-        @goto="goto"
-        @open="open" />
-    </div>
-    <div class="postbody dark togler01">
-      <component
-        :is="menu"
-        @goto="goto"
-        @open="open" />
-    </div>
+  <div class="prebody tiny togler10">
+    <component
+      :is="menu"
+      @goto="goto"
+      @open="open" />
+  </div>
+  <div class="postbody dark togler01">
+    <component
+      :is="menu"
+      @goto="goto"
+      @open="open" />
+  </div>
+  <div class="body">
+  <div class="body">
+    <ParabodyLeft
+      :views="views"
+      :view="view"
+      :viewed="viewed"
+      @open="open"
+      @goto="goto" />
     <div class="body">
     <div class="body">
-      <ParabodyLeft
-        :views="views"
-        :view="view"
-        :viewed="viewed"
-        @open="open"
-        @goto="goto" />
-      <div class="body">
-      <div class="body">
-        <router-view />
-      </div>
-      </div>
+      <router-view />
     </div>
     </div>
+  </div>
+  </div>
 </div>
 
 </div>

@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 BenVacha/Solomajig *//*
+/* Copyright (C) 2020 BenVacha/SoloMajig *//*
 /* /**/
 import Vue from 'vue/dist/vue.js';
 import Vuex from 'vuex/dist/vuex.js';
