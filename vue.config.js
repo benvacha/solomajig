@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 BenVacha/Solomajig *//*
+/* Copyright (C) 2020 BenVacha/SoloMajig *//*
 /* /**/
 var path = require('path')
 var CopyWebpackPlugin = require('copy-webpack-plugin')

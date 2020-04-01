@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 BenVacha/Solomajig *//*
+/* Copyright (C) 2020 BenVacha/SoloMajig *//*
 
   Model.operation()
     .then(function(a) { return b; })
@@ -16,12 +16,12 @@
   throw new Error.parsed(err, 000);
 
 /* /**/
-var Promise = require('bluebird');
-var Mongoose = require('mongoose');
-var Schema = Mongoose.Schema;
-var ObjectId = Schema.Types.ObjectId;
+const Promise = require('bluebird');
+const Mongoose = require('mongoose');
+const Schema = Mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 /* */
-var schema = new Schema({
+const schema = new Schema({
 }, {
   collation: { locale:'en_US', strength:1 },
   toObject: { transform:function(doc, ret) {} },
@@ -32,7 +32,7 @@ var schema = new Schema({
 });
 
 /*
-/* CODES */
+/* */
 
 //
 ///
@@ -101,7 +101,7 @@ schema.statics.CODES = {
 };
 
 /*
-/* ERRORS */
+/* */
 
 // code:0000
 /// Error || throw Error
@@ -140,7 +140,7 @@ schema.statics.raw.prototype.constructor = schema.statics.raw;
 schema.statics.parsed = function(errs, status) {
   this.status = status || 400;
   if(!errs.errors) errs.errors = { error:errs };
-  for(var error in errs.errors) break;
+  for(let error in errs.errors) break;
   this.title = errs.errors[error].message || '400 Error';
   this.detail = errs.errors[error].message || '400 Error';
   this.name = "Parsed " + this.status + " Error";

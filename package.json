@@ -1,11 +1,11 @@
 {
-  "name": "Solomajig",
+  "name": "SoloMajig",
   "version": "0.1.0",
   "license": "MIT",
   "description": "Solo Wiki Journal Blog",
-  "homepage": "https://solowiki.com",
+  "homepage": "https://solomajig.com",
   "contributors": [
-    "Ben Vacha <ben@solowiki.com>"
+    "Benjamin Vacha <ben@solomajig.com>"
   ],
   "keywords": [],
   "main": "index.js",
@@ -17,10 +17,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/benvacha/solowiki.git"
+    "url": "https://github.com/benvacha/solomajig.git"
   },
   "bugs": {
-    "url": "https://github.com/benvacha/solowiki/issues"
+    "url": "https://github.com/benvacha/solomajig/issues"
   },
   "engines": {
     "node": "10.13.0",

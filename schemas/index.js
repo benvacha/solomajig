@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 BenVacha/Solomajig *//*
+/* Copyright (C) 2020 BenVacha/SoloMajig *//*
 
   Index.authorize(req, res, {
   }).then(token).catch(error);
@@ -14,14 +14,14 @@
   }).then(response).catch(error);
 
 /* /**/
-var Promise = require('bluebird');
-var Mongoose = require('mongoose');
-var Schema = Mongoose.Schema;
-var ObjectId = Schema.Types.ObjectId;
-var Error = __require('/models/error');
-var Token = __require('/models/token');
+const Promise = require('bluebird');
+const Mongoose = require('mongoose');
+const Schema = Mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
+const Error = __require('/models/error');
+const Token = __require('/models/token');
 /* */
-var schema = new Schema({
+const schema = new Schema({
 }, {
   collation: { locale:'en_US', strength:1 },
   toObject: { transform:function(doc, ret) {} },
@@ -32,14 +32,14 @@ var schema = new Schema({
 });
 
 /*
-/* AUTHORIZE */
+/* */
 
 // options:{ required }
 /// token || throw Error
 schema.statics.authorize =
 function(req, res, options) {
 return new Promise(function(resolve, reject) {
-  var xToken = req.headers['x-token']
+  const xToken = req.headers['x-token']
     || req.query['xtoken'];
   if(options.required && !xToken) {
     reject(new Error.code(6002));
@@ -58,7 +58,7 @@ return new Promise(function(resolve, reject) {
 };
 
 /*
-/* LOCALIZE */
+/* */
 
 // req:{}, input:*
 /// falsy || throw Error
@@ -151,15 +151,15 @@ schema.statics.LOCALIZERS = {
 schema.statics.localize =
 function(req, res, requireds, optionals) {
 return new Promise(function(resolve, reject) {
-  var localizers = schema.statics.LOCALIZERS;
-  for(var required in requireds) {
+  const localizers = schema.statics.LOCALIZERS;
+  for(let required in requireds) {
     if(!localizers[required]) {
       return reject(new Error.code(5000)); }
     try { localizers[required](
       req, res, requireds[required], true); }
     catch(error) { return reject(error); }
   }
-  for(var optional in optionals) {
+  for(let optional in optionals) {
     if(!localizers[optional]) break;
     try { localizers[optional](
       req, res, optionals[optional], false); }
@@ -170,7 +170,7 @@ return new Promise(function(resolve, reject) {
 };
 
 /*
-/* RESPOND */
+/* */
 
 // req:{}, res:{},
 // data:{}, error:Error
@@ -178,12 +178,12 @@ return new Promise(function(resolve, reject) {
 schema.statics.respond =
 function(req, res, data, error, debug) {
 return new Promise(function(resolve, reject) {
-  var nodeEnv = process.env.NODE_ENV;
+  const nodeEnv = process.env.NODE_ENV;
   debug = typeof(debug) !== 'undefined' ? debug :
     error && nodeEnv !== 'production';
   if(debug) { console.log('###\nRESPOND:',
     data, error); }
-  var response = { meta:{ version:'0.1.0' } };
+  const response = { meta:{ version:'0.1.0' } };
   if(error) { response.errors = [{
     code: error.code || 1000,
     status: error.status || 500,

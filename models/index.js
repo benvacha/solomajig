@@ -1,7 +1,7 @@
-/* Copyright (C) 2020 BenVacha/Solomajig *//*
+/* Copyright (C) 2020 BenVacha/SoloMajig *//*
 /* /**/
-var Mongoose = require('mongoose');
-var Schema = __require('/schemas/index');
+const Mongoose = require('mongoose');
+const Schema = __require('/schemas/index');
 
 /*
 /* */

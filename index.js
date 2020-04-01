@@ -1,12 +1,12 @@
-/* Copyright (C) 2020 BenVacha/Solomajig *//*
+/* Copyright (C) 2020 BenVacha/SoloMajig *//*
 /* /**/
-var Dotenv = require('dotenv').config();
+const Dotenv = require('dotenv').config();
 if(Dotenv.error) console.log('Error dotenv://.env');
 /* /**/
-var Promise = require('bluebird');
-var Express = require('express');
-var BodyParser = require('body-parser');
-var Mongoose = require('mongoose');
+const Promise = require('bluebird');
+const Express = require('express');
+const BodyParser = require('body-parser');
+const Mongoose = require('mongoose');
 /* */
 global.__path = function(path) {
   return __dirname + path; };
@@ -15,7 +15,7 @@ global.__require = function(path) {
 global.__static = function(path) {
   return Express.static(__dirname + path); };
 /* */
-var app = Express();
+const app = Express();
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({extended: true}));
 
@@ -47,7 +47,7 @@ Mongoose.connection.on('connected', function() {
   console.log('\nDisconnected', process.env.MONGODB_URI);
 }).on('open', function() {
   console.log('Opened', process.env.MONGODB_URI);
-  var server = app.listen(process.env.PORT || 3000,
+  const server = app.listen(process.env.PORT || 3000,
   function() { console.log('Listening http://%s:%s',
     server.address().address,
     server.address().port

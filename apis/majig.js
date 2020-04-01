@@ -1,16 +1,16 @@
-/* Copyright (C) 2020 BenVacha/Solomajig *//*
+/* Copyright (C) 2020 BenVacha/SoloMajig *//*
 /* /**/
-var Express = require('express');
-var Mongoose = require('mongoose');
-var ObjectId = Mongoose.Types.ObjectId;
-var Index = __require('/models/index');
-var Error = __require('/models/error');
-var Majig = __require('/models/majig');
+const Express = require('express');
+const Mongoose = require('mongoose');
+const ObjectId = Mongoose.Types.ObjectId;
+const Index = __require('/models/index');
+const Error = __require('/models/error');
+const Majig = __require('/models/majig');
 /* */
-var app = Express();
+const app = Express();
 
 /*
-/* GET */
+/* */
 
 //
 /// { majig:Majig } || { Error }
@@ -20,7 +20,7 @@ app.get('/', function(req, res) {
     path: req.query.path,
     majigId: req.query.majigId,
   }).then(function(locals) {
-    var query = {};
+    const query = {};
     if(res.locals.majigId) {
       query._id = res.locals.majigId;
     } else if(res.locals.path) {
@@ -47,9 +47,9 @@ app.get('/', function(req, res) {
 });
 
 /*
-/* POST */
+/* */
 
-// path:'', markdown:'',
+//
 /// { majig:Majig } || { Error }
 app.post('/', function(req, res) {
   Index.localize(req, res, {
@@ -80,9 +80,9 @@ app.post('/', function(req, res) {
 });
 
 /*
-/* PUT */
+/* */
 
-// majigId:ObjectId, markdown:'',
+//
 /// { majig:Majig } || { Error }
 app.put('/:majigId', function(req, res) {
   Index.localize(req, res, {
@@ -130,9 +130,9 @@ app.put('/:majigId', function(req, res) {
 });
 
 /*
-/* DELETE */
+/* */
 
-// majigId:ObjectId,
+//
 /// { majig:Majig } || { Error }
 app.delete('/:majigId', function(req, res) {
   Index.localize(req, res, {

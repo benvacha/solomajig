@@ -1,18 +1,18 @@
-/* Copyright (C) 2020 BenVacha/Solomajig *//*
+/* Copyright (C) 2020 BenVacha/SoloMajig *//*
 /* /**/
-var Express = require('express');
-var Mongoose = require('mongoose');
-var ObjectId = Mongoose.Types.ObjectId;
-var Index = __require('/models/index');
-var Error = __require('/models/error');
-var Majig = __require('/models/majig');
+const Express = require('express');
+const Mongoose = require('mongoose');
+const ObjectId = Mongoose.Types.ObjectId;
+const Index = __require('/models/index');
+const Error = __require('/models/error');
+const Majig = __require('/models/majig');
 /* */
-var app = Express();
+const app = Express();
 
 /*
-/* GET */
+/* */
 
-// keyword:'',
+//
 /// { majigs:[Majig] } || { Error }
 app.get('/', function(req, res) {
   Index.localize(req, res, {
@@ -21,7 +21,7 @@ app.get('/', function(req, res) {
     keyword: req.query.keyword,
     filter: req.query.filter,
   }).then(function(locals) {
-    var query = {};
+    const query = {};
     if(res.locals.keyword) {
       query.markdown = new RegExp(
         res.locals.keyword, "i");
@@ -57,9 +57,9 @@ app.get('/', function(req, res) {
 });
 
 /*
-/* POST */
+/* */
 
-// markdown:'',
+//
 /// { majigs:[Majig] } || { Error }
 app.post('/', function(req, res) {
   Index.localize(req, res, {
@@ -81,7 +81,7 @@ app.post('/', function(req, res) {
   }).then(function(majig) {
     if(!majig) throw new Error.code(5000);
     res.locals.majig = majig;
-    var query = {};
+    const query = {};
     if(res.locals.keyword) {
       query.markdown = new RegExp(
         res.locals.keyword, "i");
@@ -114,9 +114,9 @@ app.post('/', function(req, res) {
 });
 
 /*
-/* PUT */
+/* */
 
-// majigId:ObjectId, markdown:'',
+//
 /// { majig:Majig } || { Error }
 app.put('/:majigId', function(req, res) {
   Index.localize(req, res, {
@@ -154,7 +154,7 @@ app.put('/:majigId', function(req, res) {
     });
   }).then(function(majig) {
     if(!majig) throw new Error.code(5000);
-    var query = {};
+    const query = {};
     if(res.locals.keyword) {
       query.markdown = new RegExp(
         res.locals.keyword, "i");
@@ -185,7 +185,7 @@ app.put('/:majigId', function(req, res) {
 });
 
 /*
-/* DELETE */
+/* */
 
 //
 /// { majig:Majig } || { Error }
@@ -211,7 +211,7 @@ app.delete('/:majigId', function(req, res) {
     });
   }).then(function(majig) {
     if(!majig) throw new Error.code(5000);
-    var query = {};
+    const query = {};
     if(res.locals.keyword) {
       query.markdown = new RegExp(
         res.locals.keyword, "i");

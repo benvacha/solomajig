@@ -1,45 +1,16 @@
-/* Copyright (C) 2020 BenVacha/Solomajig *//*
+/* Copyright (C) 2020 BenVacha/SoloMajig *//*
 /* /**/
-var Express = require('express');
-var Index = __require('/models/index');
-var Error = __require('/models/error');
-var Token = __require('/models/token');
+const Express = require('express');
+const Index = __require('/models/index');
+const Error = __require('/models/error');
+const Token = __require('/models/token');
 /* */
-var app = Express();
+const app = Express();
 
 /*
-/* GET */
+/* */
 
-//
-/// { token:Token } || { Error }
-app.get('/',
-function(req, res, next) {
-  Index.authorize(req, res, {
-    required: true,
-  }).then(function(token) {
-    next();
-  }).catch(function(err) {
-    Index.respond(req, res, null, err);
-  });
-}, function(req, res) {
-  Index.localize(req, res, {
-  }, {
-    username: req.body.username,
-    password: req.body.password,
-  }).then(function(locals) {
-    return Token.new();
-  }).then(function(token) {
-    if(!token) throw new Error.code(5000);
-    Index.respond(req, res, token);
-  }).catch(function(err) {
-    Index.respond(req, res, null, err);
-  });
-});
-
-/*
-/* PUT */
-
-// username:'', password:''
+// username:String, password:String
 /// { token:Token } || { Error }
 app.put('/', function(req, res) {
   Index.localize(req, res, {

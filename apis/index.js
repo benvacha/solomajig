@@ -1,9 +1,9 @@
-/* Copyright (C) 2020 BenVacha/Solomajig *//*
+/* Copyright (C) 2020 BenVacha/SoloMajig *//*
 /* /**/
-var Express = require('express');
-var Index = __require('/models/index');
+const Express = require('express');
+const Index = __require('/models/index');
 /* */
-var app = Express();
+const app = Express();
 
 /*
 /* */
@@ -23,14 +23,19 @@ app.use(function(req, res, next) {
 app.use('/majig', __require('/apis/majig'));
 app.use('/majigs', __require('/apis/majigs'));
 app.use('/token', __require('/apis/token'));
+
+/*
 /* */
+
 app.use(function(req, res, next) {
-  return res.status(404).json({desc:'api not found'});
+  return res.status(404)
+    .json({desc:'api not found'});
 });
 /* */
 app.use(function(err, req, res, next) {
   if(err) { console.log(err); }
-  return res.status(500).json({desc:'api server error'});
+  return res.status(500)
+    .json({desc:'api server error'});
 });
 
 /*

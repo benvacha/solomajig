@@ -1,14 +1,12 @@
-/* Copyright (C) 2020 BenVacha/Solomajig *//*
+/* Copyright (C) 2020 BenVacha/SoloMajig *//*
 /* */
-var Promise = require('bluebird');
-var Mongoose = require('mongoose');
-var Schema = Mongoose.Schema;
-var ObjectId = Mongoose.Types.ObjectId;
-var Majig = __require('/models/majig');
-
+const Promise = require('bluebird');
+const Mongoose = require('mongoose');
+const Schema = Mongoose.Schema;
+const ObjectId = Mongoose.Types.ObjectId;
+const Majig = __require('/models/majig');
 /* */
-
-var schema = new Schema({
+const schema = new Schema({
   path: { type:String },
   tags: { type:String, default:'' },
   markdown: { type:String, default:'' },
@@ -25,7 +23,7 @@ var schema = new Schema({
 });
 
 /*
-/* VALIDATORS */
+/* */
 
 //
 ///
@@ -34,7 +32,7 @@ schema.path('path')
     return /^\/.*[^\/]$/.test(val);
 }, 'invalid path')
 .validate(function(val) {
-  var self = this;
+  const self = this;
   return new Promise(function(resolve) {
     if(!val || !self.isModified('path')) {
       return resolve(); }
@@ -49,7 +47,7 @@ schema.path('path')
 }, 'path exists');
 
 /*
-/* HOOKS */
+/* */
 
 //
 ///

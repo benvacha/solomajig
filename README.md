@@ -1,4 +1,4 @@
-# Solomajig
+# SoloMajig
 ### Solo Wiki Journal Blog
 
 ---

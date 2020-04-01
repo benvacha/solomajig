@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 BenVacha/Solomajig *//*
+/* Copyright (C) 2020 BenVacha/SoloMajig *//*
 
   Token.new({
   }).then().catch();
@@ -7,15 +7,15 @@
   }).then().catch();
 
 /* /**/
-var Promise = require('bluebird');
-var Mongoose = require('mongoose');
-var Schema = Mongoose.Schema;
-var ObjectId = Schema.Types.ObjectId;
-var JSONWebToken = require('jsonwebtoken');
-var Index = __require('/models/index');
-var Error = __require('/models/error');
+const Promise = require('bluebird');
+const Mongoose = require('mongoose');
+const Schema = Mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
+const JSONWebToken = require('jsonwebtoken');
+const Index = __require('/models/index');
+const Error = __require('/models/error');
 /* */
-var schema = new Schema({
+const schema = new Schema({
 }, {
   collation: { locale:'en_US', strength:1 },
   toObject: { transform:function(doc, ret) {} },
@@ -32,7 +32,7 @@ var schema = new Schema({
 /// (token) || (Error)
 schema.statics.new = function() {
 return new Promise(function(resolve, reject) {
-  var slug = JSONWebToken.sign({
+  const slug = JSONWebToken.sign({
   }, process.env.SOLOMAJIG_PASSWORD
     + process.env.SOLOMAJIG_USERNAME);
   return resolve({ slug:slug });
