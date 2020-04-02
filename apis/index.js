@@ -8,11 +8,11 @@ const app = Express();
 /*
 /* */
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   Index.authorize(req, res, {
-  }).then(function(token) {
+  }).then((token) => {
     next();
-  }).catch(function(err) {
+  }).catch((err) => {
     Index.respond(req, res, null, err);
   });
 });
@@ -27,12 +27,12 @@ app.use('/token', __require('/apis/token'));
 /*
 /* */
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   return res.status(404)
     .json({desc:'api not found'});
 });
 /* */
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   if(err) { console.log(err); }
   return res.status(500)
     .json({desc:'api server error'});

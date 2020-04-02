@@ -10,14 +10,14 @@ const app = Express();
 /*
 /* */
 
-// username:String, password:String
+//
 /// { token:Token } || { Error }
-app.put('/', function(req, res) {
+app.put('/', (req, res) => {
   Index.localize(req, res, {
     username: req.body.username,
     password: req.body.password,
   }, {
-  }).then(function(locals) {
+  }).then((locals) => {
     if(res.locals.username !==
       process.env.SOLOMAJIG_USERNAME) {
       throw new Error.code(6006);
@@ -27,10 +27,10 @@ app.put('/', function(req, res) {
       throw new Error.code(6004);
     }
     return Token.new();
-  }).then(function(token) {
+  }).then((token) => {
     if(!token) throw new Error.code(5000);
     Index.respond(req, res, token);
-  }).catch(function(err) {
+  }).catch((err) => {
     Index.respond(req, res, null, err);
   });
 });
