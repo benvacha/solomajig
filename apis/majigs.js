@@ -21,30 +21,15 @@ app.get('/', (req, res) => {
     keyword: req.query.keyword,
     filter: req.query.filter,
   }).then((locals) => {
-    const query = {};
-    if(res.locals.keyword) {
-      query.markdown = new RegExp(
-        res.locals.keyword, "i");
-    } else {
-      query.path = { $exists: false };
-    }
-    if(res.locals.flags) {
-      query.$or = [];
-      res.locals.flags.forEach((flag) => {
-        query.$or.push({
-          tags: new RegExp(flag, "i")
-        });
-      });
-    }
-    if(!res.locals.token) {
-      query.published = {
-        $exists: true
-      };
-    }
     return Majig.find(
-      query
-    ).sort(
-      res.locals.filter || '-updated'
+    ).byTerms(
+      res.locals.keyword
+    ).byFlags(
+      res.locals.flags
+    ).byFilter(
+      res.locals.filter
+    ).byToken(
+      res.locals.token
     ).catch((err) => {
       throw new Error.code(5000);
     });
@@ -81,25 +66,13 @@ app.post('/', (req, res) => {
   }).then((majig) => {
     if(!majig) throw new Error.code(5000);
     res.locals.majig = majig;
-    const query = {};
-    if(res.locals.keyword) {
-      query.markdown = new RegExp(
-        res.locals.keyword, "i");
-    } else {
-      query.path = { $exists: false };
-    }
-    if(res.locals.flags) {
-      query.$or = [];
-      res.locals.flags.forEach((flag) => {
-        query.$or.push({
-          tags: new RegExp(flag, "i")
-        });
-      });
-    }
     return Majig.find(
-      query
-    ).sort(
-      res.locals.filter || '-updated'
+    ).byTerms(
+      res.locals.keyword
+    ).byFlags(
+      res.locals.flags
+    ).byFilter(
+      res.locals.filter
     ).catch((err) => {
       throw new Error.code(5000);
     });
@@ -154,25 +127,13 @@ app.put('/:majigId', (req, res) => {
     });
   }).then((majig) => {
     if(!majig) throw new Error.code(5000);
-    const query = {};
-    if(res.locals.keyword) {
-      query.markdown = new RegExp(
-        res.locals.keyword, "i");
-    } else {
-      query.path = { $exists: false };
-    }
-    if(res.locals.flags) {
-      query.$or = [];
-      res.locals.flags.forEach((flag) => {
-        query.$or.push({
-          tags: new RegExp(flag, "i")
-        });
-      });
-    }
     return Majig.find(
-      query
-    ).sort(
-      res.locals.filter || '-updated'
+    ).byTerms(
+      res.locals.keyword
+    ).byFlags(
+      res.locals.flags
+    ).byFilter(
+      res.locals.filter
     ).catch((err) => {
       throw new Error.code(5000);
     });
@@ -211,25 +172,13 @@ app.delete('/:majigId', (req, res) => {
     });
   }).then((majig) => {
     if(!majig) throw new Error.code(5000);
-    const query = {};
-    if(res.locals.keyword) {
-      query.markdown = new RegExp(
-        res.locals.keyword, "i");
-    } else {
-      query.path = { $exists: false };
-    }
-    if(res.locals.flags) {
-      query.$or = [];
-      res.locals.flags.forEach((flag) => {
-        query.$or.push({
-          tags: new RegExp(flag, "i")
-        });
-      });
-    }
     return Majig.find(
-      query
-    ).sort(
-      res.locals.filter || '-updated'
+    ).byTerms(
+      res.locals.keyword
+    ).byFlags(
+      res.locals.flags
+    ).byFilter(
+      res.locals.filter
     ).catch((err) => {
       throw new Error.code(5000);
     });

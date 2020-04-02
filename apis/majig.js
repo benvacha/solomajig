@@ -20,21 +20,16 @@ app.get('/', (req, res) => {
     path: req.query.path,
     majigId: req.query.majigId,
   }).then((locals) => {
-    const query = {};
-    if(res.locals.majigId) {
-      query._id = res.locals.majigId;
-    } else if(res.locals.path) {
-      query.path = res.locals.path;
-    } else {
+    if(!res.locals.majigId
+    && !res.locals.path) {
       throw new Error.code(6007);
     };
-    if(!res.locals.token) {
-      query.published = {
-        $exists: true
-      };
-    }
     return Majig.findOne(
-      query
+    ).byIdPath(
+      res.locals.majigId,
+      res.locals.path
+    ).byToken(
+      res.locals.token
     ).catch((err) => {
       throw new Error.code(5000);
     });

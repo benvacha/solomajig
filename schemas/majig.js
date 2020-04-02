@@ -60,4 +60,66 @@ schema.pre('save', function(next) {
 
 /*
 /* */
+
+//
+///
+schema.query.byIdPath = function(id, path) {
+  if(id) {
+    return this.where({
+      _id: id,
+    });
+  } else if(path) {
+    return this.where({
+      path: path,
+    });
+  } else {
+    return this.error();
+  }
+};
+
+//
+///
+schema.query.byTerms = function(terms) {
+  if(!terms) {
+    return this.where({
+      path: { $exists: false },
+    });
+  }
+  return this.where({
+    markdown: new RegExp(terms, "i"),
+  });
+};
+
+//
+///
+schema.query.byFlags = function(flags) {
+  if(!flags || !flags.length) {
+    return this;
+  }
+  const query = { $or: [] };
+  flags.forEach((flag) => {
+    query.$or.push({
+      tags: new RegExp(flag, "i")
+    });
+  });
+  return this.where(query);
+};
+
+//
+///
+schema.query.byFilter = function(filter) {
+  return this.sort(filter || '-updated');
+};
+
+//
+///
+schema.query.byToken = function(token) {
+  if(token) return this;
+  return this.where({
+    published: { $exists: true },
+  });
+};
+
+/*
+/* */
 module.exports = schema;
