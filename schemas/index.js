@@ -1,6 +1,12 @@
 /* Copyright (C) 2020 BenVacha/SoloMajig *//*
 
+  Index.author(req, res, {
+  }).then(token).catch(error);
+
   Index.authorize(req, res, {
+    xtoken: input
+  }, {
+    xtoken: input
   }).then(token).catch(error);
 
   Index.localize(req, res, {
@@ -34,20 +40,30 @@ const schema = new Schema({
 /*
 /* */
 
-// options:{ required }
+//
+/// token || throw Error
+schema.statics.author =
+function(req, res, data) {
+return new Promise(function(resolve, reject) {
+  Token.new(
+  ).then(function(token) {
+    resolve(token);
+  }).catch(function(err) {
+    reject(new Error.code(6001));
+  });
+});
+};
+
+// xtoken:String, required:Boolean
 /// token || throw Error
 schema.statics.authorize =
-function(req, res, options) {
+function(req, res, requireds, optionals) {
 return new Promise(function(resolve, reject) {
-  const xToken = req.headers['x-token']
-    || req.query['xtoken'];
-  if(options.required && !xToken) {
-    reject(new Error.code(6002));
-  } else if(!xToken) {
-    resolve();
-  };
+  const xtoken = requireds.xtoken
+    || optionals.xtoken;
+  if(!xtoken) { return resolve(); }
   Token.verify(
-    xToken
+    xtoken
   ).then(function(token) {
     res.locals.token = token;
     resolve(token);

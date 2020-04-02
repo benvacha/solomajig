@@ -2,6 +2,7 @@
 /* /**/
 const Express = require('express');
 const Index = __require('/models/index');
+const Error = __require('/models/error');
 /* */
 const app = Express();
 
@@ -10,8 +11,11 @@ const app = Express();
 
 app.use((req, res, next) => {
   Index.authorize(req, res, {
+  }, {
+    xtoken: req.headers['x-token']
+      || req.query['xtoken'],
   }).then((token) => {
-    next();
+    return next();
   }).catch((err) => {
     Index.respond(req, res, null, err);
   });

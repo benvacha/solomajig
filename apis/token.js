@@ -3,7 +3,6 @@
 const Express = require('express');
 const Index = __require('/models/index');
 const Error = __require('/models/error');
-const Token = __require('/models/token');
 /* */
 const app = Express();
 
@@ -26,7 +25,7 @@ app.put('/', (req, res) => {
       process.env.SOLOMAJIG_PASSWORD) {
       throw new Error.code(6004);
     }
-    return Token.new();
+    return Index.author(req, res, {});
   }).then((token) => {
     if(!token) throw new Error.code(5000);
     Index.respond(req, res, token);
