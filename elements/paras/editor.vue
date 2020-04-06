@@ -30,11 +30,8 @@
 <!-- -->
 
 <script>
-import InputText
-  from 'elements/inputs/text.vue';
 export default {
   components: {
-    InputText,
   },
   props: {
     viewed: {

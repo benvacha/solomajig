@@ -8,11 +8,11 @@
     <h1>New Majig</h1>
     <form @submit.prevent="add"
       class="editor">
-      <InputText
+      <input type="text"
         v-model="path"
         placeholder="/path"
       />
-      <InputText
+      <input type="text"
         v-model="tags"
         placeholder="tags"
       />
@@ -39,11 +39,8 @@
 <!-- -->
 
 <script>
-import InputText
-  from 'elements/inputs/text.vue';
 export default {
   components: {
-    InputText,
   },
   data () {
     return {

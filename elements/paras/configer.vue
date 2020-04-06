@@ -34,7 +34,7 @@
     </form>
     <h2>Tag Majig</h2>
     <form @submit.prevent="retag">
-      <InputText
+      <input type="text"
         v-model="viewed.tags"
         placeholder="tags"
       />
@@ -45,7 +45,7 @@
     <h6></h6>
     <h2>Move Majig</h2>
     <form @submit.prevent="move">
-      <InputText
+      <input type="text"
         v-model="viewed.path"
         placeholder="/path"
       />
@@ -68,11 +68,8 @@
 <!-- -->
 
 <script>
-import InputText
-  from 'elements/inputs/text.vue';
 export default {
   components: {
-    InputText,
   },
   filters: {
     datetime: (value) => {

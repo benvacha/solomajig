@@ -7,7 +7,7 @@
   <div class="bodyer para">
     <h1>GoTo Majig</h1>
     <form @submit.prevent="goto(path)">
-      <InputText
+      <input type="text"
         v-model="path"
         placeholder="/path"
       />
@@ -16,7 +16,7 @@
     </form>
     <h1>Find Majig</h1>
     <form @submit.prevent="search">
-      <InputText
+      <input type="text"
         v-model="keyword"
         placeholder="keyword"
       />
@@ -48,11 +48,8 @@
 <!-- -->
 
 <script>
-import InputText
-  from 'elements/inputs/text.vue';
 export default {
   components: {
-    InputText,
   },
   filters: {
     previewed: (value, keyword) => {

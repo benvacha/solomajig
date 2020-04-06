@@ -116,8 +116,6 @@ import ParabodyRight
   from 'elements/paras/right.vue';
 import Configer
   from 'elements/paras/configer.vue';
-import InputText
-  from 'elements/inputs/text.vue';
 /* */
 const Renderer = new Marked.Renderer();
 const Renderers = {
@@ -134,7 +132,6 @@ Renderer.link = (href, title, text) => {
 /* */
 export default {
   components: {
-    InputText,
     ParabodyRight,
   },
   filters: {

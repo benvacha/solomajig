@@ -10,11 +10,11 @@
       <input type="submit"
         value="Authorize" />
       <h2>Credentials</h2>
-      <InputText
+      <input type="text"
         v-model="username"
         placeholder="username"
       />
-      <InputPassword
+      <input type="password"
         v-model="password"
         placeholder="password"
       />
@@ -28,14 +28,8 @@
 <!-- -->
 
 <script>
-import InputText
-  from 'elements/inputs/text.vue';
-import InputPassword
-  from 'elements/inputs/password.vue';
 export default {
   components: {
-    InputText,
-    InputPassword,
   },
   data () {
     return {

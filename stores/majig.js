@@ -1,5 +1,6 @@
 /* Copyright (C) 2020 BenVacha/SoloMajig *//*
 /* /**/
+import Vue from 'vue/dist/vue.js';
 import Axios from 'axios';
 
 /*
@@ -20,14 +21,12 @@ const getters = {
 
 const mutations = {
   majig (state, data) {
-    state.all[data.id] = data;
-    state.all[data.path] = data;
-    state.all = {...state.all};
+    Vue.set(state.all, data.id, data);
+    Vue.set(state.all, data.path, data);
   },
   remove (state, data) {
-    delete state.all[data.id];
-    delete state.all[data.path];
-    state.all = {...state.all};
+    Vue.set(state.all, data.id, undefined);
+    Vue.set(state.all, data.path, undefined);
   },
   clear (state, data) {
     state.all = {};
