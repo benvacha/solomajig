@@ -2,8 +2,10 @@
 /* /**/
 import Vue from 'vue/dist/vue.js';
 import VueRouter from 'vue-router';
-import Majig from 'views/majig.vue';
-import Majigs from 'views/majigs.vue';
+const Majig = () =>
+  import('views/majig.vue');
+const Majigs = () =>
+  import('views/majigs.vue');
 /* */
 Vue.use(VueRouter);
 
