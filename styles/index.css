@@ -523,7 +523,7 @@ a.descend:hover {
   margin:0px 0px;
   width:100%;
   height:auto;
-  padding:20px 12px 8px;
+  padding:12px 12px 8px;
 }
 .bodyer.stack .substack {
   position:absolute;
@@ -924,6 +924,20 @@ a.descend:hover {
 .bodyer.para h1 .ascending a.sortedBy:hover,
 .bodyer.para h2 .ascending a.sortedBy:hover {
     text-decoration:overline line-through;
+}
+.bodyer.para pre {
+  position:relative;
+  display:block;
+  margin:0px;
+  width:100%;
+  height:auto;
+  padding:12px 16px;
+  font-size:.9em;
+  overflow:visible;
+  white-space:pre-wrap;
+  word-wrap:break-word;
+  background-color:transparent;
+  font-family:'Roboto Mono', sans-serif;
 }
 .bodyer.para ul,
 .bodyer.para ul li {

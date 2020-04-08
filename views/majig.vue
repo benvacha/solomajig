@@ -19,6 +19,13 @@
         {{status || $route.path}}
       </div>
       <div class="rghter togler10"
+        v-if="!signed">
+        <a @click="open('editor', majig)">
+          Source</a> &bull;
+        <a @click="open('configer', majig)">
+          Meta</a>
+      </div>
+      <div class="rghter togler10"
         v-if="signed">
         <template v-if="isMode('show')">
           <a @click="toMode('edit')">
@@ -91,11 +98,10 @@
   </div>
   <div class="bodyer thin stack">
     <div class="horzer dim">
-      <div class="cntrer thin">
-        {{ majig.created | datetime }}
-        &bull; &bull; &bull;
+      <div class="lefter thin">
         {{ majig.updated | datetime }}
-        <br />
+      </div>
+      <div class="rghter thin">
         {{ majig.published | datetime }}
       </div>
     </div>
@@ -114,6 +120,8 @@ import Marked
   from 'marked';
 import ParabodyRight
   from 'elements/paras/right.vue';
+import Editor
+  from 'elements/paras/editor.vue';
 import Configer
   from 'elements/paras/configer.vue';
 /* */
@@ -154,6 +162,7 @@ export default {
       markdown: '',
       views: {
         configer: Configer,
+        editor: Editor,
       },
       view: '',
       viewed: null,

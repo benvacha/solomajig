@@ -4,7 +4,8 @@
 <div class="body">
 
   <div class="subbody">
-  <div class="bodyer para">
+  <div class="bodyer para"
+    v-if="signed">
     <h2>Edit Majig</h2>
     <form @submit.prevent="update">
       <input type="submit"
@@ -21,6 +22,11 @@
         v-model="majig.markdown">
       </textarea>
     </form>
+  </div>
+  <div class="bodyer para"
+    v-if="!signed">
+    <h2>Markdown</h2>
+    <pre>{{majig.markdown}}</pre>
   </div>
   </div>
 
@@ -44,6 +50,10 @@ export default {
     };
   },
   computed: {
+    signed () {
+      return this.$store.getters[
+        'token/signed'];
+    },
     majig () {
       return this.viewed;
     },

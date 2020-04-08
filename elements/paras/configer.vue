@@ -4,7 +4,8 @@
 <div class="body">
 
   <div class="subbody">
-  <div class="bodyer para">
+  <div class="bodyer para"
+    v-if="signed">
     <h2>About Majig</h2>
     <ul>
       <li><div>
@@ -60,6 +61,28 @@
         value="Remove" />
     </form>
   </div>
+  <div class="bodyer para"
+    v-if="!signed">
+    <h2>About Majig</h2>
+    <ul>
+      <li><div>
+        tags: <b></b>
+        <span>{{viewed.tags}}</span>
+      </div></li>
+      <li><div>
+        published: <b></b>
+        <span>{{viewed.published | datetime}}</span>
+      </div></li>
+      <li><div>
+        updated: <b></b>
+        <span>{{viewed.updated | datetime}}</span>
+      </div></li>
+      <li><div>
+        created: <b></b>
+        <span>{{viewed.created | datetime}}</span>
+      </div></li>
+    </ul>
+  </div>
   </div>
 
 </div>
@@ -93,6 +116,10 @@ export default {
     };
   },
   computed: {
+    signed () {
+      return this.$store.getters[
+        'token/signed'];
+    },
   },
   methods: {
     move () {

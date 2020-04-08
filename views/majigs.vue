@@ -43,25 +43,24 @@
       <div v-html="marked(majig.markdown)"></div>
       <div class="supstack"><br /></div>
       <div class="substack horzer dim">
-        <div class="cntrer thin">
-          <span>
-          {{ majig.created | datetime }} &bull;
+        <div class="lefter thin"
+          v-if="filter.includes('created')">
+          {{ majig.created | datetime }}
+        </div>
+        <div class="lefter thin"
+          v-if="filter.includes('updated')">
           {{ majig.updated | datetime }}
-          </span><br />
-          <template v-if="signed">
-            <a @click="open('editor', majig)">
-              edit
-            </a> &bull;
-            <a @click="open('configer', majig)">
-              meta
-            </a> &bull;
-          </template>
+        </div>
+        <div class="rghter thin">
+          <a @click="open('editor', majig)">
+            src
+          </a> &bull;
+          <a @click="open('configer', majig)">
+            meta
+          </a> &bull;
           <a @click="gotoMajig(majig)">
             goto
-          </a> &bull;
-          <span>
-            {{ majig.published | datetime }}
-          </span>
+          </a>
         </div>
       </div>
     </div>
