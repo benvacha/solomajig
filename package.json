@@ -23,8 +23,8 @@
     "url": "https://github.com/benvacha/solomajig/issues"
   },
   "engines": {
-    "node": "10.13.0",
-    "npm": "6.12.0"
+    "node": "10.x.x",
+    "npm": "6.x.x"
   },
   "dependencies": {
     "bluebird": "3.7.2",
