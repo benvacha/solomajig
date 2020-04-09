@@ -49,8 +49,6 @@
 
 <script>
 export default {
-  components: {
-  },
   filters: {
     previewed: (value, keyword) => {
       const length = 90;

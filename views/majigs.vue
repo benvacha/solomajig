@@ -7,7 +7,6 @@
     :views="views"
     :view="view"
     :viewed="viewed"
-    :stacked="true"
     @open="open"
     @goto="goto" />
 
@@ -21,9 +20,9 @@
           <span>{{status || $route.path}}</span>
         </div>
         <div class="rghter">
-          <a @click="toggleFilter('created')"
-            :class="classFilter('created')">
-            Created</a> &bull;
+          <a @click="toggleFilter('published')"
+            :class="classFilter('published')">
+            Published</a> &bull;
           <a @click="toggleFilter('updated')"
             :class="classFilter('updated')">
             Updated</a> &bull;
@@ -44,22 +43,24 @@
       <div class="supstack"><br /></div>
       <div class="substack horzer dim">
         <div class="lefter thin"
-          v-if="filter.includes('created')">
-          {{ majig.created | datetime }}
+          v-if="filter.includes('published')">
+          P &bull;
+          {{ majig.published | datetime }}
         </div>
         <div class="lefter thin"
           v-if="filter.includes('updated')">
+          U &bull;
           {{ majig.updated | datetime }}
         </div>
         <div class="rghter thin">
-          <a @click="open('editor', majig)">
-            src
-          </a> &bull;
-          <a @click="open('configer', majig)">
-            meta
-          </a> &bull;
           <a @click="gotoMajig(majig)">
-            goto
+            GoTo
+          </a> &bull;
+          <a @click="open('sourcer', majig)">
+            Source
+          </a> &bull;
+          <a @click="open('abouter', majig)">
+            Meta
           </a>
         </div>
       </div>
@@ -78,10 +79,10 @@ import Marked
   from 'marked';
 import ParabodyRight
   from 'elements/paras/right.vue';
-import Editor
-  from 'elements/paras/editor.vue';
-import Configer
-  from 'elements/paras/configer.vue';
+import Abouter
+  from 'elements/paras/abouter.vue';
+import Sourcer
+  from 'elements/paras/sourcer.vue';
 /* */
 const Renderer = new Marked.Renderer();
 const Renderers = {
@@ -117,8 +118,8 @@ export default {
     return {
       status: '',
       views: {
-        editor: Editor,
-        configer: Configer,
+        abouter: Abouter,
+        sourcer: Sourcer,
       },
       view: '',
       viewed: null,
@@ -215,27 +216,6 @@ export default {
       this.$store.dispatch('majigs/load', {
         filter: this.filter,
         flags: this.flags,
-      }).then(() => {
-        this.status = '';
-      }).catch((errors) => {
-        this.status = errors[0].title;
-      });
-    },
-    editMajig (majig) {
-      this.status = 'updating';
-      this.$store.dispatch('majigs/update', {
-        majigId: majig.id,
-        markdown: majig.markdown,
-      }).then(() => {
-        this.status = '';
-      }).catch((errors) => {
-        this.status = errors[0].title;
-      });
-    },
-    removeMajig (majig) {
-      this.status = 'removing';
-      this.$store.dispatch('majigs/remove', {
-        majigId: majig.id,
       }).then(() => {
         this.status = '';
       }).catch((errors) => {

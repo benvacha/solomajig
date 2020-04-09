@@ -4,8 +4,7 @@
 <div class="body">
 
   <div class="subbody">
-  <div class="bodyer para"
-    v-if="signed">
+  <div class="bodyer para">
     <h2>Edit Majig</h2>
     <form @submit.prevent="update">
       <input type="submit"
@@ -15,18 +14,13 @@
     <form @submit.prevent="update"
       class="editor">
       <pre><span>
-        {{majig.markdown}}
+        {{viewed.markdown}}
       </span><br /></pre>
       <textarea
         placeholder="markdown"
-        v-model="majig.markdown">
+        v-model="viewed.markdown">
       </textarea>
     </form>
-  </div>
-  <div class="bodyer para"
-    v-if="!signed">
-    <h2>Markdown</h2>
-    <pre>{{majig.markdown}}</pre>
   </div>
   </div>
 
@@ -37,33 +31,18 @@
 
 <script>
 export default {
-  components: {
-  },
   props: {
     viewed: {
       type: Object,
       required: true,
     },
   },
-  data () {
-    return {
-    };
-  },
-  computed: {
-    signed () {
-      return this.$store.getters[
-        'token/signed'];
-    },
-    majig () {
-      return this.viewed;
-    },
-  },
   methods: {
     update () {
       this.$emit('notify', 'updating');
       this.$store.dispatch('majigs/update', {
-        majigId: this.majig.id,
-        markdown: this.majig.markdown,
+        majigId: this.viewed.id,
+        markdown: this.viewed.markdown,
       }).then((majig) => {
         this.$emit('open', false);
       }).catch((errors) => {

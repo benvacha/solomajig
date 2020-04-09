@@ -4,21 +4,26 @@
 <div class="body">
 
   <div class="subbody">
-  <div class="bodyer para"
-    v-if="signed">
+  <div class="bodyer para">
     <h2>About Majig</h2>
     <ul>
       <li><div>
         published: <b></b>
-        <span>{{viewed.published | datetime}}</span>
+        <span>
+          {{viewed.published | datetime}}
+        </span>
       </div></li>
       <li><div>
         updated: <b></b>
-        <span>{{viewed.updated | datetime}}</span>
+        <span>
+          {{viewed.updated | datetime}}
+        </span>
       </div></li>
       <li><div>
         created: <b></b>
-        <span>{{viewed.created | datetime}}</span>
+        <span>
+          {{viewed.created | datetime}}
+        </span>
       </div></li>
     </ul>
     <form @submit.prevent="publish"
@@ -61,28 +66,6 @@
         value="Remove" />
     </form>
   </div>
-  <div class="bodyer para"
-    v-if="!signed">
-    <h2>About Majig</h2>
-    <ul>
-      <li><div>
-        tags: <b></b>
-        <span>{{viewed.tags}}</span>
-      </div></li>
-      <li><div>
-        published: <b></b>
-        <span>{{viewed.published | datetime}}</span>
-      </div></li>
-      <li><div>
-        updated: <b></b>
-        <span>{{viewed.updated | datetime}}</span>
-      </div></li>
-      <li><div>
-        created: <b></b>
-        <span>{{viewed.created | datetime}}</span>
-      </div></li>
-    </ul>
-  </div>
   </div>
 
 </div>
@@ -92,8 +75,6 @@
 
 <script>
 export default {
-  components: {
-  },
   filters: {
     datetime: (value) => {
       if(!value) return '000-00-00 00:00:00';
@@ -102,23 +83,9 @@ export default {
     },
   },
   props: {
-    stacked: {
-      type: Boolean,
-      default: false,
-    },
     viewed: {
       type: Object,
       required: true,
-    },
-  },
-  data () {
-    return {
-    };
-  },
-  computed: {
-    signed () {
-      return this.$store.getters[
-        'token/signed'];
     },
   },
   methods: {
@@ -144,9 +111,7 @@ export default {
       this.$emit('notify',
         'tagging');
       return this.$store.dispatch(
-        this.stacked
-          ? 'majigs/update'
-          : 'majig/update', {
+        'majig/update', {
         majigId: this.viewed.id,
         tags: this.viewed.tags,
       }).then(() => {
@@ -164,9 +129,7 @@ export default {
       this.$emit('notify',
         'publishing');
       this.$store.dispatch(
-        this.stacked
-          ? 'majigs/update'
-          : 'majig/update', {
+        'majig/update', {
         majigId: this.viewed.id,
         published: new Date(),
       }).then(() => {
@@ -184,9 +147,7 @@ export default {
       this.$emit('notify',
         'unpublishing');
       this.$store.dispatch(
-        this.stacked
-          ? 'majigs/update'
-          : 'majig/update', {
+        'majig/update', {
         majigId: this.viewed.id,
         published: false,
       }).then(() => {
@@ -204,9 +165,7 @@ export default {
       this.$emit('notify',
         'removing');
       this.$store.dispatch(
-        this.stacked
-          ? 'majigs/remove'
-          : 'majig/remove', {
+        'majig/remove', {
         majigId: this.viewed.id,
       }).then(() => {
         this.$emit('open', false);

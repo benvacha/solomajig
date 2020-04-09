@@ -20,9 +20,9 @@
       </div>
       <div class="rghter togler10"
         v-if="!signed">
-        <a @click="open('editor', majig)">
+        <a @click="open('sourcer', majig)">
           Source</a> &bull;
-        <a @click="open('configer', majig)">
+        <a @click="open('abouter', majig)">
           Meta</a>
       </div>
       <div class="rghter togler10"
@@ -99,10 +99,12 @@
   <div class="bodyer thin stack">
     <div class="horzer dim">
       <div class="lefter thin">
+        U &bull;
         {{ majig.updated | datetime }}
       </div>
       <div class="rghter thin">
         {{ majig.published | datetime }}
+        &bull; P
       </div>
     </div>
   </div>
@@ -120,10 +122,12 @@ import Marked
   from 'marked';
 import ParabodyRight
   from 'elements/paras/right.vue';
-import Editor
-  from 'elements/paras/editor.vue';
+import Abouter
+  from 'elements/paras/abouter.vue';
 import Configer
   from 'elements/paras/configer.vue';
+import Sourcer
+  from 'elements/paras/sourcer.vue';
 /* */
 const Renderer = new Marked.Renderer();
 const Renderers = {
@@ -161,8 +165,9 @@ export default {
       status: '',
       markdown: '',
       views: {
+        abouter: Abouter,
         configer: Configer,
-        editor: Editor,
+        sourcer: Sourcer,
       },
       view: '',
       viewed: null,
