@@ -79,6 +79,14 @@ schema.query.byIdPath = function(id, path) {
 
 //
 ///
+schema.query.byPage = function(limit, skip) {
+  if(!limit) limit = 25;
+  if(!skip) skip = 0;
+  return this.limit(limit).skip(skip);
+};
+
+//
+///
 schema.query.byTerms = function(terms) {
   if(!terms) {
     return this.where({

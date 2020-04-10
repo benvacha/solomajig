@@ -70,6 +70,9 @@ schema.statics.CODES = {
   //// keyword
   6014: { status:400, message:'keyword required' },
   6015: { status:400, message:'invalid keyword' },
+  //// limit
+  6025: { status:400, message:'limit required' },
+  6026: { status:400, message:'invalid limit' },
   //// majig
   6007: { status:400, message:'majig required' },
   6008: { status:400, message:'invalid majig' },
@@ -87,6 +90,9 @@ schema.statics.CODES = {
   6022: { status:400, message:'published required' },
   6023: { status:400, message:'invalid published' },
   6024: { status:404, message:'unknown published' },
+  //// skip
+  6027: { status:400, message:'skip required' },
+  6028: { status:400, message:'invalid skip' },
   //// tags
   6018: { status:400, message:'tags required' },
   6019: { status:400, message:'invalid tags' },
@@ -97,7 +103,7 @@ schema.statics.CODES = {
   6002: { status:401, message:'invalid token' },
   6001: { status:401, message:'invalid token' },
   //// ,
-  6025: { status:400, message:'' }
+  6029: { status:400, message:'' }
 };
 
 /*

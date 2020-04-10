@@ -123,6 +123,8 @@ export default {
       },
       view: '',
       viewed: null,
+      limit: 100,
+      skip: 0,
     };
   },
   created () {
@@ -216,6 +218,8 @@ export default {
       this.$store.dispatch('majigs/load', {
         filter: this.filter,
         flags: this.flags,
+        limit: this.limit,
+        skip: this.skip,
       }).then(() => {
         this.status = '';
       }).catch((errors) => {

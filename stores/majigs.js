@@ -44,6 +44,8 @@ const actions = {
       params: {
         flags: inputs.flags,
         filter: inputs.filter,
+        limit: inputs.limit,
+        skip: inputs.skip,
       },
     }).then((response) => {
       commit('set', {
@@ -70,66 +72,6 @@ const actions = {
         keyword: inputs.keyword,
       },
     }).then((response) => {
-      return response.data.data;
-    }).catch((error) => {
-      if(error.response) {
-        throw error.response.data.errors;
-      } else {
-        throw [{title:'client error'}];
-      }
-    });
-  },
-  async add ({commit, state}, inputs) {
-    return Axios.post('/apis/majigs', {
-      tags: inputs.tags,
-      markdown: inputs.markdown,
-      flags: state.flags,
-      filter: state.filter,
-    }).then((response) => {
-      commit('set', {
-        majigs: response.data.data
-      });
-      return response.data.data;
-    }).catch((error) => {
-      if(error.response) {
-        throw error.response.data.errors;
-      } else {
-        throw [{title:'client error'}];
-      }
-    });
-  },
-  async update ({commit, state}, inputs) {
-    return Axios.put('/apis/majigs/'
-      + inputs.majigId, {
-      tags: inputs.tags,
-      markdown: inputs.markdown,
-      published: inputs.published,
-      flags: state.flags,
-      filter: state.filter,
-    }).then((response) => {
-      commit('set', {
-        majigs: response.data.data
-      });
-      return response.data.data;
-    }).catch((error) => {
-      if(error.response) {
-        throw error.response.data.errors;
-      } else {
-        throw [{title:'client error'}];
-      }
-    });
-  },
-  async remove ({commit, filter}, inputs) {
-    return Axios.delete('/apis/majigs/'
-      + inputs.majigId, {
-      params: {
-        flags: state.flags,
-        filter: state.filter,
-      },
-    }).then((response) => {
-      commit('set', {
-        majigs: response.data.data
-      });
       return response.data.data;
     }).catch((error) => {
       if(error.response) {

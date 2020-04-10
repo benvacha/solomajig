@@ -97,6 +97,16 @@ schema.statics.LOCALIZERS = {
     } else if(!input) { return; }
     res.locals.keyword = input;
   },
+  limit: function(req, res, input, required) {
+    if(required && !input) {
+      throw new Error.code(6025);
+    } else if(!input) { return; }
+    input = parseInt(input);
+    if(isNaN(input)) {
+      throw new Error.code(6026)
+    }
+    res.locals.limit = input;
+  },
   majigId: function(req, res, input, required) {
     if(required && !input) {
       throw new Error.code(6007);
@@ -139,6 +149,16 @@ schema.statics.LOCALIZERS = {
       throw new Error.code(6023);
     }
     res.locals.published = published;
+  },
+  skip: function(req, res, input, required) {
+    if(required && !input) {
+      throw new Error.code(6027);
+    } else if(!input) { return; }
+    input = parseInt(input);
+    if(isNaN(input)) {
+      throw new Error.code(6028)
+    }
+    res.locals.skip = input;
   },
   tags: function(req, res, input, required) {
     if(required && input === undefined) {
