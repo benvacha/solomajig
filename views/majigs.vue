@@ -112,7 +112,11 @@ export default {
     flags: {
       type: Array,
       required: false,
-    }
+    },
+    page: {
+      type: Number,
+      default: 0,
+    },
   },
   data () {
     return {
@@ -123,7 +127,7 @@ export default {
       },
       view: '',
       viewed: null,
-      limit: 100,
+      limit: 33,
       skip: 0,
     };
   },
@@ -219,7 +223,8 @@ export default {
         filter: this.filter,
         flags: this.flags,
         limit: this.limit,
-        skip: this.skip,
+        skip: this.skip
+          || this.page * this.limit,
       }).then(() => {
         this.status = '';
       }).catch((errors) => {

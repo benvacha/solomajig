@@ -102,7 +102,7 @@ schema.statics.LOCALIZERS = {
       throw new Error.code(6025);
     } else if(!input) { return; }
     input = parseInt(input);
-    if(isNaN(input)) {
+    if(input < 0 || isNaN(input)) {
       throw new Error.code(6026)
     }
     res.locals.limit = input;
@@ -155,7 +155,7 @@ schema.statics.LOCALIZERS = {
       throw new Error.code(6027);
     } else if(!input) { return; }
     input = parseInt(input);
-    if(isNaN(input)) {
+    if(input < 0 || isNaN(input)) {
       throw new Error.code(6028)
     }
     res.locals.skip = input;
