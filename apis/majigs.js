@@ -56,7 +56,10 @@ app.get('/', (req, res) => {
     });
   }).then((majigs) => {
       if(!majigs) throw new Error.code(5000);
-      Index.respond(req, res, majigs);
+      Index.respond(req, res, {
+        count: res.locals.count,
+        majigs: majigs,
+      });
   }).catch((err) => {
       Index.respond(req, res, null, err);
   });

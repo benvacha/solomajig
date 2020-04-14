@@ -6,6 +6,7 @@ import Axios from 'axios';
 /* */
 const state = {
   all: [],
+  count: 0,
   filter: '-updated',
   flags: undefined,
 };
@@ -20,6 +21,7 @@ const getters = {};
 
 const mutations = {
   set (state, data) {
+    state.count = data.count;
     state.all = data.majigs;
   },
   filter (state, data) {
@@ -31,6 +33,7 @@ const mutations = {
       || undefined;
   },
   clear (state, data) {
+    state.count = 0;
     state.all = [];
   }
 };
@@ -49,7 +52,8 @@ const actions = {
       },
     }).then((response) => {
       commit('set', {
-        majigs: response.data.data,
+        count: response.data.data.count,
+        majigs: response.data.data.majigs,
       });
       commit('filter', {
         filter: inputs.filter,
@@ -70,9 +74,10 @@ const actions = {
     return Axios.get('/apis/majigs', {
       params: {
         keyword: inputs.keyword,
+        limit: 33,
       },
     }).then((response) => {
-      return response.data.data;
+      return response.data.data.majigs;
     }).catch((error) => {
       if(error.response) {
         throw error.response.data.errors;
