@@ -1,5 +1,6 @@
 /* Copyright (C) 2020 BenVacha/SoloMajig *//*
 /* /**/
+const __require = global.__require;
 const Express = require('express');
 const Index = __require('/models/index');
 const Error = __require('/models/error');
@@ -14,20 +15,20 @@ const app = Express();
 app.put('/', (req, res) => {
   Index.localize(req, res, {
     username: req.body.username,
-    password: req.body.password,
+    password: req.body.password
   }, {
   }).then((locals) => {
-    if(res.locals.username !==
+    if (res.locals.username !==
       process.env.SOLOMAJIG_USERNAME) {
-      throw new Error.code(6006);
+      throw new Error.Code(6006);
     }
-    if(res.locals.password !==
+    if (res.locals.password !==
       process.env.SOLOMAJIG_PASSWORD) {
-      throw new Error.code(6004);
+      throw new Error.Code(6004);
     }
     return Index.author(req, res, {});
   }).then((token) => {
-    if(!token) throw new Error.code(5000);
+    if (!token) throw new Error.Code(5000);
     Index.respond(req, res, token);
   }).catch((err) => {
     Index.respond(req, res, null, err);

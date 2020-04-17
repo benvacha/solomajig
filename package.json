@@ -13,6 +13,8 @@
     "start": "node index.js",
     "test": "semistandard",
     "nodemon": "nodemon index.js",
+    "semistandard": "semistandard || true",
+    "semistandard:fix": "semistandard --fix || true",
     "vueserve": "vue-cli-service serve --port 8080 index.vue",
     "vuebuild": "vue-cli-service build --modern index.vue"
   },
@@ -45,5 +47,10 @@
     "vue-router": "3.1.6",
     "vue-template-compiler": "2.6.11",
     "vuex": "3.1.2"
+  },
+  "semistandard": {
+    "ignore": [
+      "**/dists"
+    ]
   }
 }

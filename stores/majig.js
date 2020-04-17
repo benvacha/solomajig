@@ -2,12 +2,16 @@
 /* /**/
 import Vue from 'vue/dist/vue.js';
 import Axios from 'axios';
+/* */
+const ClientErrors = [{
+  title: 'client error'
+}];
 
 /*
 /* */
 
 const state = {
-  all: {},
+  all: {}
 };
 
 /*
@@ -30,81 +34,81 @@ const mutations = {
   },
   clear (state, data) {
     state.all = {};
-  },
+  }
 };
 
 /*
 /* */
 
 const actions = {
-  async load ({commit}, inputs) {
+  async load ({ commit }, inputs) {
     return Axios.get('/apis/majig', {
       params: {
         majigId: inputs.majigId,
-        path: inputs.path,
-      },
+        path: inputs.path
+      }
     }).then((response) => {
       commit('majig', response.data.data);
       return response.data.data;
     }).catch((error) => {
-      if(error.response) {
+      if (error.response) {
         throw error.response.data.errors;
       } else {
-        throw [{title:'client error'}];
+        throw ClientErrors;
       }
     });
   },
-  async add ({commit}, inputs) {
+  async add ({ commit }, inputs) {
     return Axios.post('/apis/majig', {
       path: inputs.path,
       tags: inputs.tags,
-      markdown: inputs.markdown,
+      markdown: inputs.markdown
     }).then((response) => {
       commit('majig', response.data.data);
       return response.data.data;
     }).catch((error) => {
-      if(error.response) {
+      if (error.response) {
         throw error.response.data.errors;
       } else {
-        throw [{title:'client error'}];
+        throw ClientErrors;
       }
     });
   },
-  async update ({commit}, inputs) {
-    return Axios.put('/apis/majig/'
-      + inputs.majigId, {
+  async update ({ commit }, inputs) {
+    return Axios.put('/apis/majig/' +
+      inputs.majigId, {
       path: inputs.path,
       tags: inputs.tags,
       markdown: inputs.markdown,
-      published: inputs.published,
+      published: inputs.published
     }).then((response) => {
       commit('majig', response.data.data);
       return response.data.data;
     }).catch((error) => {
-      if(error.response) {
+      if (error.response) {
         throw error.response.data.errors;
       } else {
-        throw [{title:'client error'}];
+        throw ClientErrors;
       }
     });
   },
-  async remove ({commit}, inputs) {
-    return Axios.delete('/apis/majig/'
-      + inputs.majigId, {
+  async remove ({ commit }, inputs) {
+    return Axios.delete('/apis/majig/' +
+      inputs.majigId, {
     }).then((response) => {
       commit('remove', response.data.data);
       return response.data.data;
     }).catch((error) => {
-      if(error.response) {
+      if (error.response) {
         throw error.response.data.errors;
       } else {
-        throw [{title:'client error'}];
+        throw ClientErrors;
       }
     });
   },
-  async clear ({commit}, inputs) {
+  async clear ({ commit }, inputs) {
     commit('clear', inputs);
-  },
+  }
 };
 
 /*
@@ -114,5 +118,5 @@ export default {
   state,
   getters,
   mutations,
-  actions,
+  actions
 };

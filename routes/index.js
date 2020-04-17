@@ -16,7 +16,7 @@ export default new VueRouter({
     {
       path: '/',
       name: 'majigs',
-      component: Majigs,
+      component: Majigs
     },
     {
       path: '//:flags*//:page*',
@@ -25,12 +25,12 @@ export default new VueRouter({
       props: (route) => ({
         flags: (!route.params.flags)
           ? [] : route.params.flags
-          .split('/').filter(flag => {
-            return Boolean(flag);
-          }),
+            .split('/').filter(flag => {
+              return Boolean(flag);
+            }),
         page: parseInt(
-          route.params.page) || 0,
-      }),
+          route.params.page) || 0
+      })
     },
     {
       path: '//:flags*',
@@ -39,10 +39,10 @@ export default new VueRouter({
       props: (route) => ({
         flags: (!route.params.flags)
           ? [] : route.params.flags
-          .split('/').filter(flag => {
-            return Boolean(flag);
-          }),
-      }),
+            .split('/').filter(flag => {
+              return Boolean(flag);
+            })
+      })
     },
     {
       path: '///:majigId',
@@ -50,13 +50,13 @@ export default new VueRouter({
       component: Majig,
       props: (route) => ({
         majigId: route.params.majigId
-      }),
+      })
     },
     {
       path: '*',
       name: 'majig',
-      component: Majig,
-    },
+      component: Majig
+    }
   ],
   scrollBehavior (to, from, saved) {
     if (to.hash) {
@@ -66,5 +66,5 @@ export default new VueRouter({
     } else {
       return { x: 0, y: 0 };
     }
-  },
+  }
 });

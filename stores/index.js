@@ -14,6 +14,6 @@ export default new Vuex.Store({
   modules: {
     majig: Majig,
     majigs: Majigs,
-    token: Token,
-  },
+    token: Token
+  }
 });

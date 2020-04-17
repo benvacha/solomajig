@@ -1,8 +1,7 @@
 /* Copyright (C) 2020 BenVacha/SoloMajig *//*
 /* /**/
+const __require = global.__require;
 const Express = require('express');
-const Mongoose = require('mongoose');
-const ObjectId = Mongoose.Types.ObjectId;
 const Index = __require('/models/index');
 const Error = __require('/models/error');
 const Majig = __require('/models/majig');
@@ -21,7 +20,7 @@ app.get('/', (req, res) => {
     keyword: req.query.keyword,
     filter: req.query.filter,
     limit: req.query.limit,
-    skip: req.query.skip,
+    skip: req.query.skip
   }).then((locals) => {
     return Majig.countDocuments(
     ).byTerms(
@@ -32,11 +31,11 @@ app.get('/', (req, res) => {
       res.locals.filter
     ).byToken(
       res.locals.token
-    ).catch((err) => {
-      throw new Error.code(5000);
+    ).catch(() => {
+      throw new Error.Code(5000);
     });
   }).then((count) => {
-    if(!count) return {};
+    if (!count) return {};
     res.locals.count = count;
     return Majig.find(
     ).byPage(
@@ -50,18 +49,17 @@ app.get('/', (req, res) => {
       res.locals.filter
     ).byToken(
       res.locals.token
-    ).catch((err) => {
-      console.log(err);
-      throw new Error.code(5000);
+    ).catch(() => {
+      throw new Error.Code(5000);
     });
   }).then((majigs) => {
-      if(!majigs) throw new Error.code(5000);
-      Index.respond(req, res, {
-        count: res.locals.count,
-        majigs: majigs,
-      });
+    if (!majigs) throw new Error.Code(5000);
+    Index.respond(req, res, {
+      count: res.locals.count,
+      majigs: majigs
+    });
   }).catch((err) => {
-      Index.respond(req, res, null, err);
+    Index.respond(req, res, null, err);
   });
 });
 

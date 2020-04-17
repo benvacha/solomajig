@@ -2,13 +2,17 @@
 /* /**/
 import Axios from 'axios';
 /* */
+const ClientErrors = [{
+  title: 'client error'
+}];
+const localStorage = window.localStorage;
 const headers = Axios.defaults.headers;
 
 /*
 /* */
 
 const state = {
-  slug: '',
+  slug: ''
 };
 
 /*
@@ -17,7 +21,7 @@ const state = {
 const getters = {
   signed (state, getters) {
     return Boolean(state.slug);
-  },
+  }
 };
 
 /*
@@ -34,38 +38,38 @@ const mutations = {
     state.slug = '';
     delete headers.common['x-token'];
     localStorage.removeItem('token/slug');
-  },
+  }
 };
 
 /*
 /* */
 
 const actions = {
-  async sign ({commit}, inputs) {
+  async sign ({ commit }, inputs) {
     return Axios.put('/apis/token', {
       username: inputs.username,
-      password: inputs.password,
+      password: inputs.password
     }).then((response) => {
       commit('slug', response.data.data);
     }).catch((error) => {
-      if(error.response) {
+      if (error.response) {
         throw error.response.data.errors;
       } else {
-        throw [{title:'client error'}];
+        throw ClientErrors;
       }
     });
   },
-  async clear ({commit}, inputs) {
+  async clear ({ commit }, inputs) {
     commit('clear', inputs);
-  },
+  }
 };
 
 /*
 /* */
 
 let slug = localStorage.getItem('token/slug');
-if(slug) slug = JSON.parse(slug);
-if(slug) mutations.slug(state, { slug:slug });
+if (slug) slug = JSON.parse(slug);
+if (slug) mutations.slug(state, { slug: slug });
 
 /*
 /* */
@@ -74,5 +78,5 @@ export default {
   state,
   getters,
   mutations,
-  actions,
+  actions
 };
