@@ -5,8 +5,8 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   outputDir: 'dists',
   devServer: {
-    host: 'local.host',
-    proxy: 'http://local.host:3000'
+    host: 'localhost',
+    proxy: 'http://localhost:3000'
   },
   configureWebpack: {
     plugins: [

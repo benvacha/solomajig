@@ -17,21 +17,27 @@
 * Setup environment
   * `cp .dotenv .env`
   * `vim .env`
+  * Set Username & Password
+    * `SOLOMAJIG_USERNAME`
+    * `SOLOMAJIG_PASSWORD`
+* Open 4 terminals / tabs
 * Start MongoDB demon
-  * `sudo mongod &`
-* Start the NodeJS application
+  * `sudo mongod`
+* Start the NodeJS server
   * `npm start`
   * or
   * `npm run nodemon`
-* Overload localhost for local.host
-  * `sudo vim /etc/hosts`
-  * Add `127.0.0.1  local.host`
-* Open local.host in web browser
-  * Browse to `local.host:3000`
+* Open NodeJS server in browser
+  * Browse to `localhost:3000`
 * Enjoy!
-* Start Vue CLI application
+* Start VueJS server
   * `npm run vueserve`
-  * Browse to `local.host:8080`
+* Open VueJS server in browser
+  * Browse to `localhost:8080`
+* Enjoy!
+* Build VueJS to NodeJS
+  * `npm run vuebuild`
+  * Artifacts at `/dists`
 * Enjoy!
 
 ### Heroku
@@ -41,7 +47,7 @@
 * Enter source code directory
   * `cd solomajig`
 * Add Heroku remote
-  * `heroku git:remote -a appName[ -r remoteName]`
+  * `heroku git:remote -a appName -r heroku`
 * Add domain to Heroku application
   * Browse to app in Heroku web GUI
   * Find more add-ons for MongoDB
@@ -53,12 +59,9 @@
   * `git push heroku master`
 * Open sub.domain.tld in web browser
   * Browse to `sub.domain.tld`
+* Enjoy!
 * Debug
   * `heroku logs --tail`
-* Enjoy!
-* Build Vue CLI publics
-  * `npm run vuebuild`
-  * Artifacts at `/dists`
 * Enjoy!
 
 ---
