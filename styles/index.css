@@ -1542,7 +1542,8 @@ a.descend:hover {
 .horzer.dim,
 .horzer.dim span,
 .horzer.dim a {
-  font-size:.85em;
+  font-size:.89em;
+  line-height:1.2em;
   text-decoration:none;
   color:rgba(0,0,0,.54);
 }

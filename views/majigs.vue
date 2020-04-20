@@ -42,17 +42,22 @@
       <div v-html="marked(majig.markdown)"></div>
       <div class="supstack"><br /></div>
       <div class="substack horzer dim">
-        <div class="lefter thin"
-          v-if="filter.includes('published')">
-          P &bull;
-          {{ majig.published | datetime }}
-        </div>
-        <div class="lefter thin"
-          v-if="filter.includes('updated')">
-          U &bull;
-          {{ majig.updated | datetime }}
+        <div class="lefter thin">
+          <span>
+            U &bull;
+            {{ majig.updated | datetime }}
+          </span>
+          <br />
+          <span>
+            P &bull;
+            {{ majig.published | datetime }}
+          </span>
         </div>
         <div class="rghter thin">
+          <span>
+            {{ majig.tags }}
+          </span>
+          <br />
           <a @click="gotoMajig(majig)">
             GoTo
           </a> &bull;
