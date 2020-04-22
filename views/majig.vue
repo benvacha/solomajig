@@ -19,13 +19,6 @@
         {{status || $route.path}}
       </div>
       <div class="rghter togler10"
-        v-if="!signed">
-        <a @click="open('sourcer', majig)">
-          Source</a> &bull;
-        <a @click="open('abouter', majig)">
-          Meta</a>
-      </div>
-      <div class="rghter togler10"
         v-if="signed">
         <template v-if="isMode('show')">
           <a @click="toMode('edit')">
@@ -86,7 +79,8 @@
       v-html="markeddown"></div>
     <form @submit.prevent
       class="editor"
-      v-if="isMode('edit')">
+      v-if="isMode('edit')
+        || isMode('source')">
       <pre><span>
         {{markdown}}
       </span><br /></pre>
@@ -99,12 +93,63 @@
   <div class="bodyer thin stack">
     <div class="horzer dim">
       <div class="lefter thin">
-        U &bull;
-        {{ majig.updated | datetime }}
+        <span>U &bull;
+          {{ majig.updated | datetime }}
+        </span>
+        <br />
+        <span>P &bull;
+          {{ majig.published | datetime }}
+        </span>
+        <br />
+        <span>C &bull;
+          {{ majig.created | datetime }}
+        </span>
       </div>
       <div class="rghter thin">
-        {{ majig.published | datetime }}
-        &bull; P
+        <template
+          v-if="!signed && isMode('show')">
+          <a @click="toMode('source')">
+            MarkDown</a>
+        </template>
+        <template
+          v-if="!signed && isMode('source')">
+          <a @click="toMode('cancel')">
+            MarkUp</a>
+        </template>
+        <template
+          v-if="signed && isMode('show')">
+          <a @click="toMode('edit')">
+            Edit</a>
+        </template>
+        <template
+          v-if="signed && isMode('edit')">
+          <a @click="toMode('proof')">
+            Proof</a> &bull;
+          <a @click="toMode('cancel')">
+            Cancel</a> &bull;
+          <a @click="toMode('save')">
+            Save</a>
+        </template>
+        <template
+          v-if="signed && isMode('proof')">
+          <a @click="toMode('edit')">
+            Edit</a> &bull;
+          <a @click="toMode('cancel')">
+            Cancel</a> &bull;
+          <a @click="toMode('save')">
+            Save</a>
+        </template>
+        <br />
+        <template
+          v-if="signed">
+          <a>Publish</a> &bull;
+          <a @click="open('configer', majig)">
+            Meta</a>
+        </template>
+        <br />
+        <span><b>
+          {{ majig.path || majig.tags }}
+        </b></span>
       </div>
     </div>
   </div>
