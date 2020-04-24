@@ -9,9 +9,9 @@
   </div>
   <div class="rghter">
     <a @click="$emit('open', 'finder')">
-      Find</a> &bull;
+      Search</a> &bull;
     <a @click="$emit('open', 'signer')">
-      Author</a>
+      GoTo</a>
   </div>
 
 </div>
@@ -22,11 +22,5 @@
 <script>
 export default {
   name: 'public',
-  components: {},
-  props: {},
-  data () {
-    return {};
-  },
-  methods: {},
 };
 </script>

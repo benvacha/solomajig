@@ -5,23 +5,14 @@
 
   <div class="subbody">
   <div class="bodyer para">
-    <h1>GoTo Majig</h1>
-    <form @submit.prevent="goto(path)">
-      <input type="text"
-        v-model="path"
-        placeholder="/path"
-      />
-      <input type="submit"
-        value="GoTo" />
-    </form>
-    <h1>Find Majig</h1>
+    <h1>Search</h1>
     <form @submit.prevent="search">
       <input type="text"
         v-model="keyword"
         placeholder="keyword"
       />
       <input type="submit"
-        value="Find" />
+        value="Search" />
     </form>
     <h2>Results
       <span>{{majigs.length}}</span>
@@ -61,22 +52,12 @@ export default {
   },
   data () {
     return {
-      path: '',
       keyword: '',
       searched: '',
       majigs: [],
     };
   },
   methods: {
-    goto (path) {
-      if(path[0] !== '/') {
-        path = '/' + path;
-      }
-      this.$router.push(
-        path
-      ).catch(err => {});
-      this.$emit('open', false);
-    },
     gotoMajig (majig) {
       if(majig.path) {
         this.$router.push({
