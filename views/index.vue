@@ -5,16 +5,40 @@
 
 <div class="body">
   <div class="prebody tiny togler10">
-    <component
-      :is="menu"
-      @goto="goto"
-      @open="open" />
+    <div class="horzer">
+      <div class="lefter">
+        <a @click="goto('/')">
+          SoloMajig</a>
+      </div>
+      <div class="rghter">
+        <template v-if="signed">
+          <a @click="open('creator')">
+            Create</a> &bull;
+        </template>
+        <a @click="open('finder')">
+          Search</a> &bull;
+        <a @click="open('signer')">
+          GoTo</a>
+      </div>
+    </div>
   </div>
   <div class="postbody dark togler01">
-    <component
-      :is="menu"
-      @goto="goto"
-      @open="open" />
+    <div class="horzer">
+      <div class="lefter">
+        <a @click="goto('/')">
+          SoloMajig</a>
+      </div>
+      <div class="rghter">
+        <template v-if="signed">
+          <a @click="open('creator')">
+            Create</a> &bull;
+        </template>
+        <a @click="open('finder')">
+          Search</a> &bull;
+        <a @click="open('signer')">
+          GoTo</a>
+      </div>
+    </div>
   </div>
   <div class="body">
   <div class="body">
@@ -39,10 +63,6 @@
 <!-- -->
 
 <script>
-import MenuPublic
-  from 'elements/menus/public.vue';
-import MenuPrivate
-  from 'elements/menus/private.vue';
 import ParabodyLeft
   from 'elements/paras/left.vue';
 import Creator
@@ -71,13 +91,6 @@ export default {
     signed () {
       return this.$store.getters[
         'token/signed'];
-    },
-    menu () {
-      if(this.signed) {
-        return MenuPrivate;
-      } else {
-        return MenuPublic;
-      }
     },
   },
   methods: {
