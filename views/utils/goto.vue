@@ -17,7 +17,7 @@
   <div class="subbody">
   <div class="bodyer para">
     <h1>GoTo</h1>
-    <form @submit.prevent="goto">
+    <form @submit.prevent="goto()">
       <input type="text"
         v-model="path"
         placeholder="/path"
@@ -27,7 +27,7 @@
     </form>
     <template v-if="!signed">
       <h1>SignIn</h1>
-      <form @submit.prevent="sign">
+      <form @submit.prevent="sign()">
         <input type="text"
           v-model="username"
           placeholder="username"
@@ -69,27 +69,44 @@ export default {
       if(this.path[0] !== '/') {
         this.path = '/' + this.path;
       }
-      this.$router.push(
-        this.path
-      ).catch(err => {});
-      this.$emit('open', false);
+      this.$store.dispatch(
+        'utils/notify', {
+        status: 'going'
+      }).then(() => {
+        return this.$router.push(
+          this.path
+        ).catch(error => {});
+      }).then(() => {
+        this.path = '';
+        return this.$store.dispatch(
+          'utils/stash', {});
+      });
     },
     sign () {
-      this.$emit('notify', 'signing');
       this.$store.dispatch(
-        'token/sign', {
-        username: this.username,
-        password: this.password,
+        'utils/notify', {
+        status: 'signing',
       }).then(() => {
-        this.$emit('open', false);
+        return this.$store.dispatch(
+          'token/sign', {
+          username: this.username,
+          password: this.password,
+        }).catch((errors) => {
+          throw errors[0];
+        });
+      }).then(() => {
         this.password = '';
-      }).catch((errors) => {
-        this.$emit('notify',
-          errors[0].title);
+        return this.$store.dispatch(
+          'utils/stash', {});
+      }).catch(error => {
+        this.password = '';
+        this.$store.dispatch(
+          'utils/notify', {
+          status: error.title
+        });
       });
     },
     unsign () {
-      this.$emit('open', false);
       this.$store.dispatch(
         'majig/clear', {
       }).then(() => {
@@ -98,9 +115,14 @@ export default {
       }).then(() => {
         return this.$store.dispatch(
           'token/clear', {});
+      }).then(() => {
+        return this.$store.dispatch(
+          'utils/stash', {});
       }).catch(error => {
-        this.$emit('notify',
-          error.title);
+        this.$store.dispatch(
+          'utils/notify', {
+          status: error.title
+        });
       });
     },
   },

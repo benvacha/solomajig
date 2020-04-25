@@ -12,12 +12,12 @@
       </div>
       <div class="rghter">
         <template v-if="signed">
-          <a @click="open('creator')">
+          <a @click="open('create')">
             Create</a> &bull;
         </template>
-        <a @click="open('finder')">
+        <a @click="open('search')">
           Search</a> &bull;
-        <a @click="open('signer')">
+        <a @click="open('goto')">
           GoTo</a>
       </div>
     </div>
@@ -30,24 +30,19 @@
       </div>
       <div class="rghter">
         <template v-if="signed">
-          <a @click="open('creator')">
+          <a @click="open('create')">
             Create</a> &bull;
         </template>
-        <a @click="open('finder')">
+        <a @click="open('search')">
           Search</a> &bull;
-        <a @click="open('signer')">
+        <a @click="open('goto')">
           GoTo</a>
       </div>
     </div>
   </div>
   <div class="body">
   <div class="body">
-    <ParabodyLeft
-      :views="views"
-      :view="view"
-      :viewed="viewed"
-      @open="open"
-      @goto="goto" />
+    <Utils />
     <div class="body">
     <div class="body">
       <router-view />
@@ -63,29 +58,22 @@
 <!-- -->
 
 <script>
-import ParabodyLeft
-  from 'elements/paras/left.vue';
-import Creator
-  from 'elements/paras/creator.vue';
-import Finder
-  from 'elements/paras/finder.vue';
-import Signer
-  from 'elements/paras/signer.vue';
+import Utils
+  from 'views/utils.vue';
+import Create
+  from 'views/utils/create.vue';
+import GoTo
+  from 'views/utils/goto.vue';
+import Search
+  from 'views/utils/search.vue';
+const UTILS = {
+  create: Create,
+  goto: GoTo,
+  search: Search
+};
 export default {
   components: {
-    ParabodyLeft,
-  },
-  data () {
-    return {
-      status: '',
-      views: {
-        creator: Creator,
-        finder: Finder,
-        signer: Signer,
-      },
-      view: '',
-      viewed: null,
-    };
+    Utils,
   },
   computed: {
     signed () {
@@ -95,17 +83,18 @@ export default {
   },
   methods: {
     goto (path) {
-      this.open(false);
-      this.$router.push(path)
-        .catch(err => {});
+      this.$store.dispatch(
+        'utils/close', {
+      });
+      this.$router.push(
+        path
+      ).catch(err => {});
     },
-    open (view) {
-      if(view === false
-      || view === this.view) {
-        this.view = '';
-      } else {
-        this.view = view;
-      }
+    open (util) {
+      this.$store.dispatch(
+        'utils/open', {
+        util: UTILS[util]
+      });
     },
   },
 };

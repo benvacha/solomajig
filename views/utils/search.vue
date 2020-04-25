@@ -6,7 +6,7 @@
   <div class="subbody">
   <div class="bodyer para">
     <h1>Search</h1>
-    <form @submit.prevent="search">
+    <form @submit.prevent="search()">
       <input type="text"
         v-model="keyword"
         placeholder="keyword"
@@ -19,12 +19,13 @@
     </h2>
     <ul>
       <li v-if="!majigs.length">
-        <div>No Results</div>
+        <div>no results</div>
       </li>
       <li v-for="majig in majigs">
-        <a @click="gotoMajig(majig)">
+        <a @click="goto(majig)">
           <span>
-            {{majig.markdown | previewed(searched)}}
+            {{majig.markdown
+              | previewed(searched)}}
           </span>
           <h5>{{majig.path}}</h5>
         </a>
@@ -58,36 +59,51 @@ export default {
     };
   },
   methods: {
-    gotoMajig (majig) {
-      if(majig.path) {
-        this.$router.push({
-          path: majig.path
-        }).catch(() => {});
-      } else {
+    goto (majig) {
+      this.$store.dispatch(
+        'utils/notify', {
+        status: 'going'
+      }).then(() => {
+        if(!majig.path) return;
+        return this.$router.push(
+          majig.path
+        ).catch(error => {});
+      }).then(() => {
+        if(majig.path) return;
         this.$router.push({
           name: 'supmajig',
           params: {
             majigId: majig.id
           }
         }).catch(() => {});
-      }
-      this.$emit('open', false);
+      }).then(() => {
+        return this.$store.dispatch(
+          'utils/stash', {});
+      });
     },
     search () {
-      if(!this.keyword) {
-        return this.$emit('notify',
-          'keyword required');
-      }
-      this.$emit('notify', 'searching');
       this.$store.dispatch(
-        'majigs/search', {
-        keyword: this.keyword,
+        'utils/notify', {
+        status: 'searching',
+      }).then(() => {
+        return this.$store.dispatch(
+          'majigs/search', {
+          keyword: this.keyword,
+        }).catch((errors) => {
+          throw errors[0];
+        });
       }).then((majigs) => {
-        this.$emit('notify', '');
         this.searched = this.keyword;
         this.majigs = majigs;
-      }).catch((errors) => {
-        this.status = errors[0].title;
+        return this.$store.dispatch(
+          'utils/notify', {
+          status: '',
+        });
+      }).catch(error => {
+        this.$store.dispatch(
+          'utils/notify', {
+          status: error.title
+        });
       });
     },
   },
