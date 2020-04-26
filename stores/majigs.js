@@ -77,7 +77,7 @@ const actions = {
   async search ({ commit, state }, inputs) {
     return Axios.get('/apis/majigs', {
       params: {
-        keyword: inputs.keyword,
+        terms: inputs.terms,
         limit: 33
       }
     }).then((response) => {

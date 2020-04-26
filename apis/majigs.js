@@ -17,14 +17,14 @@ app.get('/', (req, res) => {
   Index.localize(req, res, {
   }, {
     flags: req.query.flags,
-    keyword: req.query.keyword,
+    terms: req.query.terms,
     filter: req.query.filter,
     limit: req.query.limit,
     skip: req.query.skip
   }).then((locals) => {
     return Majig.countDocuments(
     ).byTerms(
-      res.locals.keyword
+      res.locals.terms
     ).byFlags(
       res.locals.flags
     ).byFilter(
@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
       res.locals.limit,
       res.locals.skip
     ).byTerms(
-      res.locals.keyword
+      res.locals.terms
     ).byFlags(
       res.locals.flags
     ).byFilter(

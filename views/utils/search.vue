@@ -8,8 +8,8 @@
     <h1>Search</h1>
     <form @submit.prevent="search()">
       <input type="text"
-        v-model="keyword"
-        placeholder="keyword"
+        v-model="terms"
+        placeholder="terms && tags"
       />
       <input type="submit"
         value="Search" />
@@ -25,7 +25,7 @@
         <a @click="goto(majig)">
           <span>
             {{majig.markdown
-              | previewed(searched)}}
+              | previewed(termed)}}
           </span>
           <h5>{{majig.path}}</h5>
         </a>
@@ -42,19 +42,19 @@
 <script>
 export default {
   filters: {
-    previewed: (value, keyword) => {
+    previewed: (value, term) => {
       const length = 90;
-      const index = value.indexOf(keyword);
-      let offset = length - keyword.length;
+      const index = value.indexOf(term);
+      let offset = length - term.length;
       offset = Math.floor(offset / 2);
       return value.substring(index - offset,
-        index + keyword.length + offset);
+        index + term.length + offset);
     },
   },
   data () {
     return {
-      keyword: '',
-      searched: '',
+      terms: '',
+      termed: '',
       majigs: [],
     };
   },
@@ -88,12 +88,12 @@ export default {
       }).then(() => {
         return this.$store.dispatch(
           'majigs/search', {
-          keyword: this.keyword,
+          terms: this.terms,
         }).catch((errors) => {
           throw errors[0];
         });
       }).then((majigs) => {
-        this.searched = this.keyword;
+        this.termed = this.terms;
         this.majigs = majigs;
         return this.$store.dispatch(
           'utils/notify', {

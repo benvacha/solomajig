@@ -68,9 +68,6 @@ schema.statics.CODES = {
   /// / flags
   6020: { status: 400, message: 'flags required' },
   6021: { status: 400, message: 'invalid flags' },
-  /// / keyword
-  6014: { status: 400, message: 'keyword required' },
-  6015: { status: 400, message: 'invalid keyword' },
   /// / limit
   6025: { status: 400, message: 'limit required' },
   6026: { status: 400, message: 'invalid limit' },
@@ -97,6 +94,9 @@ schema.statics.CODES = {
   /// / tags
   6018: { status: 400, message: 'tags required' },
   6019: { status: 400, message: 'invalid tags' },
+  /// / terms
+  6014: { status: 400, message: 'terms required' },
+  6015: { status: 400, message: 'invalid terms' },
   /// / username
   6005: { status: 400, message: 'username required' },
   6006: { status: 400, message: 'invalid credential' },

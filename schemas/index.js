@@ -94,12 +94,6 @@ schema.statics.LOCALIZERS = {
     } else if (!input) { return; }
     res.locals.filter = input;
   },
-  keyword: function (req, res, input, required) {
-    if (required && !input) {
-      throw new Error.Code(6014);
-    } else if (!input) { return; }
-    res.locals.keyword = input;
-  },
   limit: function (req, res, input, required) {
     if (required && !input) {
       throw new Error.Code(6025);
@@ -172,6 +166,12 @@ schema.statics.LOCALIZERS = {
       throw new Error.Code(6018);
     } else if (input === undefined) { return; }
     res.locals.tags = input;
+  },
+  terms: function (req, res, input, required) {
+    if (required && !input) {
+      throw new Error.Code(6014);
+    } else if (!input) { return; }
+    res.locals.terms = input;
   },
   token: function (req, res, input, required) {
     if (required && !input) {
