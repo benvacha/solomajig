@@ -10,7 +10,7 @@
       class="editor">
       <input type="text"
         v-model="path"
-        placeholder="/path"
+        placeholder="path"
       />
       <input type="text"
         v-model="tags"
@@ -49,6 +49,10 @@ export default {
   },
   methods: {
     create () {
+      if(this.path.length &&
+        this.path[0] !== '/') {
+        this.path = '/' + this.path;
+      }
       this.$store.dispatch(
         'utils/notify', {
         status: 'creating'

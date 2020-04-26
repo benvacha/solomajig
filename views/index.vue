@@ -84,11 +84,16 @@ export default {
   methods: {
     goto (path) {
       this.$store.dispatch(
-        'utils/close', {
+        'utils/notify', {
+        status: 'going'
+      }).then(() => {
+        return this.$router.push(
+          path
+        ).catch(error => {});
+      }).then(() => {
+        return this.$store.dispatch(
+          'utils/stash', {});
       });
-      this.$router.push(
-        path
-      ).catch(err => {});
     },
     open (util) {
       this.$store.dispatch(

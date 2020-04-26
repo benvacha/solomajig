@@ -20,7 +20,7 @@
     <form @submit.prevent="goto()">
       <input type="text"
         v-model="path"
-        placeholder="/path"
+        placeholder="path"
       />
       <input type="submit"
         value="GoTo" />

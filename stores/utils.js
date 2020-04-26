@@ -57,10 +57,14 @@ const actions = {
       commit('util', inputs.util);
     }
   },
-  async stash ({ commit }, inputs) {
+  async stash ({ commit, state }, inputs) {
     commit('status', '');
+    if (state.opened || state.stuck) {
+      commit('stuck', true);
+    } else {
+      commit('stuck', false);
+    }
     commit('opened', false);
-    commit('stuck', true);
   },
   async close ({ commit }, inputs) {
     commit('status', '');
