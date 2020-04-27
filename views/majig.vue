@@ -3,26 +3,17 @@
 <template>
 <div class="body">
 
-  <ParabodyRight
-    :views="views"
-    :view="view"
-    :viewed="viewed"
-    @open="open"
-    @goto="goto" />
-
-  <div class="body">
-  <div class="body">
   <div class="subbody">
   <div class="bodyer thin stack">
     <div class="horzer dim thin">
-      <div class="lefter togler10">
-        {{status || $route.path}}
+      <div class="lefter">
+        {{status || majig.path
+          || majig.tags || $route.path}}
       </div>
-      <div class="rghter togler10"
-        v-if="signed">
+      <div class="rghter" v-if="signed">
         <template v-if="isMode('show')">
           <a @click="toMode('edit')">
-            Edit</a> &bull;
+            Edit</a>
         </template>
         <template v-if="isMode('edit')">
           <a @click="toMode('proof')">
@@ -30,7 +21,7 @@
           <a @click="toMode('cancel')">
             Cancel</a> &bull;
           <a @click="toMode('save')">
-            Save</a> &bull;
+            Save</a>
         </template>
         <template v-if="isMode('proof')">
           <a @click="toMode('edit')">
@@ -38,44 +29,14 @@
           <a @click="toMode('cancel')">
             Cancel</a> &bull;
           <a @click="toMode('save')">
-            Save</a> &bull;
+            Save</a>
         </template>
-        <a @click="open('configer', majig)">
-          Meta</a>
-      </div>
-      <div class="cntrer togler01">
-        {{status || $route.path}}
-      </div>
-      <div class="cntrer togler01"
-        v-if="signed">
-        <template v-if="isMode('show')">
-          <a @click="toMode('edit')">
-            Edit</a> &bull;
-        </template>
-        <template v-if="isMode('edit')">
-          <a @click="toMode('proof')">
-            Proof</a> &bull;
-          <a @click="toMode('cancel')">
-            Cancel</a> &bull;
-          <a @click="toMode('save')">
-            Save</a> &bull;
-        </template>
-        <template v-if="isMode('proof')">
-          <a @click="toMode('edit')">
-            Edit</a> &bull;
-          <a @click="toMode('cancel')">
-            Cancel</a> &bull;
-          <a @click="toMode('save')">
-            Save</a> &bull;
-        </template>
-        <a @click="open('configer', majig)">
-          Meta</a>
       </div>
     </div>
   </div>
   <div class="bodyer thin stack">
-    <div v-if="isMode('show')
-        || isMode('proof')"
+    <div v-if="!isMode('edit')
+        && !isMode('source')"
       v-html="markeddown"></div>
     <form @submit.prevent
       class="editor"
@@ -101,59 +62,88 @@
           {{ majig.published | datetime }}
         </span>
         <br />
-        <span>C &bull;
+        <span v-if="signed">C &bull;
           {{ majig.created | datetime }}
         </span>
       </div>
       <div class="rghter thin">
-        <template
-          v-if="!signed && isMode('show')">
-          <a @click="toMode('source')">
-            MarkDown</a>
+        <template v-if="!signed">
+          <template v-if="!majig.id">
+            <span>404 Not Found</span>
+          </template>
+          <template v-else-if="isMode('show')">
+            <a @click="toMode('source')">
+              MarkDown</a>
+          </template>
+          <template v-else-if="isMode('source')">
+            <a @click="toMode('cancel')">
+              MarkUp</a>
+          </template>
         </template>
-        <template
-          v-if="!signed && isMode('source')">
-          <a @click="toMode('cancel')">
-            MarkUp</a>
+        <template v-else>
+          <template v-if="isMode('edit')">
+            <a @click="toMode('proof')">
+              Proof</a> &bull;
+            <a @click="toMode('cancel')">
+              Cancel</a> &bull;
+            <a @click="toMode('save')">
+              Save</a>
+          </template>
+          <template v-else-if="isMode('proof')">
+            <a @click="toMode('edit')">
+              Edit</a> &bull;
+            <a @click="toMode('cancel')">
+              Cancel</a> &bull;
+            <a @click="toMode('save')">
+              Save</a>
+          </template>
+          <template v-else-if="!majig.id">
+            <a @click="toMode('edit')">
+              Edit</a>
+          </template>
+          <template v-else-if="isMode('show')">
+            <a @click="toMode('edit')">
+              Edit</a> &bull;
+            <a @click="toMode('move')"
+              v-if="majig.path">
+              Move</a>
+            <a @click="toMode('retag')"
+              v-if="!majig.path">
+              ReTag</a>
+            <br />
+            <br />
+            <a @click="publish()"
+              v-if="!majig.published">
+              Publish</a>
+            <a @click="unpublish()"
+              v-if="majig.published">
+              UnPublish</a> &bull;
+            <a @click="toMode('delete')">
+              Delete</a>
+          </template>
+          <template v-else-if="isMode('delete')">
+            <a @click="remove()">
+              Delete</a> &bull;
+            <a @click="toMode('cancel')">
+              Cancel</a>
+          </template>
+          <template v-else-if="isMode('move')">
+            <a @click="toMode('cancel')">
+              Cancel</a>
+            <br />
+            <br />
+            <span>501 Not Implemented</span>
+          </template>
+          <template v-else-if="isMode('retag')">
+            <a @click="toMode('cancel')">
+              Cancel</a>
+            <br />
+            <br />
+            <span>501 Not Implemented</span>
+          </template>
         </template>
-        <template
-          v-if="signed && isMode('show')">
-          <a @click="toMode('edit')">
-            Edit</a>
-        </template>
-        <template
-          v-if="signed && isMode('edit')">
-          <a @click="toMode('proof')">
-            Proof</a> &bull;
-          <a @click="toMode('cancel')">
-            Cancel</a> &bull;
-          <a @click="toMode('save')">
-            Save</a>
-        </template>
-        <template
-          v-if="signed && isMode('proof')">
-          <a @click="toMode('edit')">
-            Edit</a> &bull;
-          <a @click="toMode('cancel')">
-            Cancel</a> &bull;
-          <a @click="toMode('save')">
-            Save</a>
-        </template>
-        <br />
-        <template
-          v-if="signed">
-          <a>Publish</a> &bull;
-          <a @click="open('configer', majig)">
-            Meta</a>
-        </template>
-        <br />
-        <span><b>
-          {{ majig.path || majig.tags }}
-        </b></span>
       </div>
     </div>
-  </div>
-  </div>
   </div>
   </div>
 
@@ -163,16 +153,7 @@
 <!-- -->
 
 <script>
-import Marked
-  from 'marked';
-import ParabodyRight
-  from 'elements/paras/right.vue';
-import Abouter
-  from 'elements/paras/abouter.vue';
-import Configer
-  from 'elements/paras/configer.vue';
-import Sourcer
-  from 'elements/paras/sourcer.vue';
+import Marked from 'marked';
 /* */
 const Renderer = new Marked.Renderer();
 const Renderers = {
@@ -188,9 +169,6 @@ Renderer.link = (href, title, text) => {
 };
 /* */
 export default {
-  components: {
-    ParabodyRight,
-  },
   filters: {
     datetime: (value) => {
       if(!value) return '000-00-00 00:00:00';
@@ -206,16 +184,9 @@ export default {
   },
   data () {
     return {
-      mode: 'show',
       status: '',
+      mode: 'show',
       markdown: '',
-      views: {
-        abouter: Abouter,
-        configer: Configer,
-        sourcer: Sourcer,
-      },
-      view: '',
-      viewed: null,
     };
   },
   created () {
@@ -224,7 +195,6 @@ export default {
   watch: {
     '$route': 'loadMajig',
     'signed': 'loadMajig',
-    'majig': 'loadViewed',
   },
   computed: {
     signed () {
@@ -240,30 +210,11 @@ export default {
       }
     },
     markeddown () {
-      return Marked(this.markdown
-        || '404 Not Found',
+      return Marked(this.markdown || '',
         { renderer: Renderer });
     },
   },
   methods: {
-    goto (path) {
-      this.open(false);
-      this.$router.push(path)
-        .catch(err => {});
-    },
-    open (view, viewed) {
-      if(view === false
-      || (view === this.view
-      && viewed === this.viewed)) {
-        this.view = '';
-        this.viewed = null;
-      } else if(view !== this.view) {
-        this.view = view;
-        this.viewed = viewed;
-      } else {
-        this.viewed = viewed;
-      }
-    },
     isMode (mode) {
       return this.mode === mode;
     },
@@ -285,19 +236,17 @@ export default {
           break;
       };
     },
-    loadViewed () {
-      this.viewed = this.majig;
-      this.markdown = this.majig.markdown;
-    },
     loadMajig () {
+      this.markdown = this.majig ?
+        this.majig.markdown : '';
       this.status = 'loading';
-      this.open(false);
       return this.$store.dispatch(
         'majig/load', {
         majigId: this.majigId,
         path: this.$route.path,
       }).then((majig) => {
         this.status = '';
+        this.markdown = majig.markdown;
       }).catch((errors) => {
         if(errors[0].status === 404) {
           this.status = '';
@@ -337,6 +286,70 @@ export default {
       } else {
         return this.addMajig();
       }
+    },
+    //
+    move () {
+      this.status = 'moving';
+      return this.$store.dispatch(
+        'majig/update', {
+        majigId: this.majig.id,
+        path: this.majig.path,
+      }).then((majig) => {
+        this.$router.push(
+          majig.path || '/'
+        ).catch(err => {});
+      }).catch((errors) => {
+        this.status = errors[0].title;
+      });
+    },
+    retag () {
+      this.status = 'tagging';
+      return this.$store.dispatch(
+        'majig/update', {
+        majigId: this.majig.id,
+        tags: this.majig.tags,
+      }).then((majig) => {
+        this.status = '';
+      }).catch((errors) => {
+        this.status = errors[0].title;
+      });
+    },
+    publish () {
+      this.status = 'publishing';
+      this.$store.dispatch(
+        'majig/update', {
+        majigId: this.majig.id,
+        published: new Date(),
+      }).then(() => {
+        this.status = '';
+      }).catch((errors) => {
+        this.status = errors[0].title;
+      });
+    },
+    unpublish () {
+      this.status = 'unpublishing';
+      this.$store.dispatch(
+        'majig/update', {
+        majigId: this.majig.id,
+        published: false,
+      }).then(() => {
+        this.status = '';
+      }).catch((errors) => {
+        this.status = errors[0].title;
+      });
+    },
+    remove () {
+      this.status = 'removing';
+      this.$store.dispatch(
+        'majig/remove', {
+        majigId: this.majig.id,
+      }).then(() => {
+        this.status = '';
+        this.markdown = '';
+        this.toMode('show');
+      }).catch((errors) => {
+        this.status = errors[0].title;
+      });
     },
   },
 };
