@@ -10,9 +10,7 @@ const ClientErrors = [{
 /* */
 const state = {
   all: [],
-  count: 0,
-  filter: '-updated',
-  flags: undefined
+  count: 0
 };
 
 /*
@@ -27,14 +25,6 @@ const mutations = {
   set (state, data) {
     state.count = data.count;
     state.all = data.majigs;
-  },
-  filter (state, data) {
-    state.filter = data.filter ||
-      '-updated';
-  },
-  flags (state, data) {
-    state.flags = data.flags ||
-      undefined;
   },
   clear (state, data) {
     state.count = 0;
@@ -59,12 +49,6 @@ const actions = {
         count: response.data.data.count,
         majigs: response.data.data.majigs
       });
-      commit('filter', {
-        filter: inputs.filter
-      });
-      commit('flags', {
-        flags: inputs.flags
-      });
       return response.data.data;
     }).catch((error) => {
       if (error.response) {
@@ -78,7 +62,7 @@ const actions = {
     return Axios.get('/apis/majigs', {
       params: {
         terms: inputs.terms,
-        limit: 33
+        limit: inputs.limit
       }
     }).then((response) => {
       return response.data.data.majigs;

@@ -19,22 +19,8 @@ export default new VueRouter({
       component: Majigs
     },
     {
-      path: '//:flags*//:page*',
-      name: 'submajig',
-      component: Majigs,
-      props: (route) => ({
-        flags: (!route.params.flags)
-          ? [] : route.params.flags
-            .split('/').filter(flag => {
-              return Boolean(flag);
-            }),
-        page: parseInt(
-          route.params.page) || 0
-      })
-    },
-    {
       path: '//:flags*',
-      name: 'subsubmajig',
+      name: 'submajig',
       component: Majigs,
       props: (route) => ({
         flags: (!route.params.flags)

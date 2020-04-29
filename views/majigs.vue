@@ -73,19 +73,7 @@
     <div class="bodyer thin stack">
       <div class="horzer dim thin"
         style="font-size:1em;">
-        <div class="cntrer">
-          <template
-            v-for="page in pages">
-            <template
-              v-if="page">
-              &bull;
-            </template>
-            <router-link
-              :to="pageLink(page)">
-              {{page}}
-            </router-link>
-          </template>
-        </div>
+        <div class="cntrer"></div>
       </div>
     </div>
     </div>
@@ -135,10 +123,6 @@ export default {
       type: Array,
       required: false,
     },
-    page: {
-      type: Number,
-      default: 0,
-    },
   },
   data () {
     return {
@@ -149,8 +133,9 @@ export default {
       },
       view: '',
       viewed: null,
-      limit: 33,
+      limit: 100,
       skip: 0,
+      filter: '-updated'
     };
   },
   created () {
@@ -170,35 +155,14 @@ export default {
       return this.$store.getters[
         'token/signed'];
     },
-    filter () {
-      return this.$store.state.majigs.filter;
-    },
     count () {
       return this.$store.state.majigs.count;
-    },
-    pages () {
-      let pages = [];
-      const count = this.$store.state.majigs.count;
-      if(count <= this.limit) {
-        return pages;
-      }
-      for(let i = 0; i < count / this.limit; i++) {
-        pages.push(i);
-      }
-      return pages;
     },
     majigs () {
       return this.$store.state.majigs.all || [];
     },
   },
   methods: {
-    pageLink (page) {
-      if(!this.flags || !this.flags.length) {
-        return '///' + page;
-      }
-      return '//' + this.flags.join('/')
-        + '//' + page;
-    },
     marked (markdown) {
       return Marked(markdown
         || '404 Not Found',
@@ -237,13 +201,13 @@ export default {
     },
     toggleFilter (filter) {
       this.status = 'sorting';
+      this.filter = this.filter == filter
+          ? '-' + filter : filter;
       this.$store.dispatch('majigs/load', {
-        filter: this.filter == filter
-          ? '-' + filter : filter,
+        filter: this.filter,
         flags: this.flags,
         limit: this.limit,
-        skip: this.skip
-          || this.page * this.limit,
+        skip: this.skip,
       }).then(() => {
         this.status = '';
       }).catch((errors) => {
@@ -264,8 +228,7 @@ export default {
         filter: this.filter,
         flags: this.flags,
         limit: this.limit,
-        skip: this.skip
-          || this.page * this.limit,
+        skip: this.skip,
       }).then(() => {
         this.status = '';
       }).catch((errors) => {
