@@ -36,40 +36,9 @@
       v-if="!majigs.length">
       <p>404 Not Found</p>
     </div>
-    <div class="bodyer thin stack"
+    <SupMajig :majig="majig"
       v-for="majig in majigs"
-      :key="majig.id">
-      <div v-html="marked(majig.markdown)"></div>
-      <div class="supstack"><br /></div>
-      <div class="substack horzer dim">
-        <div class="lefter thin">
-          <span>
-            U &bull;
-            {{ majig.updated | datetime }}
-          </span>
-          <br />
-          <span>
-            P &bull;
-            {{ majig.published | datetime }}
-          </span>
-        </div>
-        <div class="rghter thin">
-          <span>
-            {{ majig.tags }}
-          </span>
-          <br />
-          <a @click="gotoMajig(majig)">
-            GoTo
-          </a> &bull;
-          <a @click="open('sourcer', majig)">
-            Source
-          </a> &bull;
-          <a @click="open('abouter', majig)">
-            Meta
-          </a>
-        </div>
-      </div>
-    </div>
+      :key="majig.id" />
     <div class="bodyer thin stack">
       <div class="horzer dim thin"
         style="font-size:1em;">
@@ -87,6 +56,8 @@
 <script>
 import Marked
   from 'marked';
+import SupMajig
+  from 'views/supmajig.vue';
 import ParabodyRight
   from 'elements/paras/right.vue';
 import Abouter
@@ -110,6 +81,7 @@ Renderer.link = (href, title, text) => {
 export default {
   components: {
     ParabodyRight,
+    SupMajig
   },
   filters: {
     datetime: (value) => {
