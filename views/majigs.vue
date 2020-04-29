@@ -2,85 +2,52 @@
 
 <template>
 <div class="body">
+<div class="body">
 
-  <ParabodyRight
-    :views="views"
-    :view="view"
-    :viewed="viewed"
-    @open="open"
-    @goto="goto" />
-
-  <div class="body">
-
-    <div class="body">
-    <div class="subbody" id="subbody">
-    <div class="bodyer thin stack">
-      <div class="horzer dim thin">
-        <div class="lefter">
-          <span>{{status || $route.path}}</span>
-        </div>
-        <div class="rghter">
-          <a @click="toggleFilter('published')"
-            :class="classFilter('published')">
-            Published</a> &bull;
-          <a @click="toggleFilter('updated')"
-            :class="classFilter('updated')">
-            Updated</a> &bull;
-          <span>
-            {{count || 0}}
-          </span>
-        </div>
+  <div class="subbody" id="subbody">
+  <div class="bodyer thin stack">
+    <div class="horzer dim thin">
+      <div class="lefter">
+        <span>{{status || $route.path}}</span>
+      </div>
+      <div class="rghter">
+        <a @click="toggleFilter('published')"
+          :class="classFilter('published')">
+          Published</a> &bull;
+        <a @click="toggleFilter('updated')"
+          :class="classFilter('updated')">
+          Updated</a> &bull;
+        <span>
+          {{count || 0}}
+        </span>
       </div>
     </div>
-    <div class="bodyer thin stack"
-      v-if="!majigs.length">
-      <p>404 Not Found</p>
+  </div>
+  <div class="bodyer thin stack"
+    v-if="!majigs.length">
+    <p>404 Not Found</p>
+  </div>
+  <SupMajig :majig="majig"
+    v-for="majig in majigs"
+    :key="majig.id" />
+  <div class="bodyer thin stack">
+    <div class="horzer dim thin"
+      style="font-size:1em;">
+      <div class="cntrer"></div>
     </div>
-    <SupMajig :majig="majig"
-      v-for="majig in majigs"
-      :key="majig.id" />
-    <div class="bodyer thin stack">
-      <div class="horzer dim thin"
-        style="font-size:1em;">
-        <div class="cntrer"></div>
-      </div>
-    </div>
-    </div>
-    </div>
-
+  </div>
   </div>
 
+</div>
 </div>
 </template>
 
 <script>
-import Marked
-  from 'marked';
 import SupMajig
   from 'views/supmajig.vue';
-import ParabodyRight
-  from 'elements/paras/right.vue';
-import Abouter
-  from 'elements/paras/abouter.vue';
-import Sourcer
-  from 'elements/paras/sourcer.vue';
-/* */
-const Renderer = new Marked.Renderer();
-const Renderers = {
-  link: Renderer.link.bind(Renderer),
-};
-Renderer.link = (href, title, text) => {
-  if(href[0] === '/') {
-    href = '#' + href;
-  } else if(href[0] !== '#') {
-    href = '#/' + href;
-  }
-  return Renderers.link(href, title, text);
-};
 /* */
 export default {
   components: {
-    ParabodyRight,
     SupMajig
   },
   filters: {
@@ -99,12 +66,6 @@ export default {
   data () {
     return {
       status: '',
-      views: {
-        abouter: Abouter,
-        sourcer: Sourcer,
-      },
-      view: '',
-      viewed: null,
       limit: 100,
       skip: 0,
       filter: '-updated'
@@ -128,54 +89,21 @@ export default {
         'token/signed'];
     },
     count () {
-      return this.$store.state.majigs.count;
+      return this.$store.state
+        .majigs.count;
     },
     majigs () {
-      return this.$store.state.majigs.all || [];
+      return this.$store.state
+        .majigs.all || [];
     },
   },
   methods: {
-    marked (markdown) {
-      return Marked(markdown
-        || '404 Not Found',
-        { renderer: Renderer });
-    },
-    goto (path) {
-      this.open(false);
-      this.$router.push(path).catch(err => {});
-    },
-    gotoMajig (majig) {
-      if(majig.path) {
-        this.$router.push({
-          path: majig.path
-        });
-      } else {
-        this.$router.push({
-          name: 'supmajig',
-          params: {
-            majigId: majig.id
-          }
-        });
-      }
-    },
-    open (view, viewed) {
-      if(view === false
-      || (view === this.view
-      && viewed === this.viewed)) {
-        this.view = '';
-        this.viewed = null;
-      } else if(view !== this.view) {
-        this.view = view;
-        this.viewed = viewed;
-      } else {
-        this.viewed = viewed;
-      }
-    },
     toggleFilter (filter) {
       this.status = 'sorting';
       this.filter = this.filter == filter
           ? '-' + filter : filter;
-      this.$store.dispatch('majigs/load', {
+      this.$store.dispatch(
+        'majigs/load', {
         filter: this.filter,
         flags: this.flags,
         limit: this.limit,
@@ -194,9 +122,9 @@ export default {
       } else { return ''; }
     },
     loadMajigs () {
-      this.open(false);
       this.status = 'loading';
-      this.$store.dispatch('majigs/load', {
+      this.$store.dispatch(
+        'majigs/load', {
         filter: this.filter,
         flags: this.flags,
         limit: this.limit,
