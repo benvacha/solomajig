@@ -26,6 +26,18 @@ const mutations = {
     state.count = data.count;
     state.all = data.majigs;
   },
+  update (state, data) {
+    const i = state.all.findIndex((majig) => {
+      return majig.id == data.majig.id;
+    });
+    state.all.splice(i, 1, data.majig);
+  },
+  remove (state, data) {
+    const i = state.all.findIndex((majig) => {
+      return majig.id == data.majig.id;
+    });
+    state.all.splice(i, 1);
+  },
   clear (state, data) {
     state.count = 0;
     state.all = [];
@@ -66,6 +78,42 @@ const actions = {
       }
     }).then((response) => {
       return response.data.data.majigs;
+    }).catch((error) => {
+      if (error.response) {
+        throw error.response.data.errors;
+      } else {
+        throw ClientErrors;
+      }
+    });
+  },
+  async update ({ commit }, inputs) {
+    return Axios.put('/apis/majig/' +
+      inputs.majigId, {
+      path: inputs.path,
+      tags: inputs.tags,
+      markdown: inputs.markdown,
+      published: inputs.published
+    }).then((response) => {
+      commit('update', {
+        majig: response.data.data
+      });
+      return response.data.data;
+    }).catch((error) => {
+      if (error.response) {
+        throw error.response.data.errors;
+      } else {
+        throw ClientErrors;
+      }
+    });
+  },
+  async remove ({ commit }, inputs) {
+    return Axios.delete('/apis/majig/' +
+      inputs.majigId, {
+    }).then((response) => {
+      commit('remove', {
+        majig: response.data.data
+      });
+      return response.data.data;
     }).catch((error) => {
       if (error.response) {
         throw error.response.data.errors;

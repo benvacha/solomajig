@@ -199,7 +199,7 @@ export default {
     addMajig () {
       this.status = 'adding';
       return this.$store.dispatch(
-        'majig/add', {
+        'majigs/add', {
         path: this.$route.path,
         markdown: this.markdown,
       }).then((majig) => {
@@ -211,7 +211,7 @@ export default {
     updateMajig () {
       this.status = 'updating';
       return this.$store.dispatch(
-        'majig/update', {
+        'majigs/update', {
         majigId: this.majig.id,
         markdown: this.markdown,
       }).then((majig) => {
@@ -232,7 +232,7 @@ export default {
     move () {
       this.status = 'moving';
       return this.$store.dispatch(
-        'majig/update', {
+        'majigs/update', {
         majigId: this.majig.id,
         path: this.majig.path,
       }).then((majig) => {
@@ -246,7 +246,7 @@ export default {
     retag () {
       this.status = 'tagging';
       return this.$store.dispatch(
-        'majig/update', {
+        'majigs/update', {
         majigId: this.majig.id,
         tags: this.majig.tags,
       }).then((majig) => {
@@ -258,7 +258,7 @@ export default {
     publish () {
       this.status = 'publishing';
       this.$store.dispatch(
-        'majig/update', {
+        'majigs/update', {
         majigId: this.majig.id,
         published: new Date(),
       }).then(() => {
@@ -270,7 +270,7 @@ export default {
     unpublish () {
       this.status = 'unpublishing';
       this.$store.dispatch(
-        'majig/update', {
+        'majigs/update', {
         majigId: this.majig.id,
         published: false,
       }).then(() => {
@@ -282,7 +282,7 @@ export default {
     remove () {
       this.status = 'removing';
       this.$store.dispatch(
-        'majig/remove', {
+        'majigs/remove', {
         majigId: this.majig.id,
       }).then(() => {
         this.status = '';

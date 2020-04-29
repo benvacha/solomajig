@@ -4,7 +4,7 @@
 <div class="body">
 <div class="body">
 
-  <div class="subbody" id="subbody">
+  <div class="subbody">
   <div class="bodyer thin stack">
     <div class="horzer dim thin">
       <div class="lefter">
@@ -73,11 +73,6 @@ export default {
   },
   created () {
     this.loadMajigs();
-  },
-  updated () {
-    let subbody = this.$el
-      .querySelector("#subbody");
-    subbody.scrollTop = 0;
   },
   watch: {
     '$route': 'loadMajigs',
