@@ -22,10 +22,14 @@
       <input type="text"
         v-model="username"
         placeholder="username"
+        autocorrect="off"
+        autocapitalize="none"
       />
       <input type="password"
         v-model="password"
         placeholder="password"
+        autocorrect="off"
+        autocapitalize="none"
       />
       <input type="submit"
         value="SignIn"
@@ -42,6 +46,9 @@
       <input type="text"
         v-model="path"
         placeholder="path"
+        inputmode="url"
+        autocorrect="off"
+        autocapitalize="none"
       />
       <input type="submit"
         value="GoTo" />

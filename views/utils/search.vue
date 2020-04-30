@@ -10,6 +10,8 @@
       <input type="text"
         v-model="terms"
         placeholder="terms && tags"
+        autocorrect="off"
+        autocapitalize="none"
       />
       <input type="submit"
         value="Search" />

@@ -11,10 +11,15 @@
       <input type="text"
         v-model="path"
         placeholder="path"
+        inputmode="url"
+        autocorrect="off"
+        autocapitalize="none"
       />
       <input type="text"
         v-model="tags"
         placeholder="tags"
+        autocorrect="off"
+        autocapitalize="none"
       />
       <input type="submit"
         value="Create" />
