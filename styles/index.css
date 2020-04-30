@@ -74,6 +74,10 @@ a.descend:hover {
   text-decoration:underline
     line-through;
 }
+/* */
+.bold {
+  font-weight:500;
+}
 
 
 /*

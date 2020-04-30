@@ -45,7 +45,13 @@
         <template v-else-if="isMode('source')">
           <a @click="toMode('cancel')">
             MarkUp</a>
-        </template>
+        </template> &bull;
+        <a @click="goto(majig)">
+          GoTo</a>
+        <br />
+        <span class="bold">
+          {{majig.path || majig.tags}}
+        </span>
       </template>
       <template v-else>
         <template v-if="isMode('edit')">
@@ -76,9 +82,11 @@
             Move</a>
           <a @click="toMode('retag')"
             v-if="!majig.path">
-            Tag</a>
+            Tag</a> &bull;
+          <a @click="goto(majig)">
+            GoTo</a>
           <br />
-          <span>
+          <span class="bold">
             {{majig.path || majig.tags}}
           </span>
           <br />
@@ -89,9 +97,7 @@
             v-if="majig.published">
             UnPublish</a> &bull;
           <a @click="toMode('delete')">
-            Delete</a> &bull;
-          <a @click="goto(majig)">
-            GoTo</a>
+            Delete</a>
         </template>
         <template v-else-if="isMode('delete')">
           <a @click="remove()">

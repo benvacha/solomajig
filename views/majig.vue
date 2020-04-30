@@ -79,6 +79,10 @@
             <a @click="toMode('cancel')">
               MarkUp</a>
           </template>
+          <br />
+          <span class="bold">
+            {{majig.path || majig.tags}}
+          </span>
         </template>
         <template v-else>
           <template v-if="isMode('edit')">
@@ -111,7 +115,7 @@
               v-if="!majig.path">
               Tag</a>
             <br />
-            <span>
+            <span class="bold">
               {{majig.path || majig.tags}}
             </span>
             <br />
