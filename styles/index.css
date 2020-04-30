@@ -397,7 +397,7 @@ a.descend:hover {
     border:none;
     background:#FFFFFF;
     color:rgba(0,0,0,.87);
-    border-top:1px solid #EEE;
+    border-top:1px solid #DDD;
 }
 .postbody ~ .body {
     padding-bottom:48px;
@@ -415,6 +415,16 @@ a.descend:hover {
 }
 .postbody.tall ~ .body {
     padding-top:56px;
+}
+/* */
+.postbody.former {
+    height:106px;
+}
+.postbody.former ~ .body {
+    padding-top:106px;
+}
+.postbody.former input {
+  max-height:35px;
 }
 /* */
 .postbody.dark {

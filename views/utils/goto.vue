@@ -14,6 +14,27 @@
     </div>
   </div>
 
+  <!-- -->
+  <div class="postbody former"
+    v-if="!signed">
+  <div class="bodyer para">
+    <form @submit.prevent="sign()">
+      <input type="text"
+        v-model="username"
+        placeholder="username"
+      />
+      <input type="password"
+        v-model="password"
+        placeholder="password"
+      />
+      <input type="submit"
+        value="SignIn"
+      />
+    </form>
+  </div>
+  </div>
+
+  <!-- -->
   <div class="subbody">
   <div class="bodyer para">
     <h1>GoTo</h1>
@@ -25,22 +46,6 @@
       <input type="submit"
         value="GoTo" />
     </form>
-    <template v-if="!signed">
-      <h1>SignIn</h1>
-      <form @submit.prevent="sign()">
-        <input type="text"
-          v-model="username"
-          placeholder="username"
-        />
-        <input type="password"
-          v-model="password"
-          placeholder="password"
-        />
-        <input type="submit"
-          value="SignIn"
-        />
-      </form>
-    </template>
   </div>
   </div>
 
