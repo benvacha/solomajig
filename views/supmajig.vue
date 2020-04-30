@@ -76,8 +76,11 @@
             Move</a>
           <a @click="toMode('retag')"
             v-if="!majig.path">
-            ReTag</a>
+            Tag</a>
           <br />
+          <span>
+            {{majig.path || majig.tags}}
+          </span>
           <br />
           <a @click="publish()"
             v-if="!majig.published">
@@ -86,7 +89,9 @@
             v-if="majig.published">
             UnPublish</a> &bull;
           <a @click="toMode('delete')">
-            Delete</a>
+            Delete</a> &bull;
+          <a @click="goto(majig)">
+            GoTo</a>
         </template>
         <template v-else-if="isMode('delete')">
           <a @click="remove()">
@@ -171,6 +176,20 @@ export default {
     },
   },
   methods: {
+    goto (majig) {
+      if(majig.path) {
+        this.$router.push(
+          majig.path
+        ).catch(error => {});
+      } else {
+        this.$router.push({
+          name: 'supmajig',
+          params: {
+            majigId: majig.id
+          }
+        }).catch(() => {});
+      }
+    },
     isMode (mode) {
       return this.mode === mode;
     },

@@ -109,8 +109,11 @@
               Move</a>
             <a @click="toMode('retag')"
               v-if="!majig.path">
-              ReTag</a>
+              Tag</a>
             <br />
+            <span>
+              {{majig.path || majig.tags}}
+            </span>
             <br />
             <a @click="publish()"
               v-if="!majig.published">
