@@ -860,8 +860,8 @@ a.descend:hover {
   width:100%;
   height:auto;
   min-height:100%;
-  padding:24px 16px;
-  padding-bottom:96px;
+  padding:16px 0px;
+  padding-bottom:0px;
   resize:none;
   border:none;
   outline:none;

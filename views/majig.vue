@@ -15,20 +15,20 @@
           <a @click="toMode('edit')">
             Edit</a>
         </template>
-        <template v-if="isMode('edit')">
+        <template v-else-if="isMode('edit')">
           <a @click="toMode('proof')">
             Proof</a> &bull;
-          <a @click="toMode('cancel')">
+          <a @click="cancel()">
             Cancel</a> &bull;
-          <a @click="toMode('save')">
+          <a @click="save()">
             Save</a>
         </template>
-        <template v-if="isMode('proof')">
+        <template v-else-if="isMode('proof')">
           <a @click="toMode('edit')">
             Edit</a> &bull;
-          <a @click="toMode('cancel')">
+          <a @click="cancel()">
             Cancel</a> &bull;
-          <a @click="toMode('save')">
+          <a @click="save()">
             Save</a>
         </template>
       </div>
@@ -76,7 +76,7 @@
               MarkDown</a>
           </template>
           <template v-else-if="isMode('source')">
-            <a @click="toMode('cancel')">
+            <a @click="cancel()">
               MarkUp</a>
           </template>
           <br />
@@ -88,18 +88,26 @@
           <template v-if="isMode('edit')">
             <a @click="toMode('proof')">
               Proof</a> &bull;
-            <a @click="toMode('cancel')">
+            <a @click="cancel()">
               Cancel</a> &bull;
-            <a @click="toMode('save')">
+            <a @click="save()">
               Save</a>
+            <br />
+            <span class="bold">
+              {{status}}
+            </span>
           </template>
           <template v-else-if="isMode('proof')">
             <a @click="toMode('edit')">
               Edit</a> &bull;
-            <a @click="toMode('cancel')">
+            <a @click="cancel()">
               Cancel</a> &bull;
-            <a @click="toMode('save')">
+            <a @click="save()">
               Save</a>
+            <br />
+            <span class="bold">
+              {{status}}
+            </span>
           </template>
           <template v-else-if="!majig.id">
             <a @click="toMode('edit')">
@@ -111,40 +119,71 @@
             <a @click="toMode('move')"
               v-if="majig.path">
               Move</a>
-            <a @click="toMode('retag')"
+            <a @click="toMode('tag')"
               v-if="!majig.path">
               Tag</a>
             <br />
             <span class="bold">
-              {{majig.path || majig.tags}}
+              {{status ||
+                majig.path || majig.tags}}
             </span>
             <br />
             <a @click="publish()"
               v-if="!majig.published">
               Publish</a>
-            <a @click="unpublish()"
+            <a @click="conceal()"
               v-if="majig.published">
-              UnPublish</a> &bull;
+              Conceal</a> &bull;
             <a @click="toMode('delete')">
               Delete</a>
+          </template>
+          <template v-else-if="isMode('publish')">
+            <a @click="publish()">
+              Publish</a> &bull;
+            <a @click="cancel()">
+              Cancel</a>
+            <br />
+            <span class="bold">
+              {{status}}
+            </span>
+          </template>
+          <template v-else-if="isMode('conceal')">
+            <a @click="conceal()">
+              Conceal</a> &bull;
+            <a @click="cancel()">
+              Cancel</a>
+            <br />
+            <span class="bold">
+              {{status}}
+            </span>
           </template>
           <template v-else-if="isMode('delete')">
             <a @click="remove()">
               Delete</a> &bull;
-            <a @click="toMode('cancel')">
-              Cancel</a>
-          </template>
-          <template v-else-if="isMode('move')">
-            <a @click="toMode('cancel')">
+            <a @click="cancel()">
               Cancel</a>
             <br />
+            <span class="bold">
+              {{status}}
+            </span>
+          </template>
+          <template v-else-if="isMode('move')">
+            <a @click="cancel()">
+              Cancel</a>
+            <br />
+            <span class="bold">
+              {{status}}
+            </span>
             <br />
             <span>501 Not Implemented</span>
           </template>
-          <template v-else-if="isMode('retag')">
-            <a @click="toMode('cancel')">
+          <template v-else-if="isMode('tag')">
+            <a @click="cancel()">
               Cancel</a>
             <br />
+            <span class="bold">
+              {{status}}
+            </span>
             <br />
             <span>501 Not Implemented</span>
           </template>
@@ -197,11 +236,11 @@ export default {
     };
   },
   created () {
-    this.loadMajig();
+    this.load();
   },
   watch: {
-    '$route': 'loadMajig',
-    'signed': 'loadMajig',
+    '$route': 'load',
+    'signed': 'load',
   },
   computed: {
     signed () {
@@ -226,34 +265,25 @@ export default {
       return this.mode === mode;
     },
     toMode (mode) {
-      switch(mode) {
-        case 'cancel':
-          this.markdown =
-            this.majig.markdown || '';
-          this.mode = 'show';
-          break;
-        case 'save':
-          this.saveMajig(
-          ).then(() => {
-            this.mode = 'show';
-          });
-          break;
-        default:
-          this.mode = mode;
-          break;
-      };
+      this.status = '';
+      this.mode = mode;
     },
-    loadMajig () {
-      this.markdown = this.majig ?
-        this.majig.markdown : '';
+    cancel () {
+      this.status = '';
+      this.mode = 'show';
+      this.markdown =
+        this.majig.markdown || '';
+    },
+    load () {
       this.status = 'loading';
+      this.markdown =
+        this.majig.markdown || '';
       return this.$store.dispatch(
         'majig/load', {
         majigId: this.majigId,
         path: this.$route.path,
       }).then((majig) => {
-        this.status = '';
-        this.markdown = majig.markdown;
+        this.cancel();
       }).catch((errors) => {
         if(errors[0].status === 404) {
           this.status = '';
@@ -262,39 +292,38 @@ export default {
         }
       });
     },
-    addMajig () {
+    add () {
       this.status = 'adding';
       return this.$store.dispatch(
         'majig/add', {
         path: this.$route.path,
         markdown: this.markdown,
       }).then((majig) => {
-        this.status = '';
+        this.cancel();
       }).catch((errors) => {
         this.status = errors[0].title;
       });
     },
-    updateMajig () {
+    update () {
       this.status = 'updating';
       return this.$store.dispatch(
         'majig/update', {
         majigId: this.majig.id,
         markdown: this.markdown,
       }).then((majig) => {
-        this.status = '';
+        this.cancel();
       }).catch((errors) => {
         this.status = errors[0].title;
       });
     },
-    saveMajig () {
+    save () {
       this.status = 'saving';
       if(this.majig.id) {
-        return this.updateMajig();
+        return this.update();
       } else {
-        return this.addMajig();
+        return this.add();
       }
     },
-    //
     move () {
       this.status = 'moving';
       return this.$store.dispatch(
@@ -309,14 +338,14 @@ export default {
         this.status = errors[0].title;
       });
     },
-    retag () {
+    tag () {
       this.status = 'tagging';
       return this.$store.dispatch(
         'majig/update', {
         majigId: this.majig.id,
         tags: this.majig.tags,
       }).then((majig) => {
-        this.status = '';
+        this.cancel();
       }).catch((errors) => {
         this.status = errors[0].title;
       });
@@ -328,32 +357,30 @@ export default {
         majigId: this.majig.id,
         published: new Date(),
       }).then(() => {
-        this.status = '';
+        this.cancel();
       }).catch((errors) => {
         this.status = errors[0].title;
       });
     },
-    unpublish () {
-      this.status = 'unpublishing';
+    conceal () {
+      this.status = 'concealing';
       this.$store.dispatch(
         'majig/update', {
         majigId: this.majig.id,
         published: false,
       }).then(() => {
-        this.status = '';
+        this.cancel();
       }).catch((errors) => {
         this.status = errors[0].title;
       });
     },
     remove () {
-      this.status = 'removing';
+      this.status = 'deleting';
       this.$store.dispatch(
         'majig/remove', {
         majigId: this.majig.id,
       }).then(() => {
-        this.status = '';
-        this.markdown = '';
-        this.toMode('show');
+        this.cancel();
       }).catch((errors) => {
         this.status = errors[0].title;
       });

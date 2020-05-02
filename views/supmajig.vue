@@ -43,10 +43,10 @@
             MarkDown</a>
         </template>
         <template v-else-if="isMode('source')">
-          <a @click="toMode('cancel')">
+          <a @click="cancel()">
             MarkUp</a>
         </template> &bull;
-        <a @click="goto(majig)">
+        <a @click="goto()">
           GoTo</a>
         <br />
         <span class="bold">
@@ -57,18 +57,26 @@
         <template v-if="isMode('edit')">
           <a @click="toMode('proof')">
             Proof</a> &bull;
-          <a @click="toMode('cancel')">
+          <a @click="cancel()">
             Cancel</a> &bull;
-          <a @click="toMode('save')">
+          <a @click="save()">
             Save</a>
+          <br />
+          <span class="bold">
+            {{status}}
+          </span>
         </template>
         <template v-else-if="isMode('proof')">
           <a @click="toMode('edit')">
             Edit</a> &bull;
-          <a @click="toMode('cancel')">
+          <a @click="cancel()">
             Cancel</a> &bull;
-          <a @click="toMode('save')">
+          <a @click="save()">
             Save</a>
+          <br />
+          <span class="bold">
+            {{status}}
+          </span>
         </template>
         <template v-else-if="!majig.id">
           <a @click="toMode('edit')">
@@ -80,40 +88,45 @@
           <a @click="toMode('move')"
             v-if="majig.path">
             Move</a>
-          <a @click="toMode('retag')"
+          <a @click="toMode('tag')"
             v-if="!majig.path">
             Tag</a> &bull;
-          <a @click="goto(majig)">
+          <a @click="goto()">
             GoTo</a>
           <br />
           <span class="bold">
-            {{majig.path || majig.tags}}
+            {{status ||
+              majig.path || majig.tags}}
           </span>
           <br />
           <a @click="publish()"
             v-if="!majig.published">
             Publish</a>
-          <a @click="unpublish()"
+          <a @click="conceal()"
             v-if="majig.published">
-            UnPublish</a> &bull;
+            Conceal</a> &bull;
           <a @click="toMode('delete')">
             Delete</a>
         </template>
         <template v-else-if="isMode('delete')">
           <a @click="remove()">
             Delete</a> &bull;
-          <a @click="toMode('cancel')">
+          <a @click="cancel()">
             Cancel</a>
+          <br />
+          <span class="bold">
+            {{status}}
+          </span>
         </template>
         <template v-else-if="isMode('move')">
-          <a @click="toMode('cancel')">
+          <a @click="cancel()">
             Cancel</a>
           <br />
           <br />
           <span>501 Not Implemented</span>
         </template>
-        <template v-else-if="isMode('retag')">
-          <a @click="toMode('cancel')">
+        <template v-else-if="isMode('tag')">
+          <a @click="cancel()">
             Cancel</a>
           <br />
           <br />
@@ -166,10 +179,10 @@ export default {
     };
   },
   created () {
-    this.loadMajig();
+    this.load();
   },
   watch: {
-    'signed': 'loadMajig',
+    'signed': 'load',
   },
   computed: {
     signed () {
@@ -182,78 +195,68 @@ export default {
     },
   },
   methods: {
-    goto (majig) {
-      if(majig.path) {
+    isMode (mode) {
+      return this.mode === mode;
+    },
+    toMode (mode) {
+      this.status = '';
+      this.mode = mode;
+    },
+    goto () {
+      if(this.majig.path) {
         this.$router.push(
-          majig.path
+          this.majig.path
         ).catch(error => {});
       } else {
         this.$router.push({
           name: 'supmajig',
           params: {
-            majigId: majig.id
+            majigId: this.majig.id
           }
         }).catch(() => {});
       }
     },
-    isMode (mode) {
-      return this.mode === mode;
+    cancel () {
+      this.status = '';
+      this.mode = 'show';
+      this.markdown =
+        this.majig.markdown || '';
     },
-    toMode (mode) {
-      switch(mode) {
-        case 'cancel':
-          this.markdown =
-            this.majig.markdown || '';
-          this.mode = 'show';
-          break;
-        case 'save':
-          this.saveMajig(
-          ).then(() => {
-            this.mode = 'show';
-          });
-          break;
-        default:
-          this.mode = mode;
-          break;
-      };
+    load () {
+      this.cancel();
     },
-    loadMajig () {
-      this.markdown = this.majig ?
-        this.majig.markdown : '';
-    },
-    addMajig () {
+    add() {
       this.status = 'adding';
       return this.$store.dispatch(
         'majigs/add', {
         path: this.$route.path,
         markdown: this.markdown,
       }).then((majig) => {
-        this.status = '';
+        this.cancel();
       }).catch((errors) => {
         this.status = errors[0].title;
       });
     },
-    updateMajig () {
+    update () {
       this.status = 'updating';
       return this.$store.dispatch(
         'majigs/update', {
         majigId: this.majig.id,
         markdown: this.markdown,
       }).then((majig) => {
-        this.status = '';
+        this.cancel();
       }).catch((errors) => {
         this.status = errors[0].title;
       });
     },
-    saveMajig () {
+    save () {
       this.status = 'saving';
       if(this.majig.id) {
-        return this.updateMajig();
+        return this.update();
       } else {
-        return this.addMajig();
+        return this.add();
       }
     },
-    //
     move () {
       this.status = 'moving';
       return this.$store.dispatch(
@@ -268,14 +271,14 @@ export default {
         this.status = errors[0].title;
       });
     },
-    retag () {
+    tag () {
       this.status = 'tagging';
       return this.$store.dispatch(
         'majigs/update', {
         majigId: this.majig.id,
         tags: this.majig.tags,
       }).then((majig) => {
-        this.status = '';
+        this.cancel();
       }).catch((errors) => {
         this.status = errors[0].title;
       });
@@ -287,19 +290,19 @@ export default {
         majigId: this.majig.id,
         published: new Date(),
       }).then(() => {
-        this.status = '';
+        this.cancel();
       }).catch((errors) => {
         this.status = errors[0].title;
       });
     },
-    unpublish () {
-      this.status = 'unpublishing';
+    conceal () {
+      this.status = 'concealing';
       this.$store.dispatch(
         'majigs/update', {
         majigId: this.majig.id,
         published: false,
       }).then(() => {
-        this.status = '';
+        this.cancel();
       }).catch((errors) => {
         this.status = errors[0].title;
       });
@@ -310,9 +313,7 @@ export default {
         'majigs/remove', {
         majigId: this.majig.id,
       }).then(() => {
-        this.status = '';
-        this.markdown = '';
-        this.toMode('show');
+        this.cancel();
       }).catch((errors) => {
         this.status = errors[0].title;
       });
