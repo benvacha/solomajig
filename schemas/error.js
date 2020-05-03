@@ -58,6 +58,7 @@ schema.statics.CODES = {
   5000: { status: 500, message: 'server error' },
   5001: { status: 501, message: 'unimplemented' },
   5003: { status: 503, message: 'unavailable' },
+  5010: { status: 510, message: 'modify disabled'},
   /*
     USAGE
   */

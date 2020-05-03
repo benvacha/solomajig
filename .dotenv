@@ -5,6 +5,7 @@ PORT = 3000
 NODE_ENV = development
 
 ## SOLOMAJIG
+SOLOMAJIG_ARCHIVED = false
 SOLOMAJIG_USERNAME = username
 SOLOMAJIG_PASSWORD = password
 

@@ -82,6 +82,16 @@ function (req, res, requireds, optionals) {
 // req:{}, input:*
 /// falsy || throw Error
 schema.statics.LOCALIZERS = {
+  archived: function (req, res, input, required) {
+    const archived = 'true' ===
+      process.env.SOLOMAJIG_ARCHIVED;
+    if (input === true && !archived) {
+      throw new Error.Code(5010);
+    } else if (input === false && archived) {
+      throw new Error.Code(5010);
+    }
+    res.locals.archived = archived;
+  },
   flags: function (req, res, input, required) {
     if (required && !input) {
       throw new Error.Code(6020);

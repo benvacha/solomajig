@@ -47,7 +47,8 @@ app.get('/', (req, res) => {
 /// { majig:Majig } || { Error }
 app.post('/', (req, res) => {
   Index.localize(req, res, {
-    token: res.locals.token
+    token: res.locals.token,
+    archived: false
   }, {
     path: req.body.path,
     tags: req.body.tags,
@@ -83,6 +84,7 @@ app.post('/', (req, res) => {
 app.put('/:majigId', (req, res) => {
   Index.localize(req, res, {
     token: res.locals.token,
+    archived: false,
     majigId: req.params.majigId
   }, {
     path: req.body.path,
@@ -133,6 +135,7 @@ app.put('/:majigId', (req, res) => {
 app.delete('/:majigId', (req, res) => {
   Index.localize(req, res, {
     token: res.locals.token,
+    archived: false,
     majigId: req.params.majigId
   }, {
   }).then((locals) => {

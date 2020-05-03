@@ -18,11 +18,13 @@ app.put('/', (req, res) => {
     password: req.body.password
   }, {
   }).then((locals) => {
-    if (res.locals.username !==
+    if (!process.env.SOLOMAJIG_USERNAME ||
+      res.locals.username !==
       process.env.SOLOMAJIG_USERNAME) {
       throw new Error.Code(6006);
     }
-    if (res.locals.password !==
+    if (!process.env.SOLOMAJIG_PASSWORD ||
+      res.locals.password !==
       process.env.SOLOMAJIG_PASSWORD) {
       throw new Error.Code(6004);
     }
