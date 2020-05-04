@@ -2068,17 +2068,18 @@ a.descend:hover {
 
 /*
 /* */
-@media screen and (-webkit-min-device-pixel-ratio:2) {
+@media (hover: none) and (pointer: coarse) {
 
   /*
   /* */
-  a:focus {
+  a:hover {
     text-decoration:none !important;
   }
 
   /*
   /* */
   .bodyer form pre,
+  .bodyer form input,
   .bodyer form textarea {
       font-size:1em !important;
   }
