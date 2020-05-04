@@ -180,8 +180,11 @@
             <form @submit.prevent>
               <pre>{{path}}</pre>
               <input type="text"
+                v-model="path"
                 placeholder="path"
-                v-model="path" />
+                inputmode="url"
+                autocorrect="off"
+                autocapitalize="none" />
             </form>
           </template>
           <template v-else-if="isMode('tag')">
@@ -198,7 +201,9 @@
               <pre>{{tags}}</pre>
               <input type="text"
                 placeholder="tags"
-                v-model="tags" />
+                v-model="tags"
+                autocorrect="off"
+                autocapitalize="none" />
             </form>
           </template>
         </template>

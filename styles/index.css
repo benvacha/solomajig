@@ -2070,12 +2070,18 @@ a.descend:hover {
 /* */
 @media screen and (-webkit-min-device-pixel-ratio:2) {
 
-    /*
-    /* */
-    .bodyer form pre,
-    .bodyer form textarea {
-        font-size:1em;
-    }
+  /*
+  /* */
+  a:focus {
+    text-decoration:none !important;
+  }
+
+  /*
+  /* */
+  .bodyer form pre,
+  .bodyer form textarea {
+      font-size:1em !important;
+  }
 
 }
 
