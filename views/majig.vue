@@ -168,6 +168,8 @@
             </span>
           </template>
           <template v-else-if="isMode('move')">
+            <a @click="move()">
+              Move</a> &bull;
             <a @click="cancel()">
               Cancel</a>
             <br />
@@ -175,9 +177,16 @@
               {{status}}
             </span>
             <br />
-            <span>501 Not Implemented</span>
+            <form @submit.prevent>
+              <pre>{{path}}</pre>
+              <input type="text"
+                placeholder="path"
+                v-model="path" />
+            </form>
           </template>
           <template v-else-if="isMode('tag')">
+            <a @click="tag()">
+              Tag</a> &bull;
             <a @click="cancel()">
               Cancel</a>
             <br />
@@ -185,7 +194,12 @@
               {{status}}
             </span>
             <br />
-            <span>501 Not Implemented</span>
+            <form @submit.prevent>
+              <pre>{{tags}}</pre>
+              <input type="text"
+                placeholder="tags"
+                v-model="tags" />
+            </form>
           </template>
         </template>
       </div>
@@ -232,6 +246,8 @@ export default {
     return {
       status: '',
       mode: 'show',
+      path: '',
+      tags: '',
       markdown: '',
     };
   },
@@ -271,6 +287,10 @@ export default {
     cancel () {
       this.status = '';
       this.mode = 'show';
+      this.path =
+        this.majig.path || '';
+      this.tags =
+        this.majig.tags || '';
       this.markdown =
         this.majig.markdown || '';
     },
@@ -329,7 +349,7 @@ export default {
       return this.$store.dispatch(
         'majig/update', {
         majigId: this.majig.id,
-        path: this.majig.path,
+        path: this.path,
       }).then((majig) => {
         this.$router.push(
           majig.path || '/'
@@ -343,7 +363,7 @@ export default {
       return this.$store.dispatch(
         'majig/update', {
         majigId: this.majig.id,
-        tags: this.majig.tags,
+        tags: this.tags,
       }).then((majig) => {
         this.cancel();
       }).catch((errors) => {

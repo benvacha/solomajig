@@ -1525,6 +1525,31 @@ a.descend:hover {
     text-decoration:none;
 }
 /* */
+.horzer form pre,
+.horzer form input {
+  position:relative;
+  display:block;
+  margin:0px 0px;
+  width:100%;
+  height:auto;
+  min-height:100%;
+  padding:0px 4px;
+  line-height:inherit;
+  border:none;
+  outline:none;
+  color:transparent;
+  overflow:visible;
+  text-align:inherit;
+  font-size:.89em;
+  background:transparent;
+  font-family:'Roboto Mono', monospace;
+}
+.horzer form input {
+    position:absolute;
+    top:0px; left:0px;
+    color:#212121;
+}
+/* */
 .horzer select,
 .horzer label {
     position:relative;
