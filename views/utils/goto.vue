@@ -53,6 +53,14 @@
       <input type="submit"
         value="GoTo" />
     </form>
+    <h1>Jump<span v-if="signed">
+      <a href="#/menu/published">
+        Published</a> &bull;
+      <a href="#/menu/concealed">
+        Concealed</a>
+    </span></h1>
+    <div v-html="markeddown">
+    </div>
   </div>
   </div>
 
@@ -62,6 +70,21 @@
 <!-- -->
 
 <script>
+import Marked from 'marked';
+/* */
+const Renderer = new Marked.Renderer();
+const Renderers = {
+  link: Renderer.link.bind(Renderer),
+};
+Renderer.link = (href, title, text) => {
+  if(href[0] === '/') {
+    href = '#' + href;
+  } else if(href[0] !== '#') {
+    href = '#/' + href;
+  }
+  return Renderers.link(href, title, text);
+};
+/* */
 export default {
   data () {
     return {
@@ -70,10 +93,29 @@ export default {
       password: '',
     };
   },
+  created () {
+    this.load();
+  },
+  watch: {
+    'signed': 'load',
+  },
   computed: {
     signed () {
       return this.$store.getters[
         'token/signed'];
+    },
+    menu () {
+      return this.signed ? '/menu/concealed'
+        : '/menu/published';
+    },
+    majig () {
+      const all = this.$store.state.majig.all;
+      return all[this.menu] || {};
+    },
+    markeddown () {
+      return Marked(this.majig.markdown ||
+        '- [root](/)',
+        { renderer: Renderer });
     },
   },
   methods: {
@@ -92,6 +134,14 @@ export default {
         this.path = '';
         return this.$store.dispatch(
           'utils/stash', {});
+      });
+    },
+    load () {
+      return this.$store.dispatch(
+        'majig/load', {
+        path: this.menu,
+      }).then((majig) => {
+      }).catch((errors) => {
       });
     },
     sign () {
