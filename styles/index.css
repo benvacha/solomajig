@@ -2078,13 +2078,14 @@ a.descend:hover {
 
   /*
   /* */
-  .bodyer a:hover {
-    text-decoration:none !important;
-  }
   .bodyer form pre,
   .bodyer form input,
   .bodyer form textarea {
       font-size:1em !important;
+  }
+  /* */
+  .bodyer.stack .substack a:hover {
+    text-decoration:none;
   }
 
 }
