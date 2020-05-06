@@ -78,6 +78,9 @@ a.descend:hover {
 .bold {
   font-weight:500;
 }
+.mono {
+  font-family:'Roboto Mono', monospace;
+}
 
 
 /*
@@ -1096,6 +1099,10 @@ a.descend:hover {
     cursor:default;
     text-decoration:none;
 }
+.bodyer.para form.editor pre,
+.bodyer.para form.editor textarea {
+  padding:20px 16px 32px;
+}
 
 /*
     <div class="header [tiny/tall]"></div>
@@ -1533,7 +1540,7 @@ a.descend:hover {
   width:100%;
   height:auto;
   min-height:100%;
-  padding:0px 4px;
+  padding:0px 8px;
   line-height:inherit;
   border:none;
   outline:none;
@@ -1547,6 +1554,7 @@ a.descend:hover {
 .horzer form input {
     position:absolute;
     top:0px; left:0px;
+    padding:0px 4px;
     color:#212121;
 }
 .horzer form input:hover,

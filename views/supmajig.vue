@@ -20,7 +20,7 @@
   </form>
   <div class="supstack"><br /></div>
   <div class="substack horzer dim">
-    <div class="lefter thin">
+    <div class="rghter thin">
       <span>U &bull;
         {{ majig.updated | datetime }}
       </span>
@@ -33,7 +33,7 @@
         {{ majig.created | datetime }}
       </span>
     </div>
-    <div class="rghter thin">
+    <div class="lefter thin">
       <template v-if="!signed">
         <template v-if="!majig.id">
           <span>404 Not Found</span>
@@ -185,7 +185,7 @@ Renderer.link = (href, title, text) => {
 export default {
   filters: {
     datetime: (value) => {
-      if(!value) return '000-00-00 00:00:00';
+      if(!value) return '0000-00-00 00:00:00';
       const when = new Date(value);
       return when.toLocaleString('sv-SE');
     },
