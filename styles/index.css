@@ -1549,6 +1549,12 @@ a.descend:hover {
     top:0px; left:0px;
     color:#212121;
 }
+.horzer form input:hover,
+.horzer form input:focus,
+.horzer form input:last-child:hover,
+.horzer form input:last-child:focus {
+  border-bottom:1px solid transparent;
+}
 /* */
 .horzer select,
 .horzer label {
@@ -2072,12 +2078,9 @@ a.descend:hover {
 
   /*
   /* */
-  a:hover {
+  .bodyer a:hover {
     text-decoration:none !important;
   }
-
-  /*
-  /* */
   .bodyer form pre,
   .bodyer form input,
   .bodyer form textarea {
