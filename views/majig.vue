@@ -60,28 +60,28 @@
       </textarea>
     </form>
   </div>
-  <div class="bodyer half zero"
+  <div class="bodyer thinthin zero"
     v-if="isMode('split')">
-    <div class="bodyer thin stack">
-      <form @submit.prevent
-        class="editor">
-        <pre><span>
-          {{markdown}}
-        </span><br /></pre>
-        <textarea
-          placeholder="markdown"
-          v-model="markdown">
-        </textarea>
-      </form>
+    <div class="bodyer half zero">
+      <div class="bodyer thin stack">
+        <form @submit.prevent
+          class="editor">
+          <pre><span>
+            {{markdown}}
+          </span><br /></pre>
+          <textarea
+            placeholder="markdown"
+            v-model="markdown">
+          </textarea>
+        </form>
+      </div>
     </div>
-  </div>
-  <div class="bodyer half zero"
-    v-if="isMode('split')">
-    <div class="bodyer thin stack">
-      <div v-html="markeddown"></div>
+    <div class="bodyer half zero">
+      <div class="bodyer thin stack">
+        <div v-html="markeddown"></div>
+      </div>
     </div>
-  </div>
-  <div class="bodyer clear">
+    <div class="bodyer clear"></div>
   </div>
   <div class="bodyer thin stack">
     <div class="horzer dim">

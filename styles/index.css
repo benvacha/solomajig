@@ -508,6 +508,10 @@ a.descend:hover {
     padding-left:16px;
     padding-right:16px;
 }
+.bodyer.thinthin {
+  max-width:1320px;
+  background:transparent;
+}
 .bodyer.tiny {
     padding-top:16px;
     padding-bottom:32px;
