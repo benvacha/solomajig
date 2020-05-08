@@ -39,6 +39,7 @@
   </div>
 
   <!-- -->
+  <div class="body">
   <div class="subbody">
   <div class="bodyer para">
     <h1>GoTo</h1>
@@ -61,6 +62,7 @@
     </span></h1>
     <div v-html="markeddown">
     </div>
+  </div>
   </div>
   </div>
 

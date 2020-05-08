@@ -414,21 +414,21 @@ a.descend:hover {
     height:40px;
 }
 .postbody.tiny ~ .body {
-    padding-top:40px;
+    padding-bottom:40px;
 }
 /* */
 .postbody.tall {
     height:56px;
 }
 .postbody.tall ~ .body {
-    padding-top:56px;
+    padding-bottom:56px;
 }
 /* */
 .postbody.former {
     height:114px;
 }
 .postbody.former ~ .body {
-    padding-top:114px;
+    padding-bottom:114px;
 }
 .postbody.former input {
   height:36px !important;
@@ -887,7 +887,7 @@ a.descend:hover {
 }
 /* */
 .bodyer.para {
-  padding:0px 0px 48px;
+  padding:0px 0px;
 }
 .bodyer.para h1,
 .bodyer.para h2 {
