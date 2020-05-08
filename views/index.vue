@@ -81,6 +81,9 @@ export default {
         'token/signed'];
     },
   },
+  watch: {
+    '$route': 'stash'
+  },
   methods: {
     goto (path) {
       this.$store.dispatch(
@@ -99,6 +102,11 @@ export default {
       this.$store.dispatch(
         'utils/open', {
         util: UTILS[util]
+      });
+    },
+    stash () {
+      this.$store.dispatch(
+        'utils/stash', {
       });
     },
   },

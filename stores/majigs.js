@@ -28,13 +28,13 @@ const mutations = {
   },
   update (state, data) {
     const i = state.all.findIndex((majig) => {
-      return majig.id == data.majig.id;
+      return majig.id === data.majig.id;
     });
     state.all.splice(i, 1, data.majig);
   },
   remove (state, data) {
     const i = state.all.findIndex((majig) => {
-      return majig.id == data.majig.id;
+      return majig.id === data.majig.id;
     });
     state.all.splice(i, 1);
   },
