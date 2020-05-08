@@ -516,6 +516,9 @@ a.descend:hover {
     padding-top:22px;
     padding-bottom:48px;
 }
+.bodyer.zero {
+  min-height:0px;
+}
 .bodyer.stack {
   padding-top:12px;
   padding-bottom:8px;
@@ -538,6 +541,12 @@ a.descend:hover {
   margin-bottom:0px;
   min-height:96px;
   background:#FAFAFA;
+}
+.bodyer.stack:only-child {
+  margin-top:0px;
+  margin-bottom:0px;
+  min-height:0px;
+  background:#FFFFFF;
 }
 .bodyer.stack .supstack {
   position:relative;
@@ -577,6 +586,7 @@ a.descend:hover {
     width:100%;
     padding-left:4px;
     padding-right:4px;
+    background:transparent;
 }
 .bodyer.half,
 .bodyer.half10 {
@@ -610,6 +620,8 @@ a.descend:hover {
     clear:both;
     width:100%;
     height:0px;
+    min-height:0px;
+    padding:0px;
 }
 .bodyer.clear01 {
     clear:none;

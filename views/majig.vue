@@ -13,7 +13,9 @@
       <div class="rghter" v-if="signed">
         <template v-if="isMode('show')">
           <a @click="toMode('edit')">
-            Edit</a>
+            Edit</a> &bull;
+          <a @click="toMode('split')">
+            Split</a>
         </template>
         <template v-else-if="isMode('edit')">
           <a @click="toMode('proof')">
@@ -31,10 +33,17 @@
           <a @click="save()">
             Save</a>
         </template>
+        <template v-else-if="isMode('split')">
+          <a @click="cancel()">
+            Cancel</a> &bull;
+          <a @click="save()">
+            Save</a>
+        </template>
       </div>
     </div>
   </div>
-  <div class="bodyer thin stack">
+  <div class="bodyer thin stack"
+    v-if="!isMode('split')">
     <div v-if="!isMode('edit')
         && !isMode('source')"
       v-html="markeddown"></div>
@@ -50,6 +59,29 @@
         v-model="markdown">
       </textarea>
     </form>
+  </div>
+  <div class="bodyer half zero"
+    v-if="isMode('split')">
+    <div class="bodyer thin stack">
+      <form @submit.prevent
+        class="editor">
+        <pre><span>
+          {{markdown}}
+        </span><br /></pre>
+        <textarea
+          placeholder="markdown"
+          v-model="markdown">
+        </textarea>
+      </form>
+    </div>
+  </div>
+  <div class="bodyer half zero"
+    v-if="isMode('split')">
+    <div class="bodyer thin stack">
+      <div v-html="markeddown"></div>
+    </div>
+  </div>
+  <div class="bodyer clear">
   </div>
   <div class="bodyer thin stack">
     <div class="horzer dim">
@@ -100,6 +132,16 @@
           <template v-else-if="isMode('proof')">
             <a @click="toMode('edit')">
               Edit</a> &bull;
+            <a @click="cancel()">
+              Cancel</a> &bull;
+            <a @click="save()">
+              Save</a>
+            <br />
+            <span class="bold">
+              {{status}}
+            </span>
+          </template>
+          <template v-else-if="isMode('split')">
             <a @click="cancel()">
               Cancel</a> &bull;
             <a @click="save()">
