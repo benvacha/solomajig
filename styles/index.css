@@ -64,7 +64,7 @@ a.descend {
   text-decoration:underline;
 }
 a:hover {
-    text-decoration:line-through;
+  text-decoration:line-through;
 }
 a.ascend:hover {
   text-decoration:overline
@@ -2099,6 +2099,21 @@ a.descend:hover {
 /*
 /* */
 @media (hover: none) and (pointer: coarse) {
+
+  /*
+  /* */
+  a:hover,
+  a:focus {
+    text-decoration:none !important;
+  }
+  a.ascend:hover,
+  a.ascend:focus {
+    text-decoration:overline !important;
+  }
+  a.descend:hover,
+  a.descend:focus {
+    text-decoration:underline !important;
+  }
 
   /*
   /* */
