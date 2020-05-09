@@ -9,15 +9,9 @@
     <form @submit.prevent="create()"
       class="editor">
       <input type="text"
-        v-model="path"
-        placeholder="path"
+        v-model="pathags"
+        placeholder="path || tags"
         inputmode="url"
-        autocorrect="off"
-        autocapitalize="none"
-      />
-      <input type="text"
-        v-model="tags"
-        placeholder="tags"
         autocorrect="off"
         autocapitalize="none"
       />
@@ -47,6 +41,7 @@
 export default {
   data () {
     return {
+      pathags: '',
       path: '',
       tags: '',
       markdown: '',
@@ -54,9 +49,14 @@ export default {
   },
   methods: {
     create () {
-      if(this.path.length &&
-        this.path[0] !== '/') {
-        this.path = '/' + this.path;
+      if (this.pathags.includes('/')) {
+        if (this.pathags[0] !== '/') {
+          this.path = '/' + this.pathags;
+        } else {
+          this.path = this.pathags;
+        }
+      } else {
+        this.tags = this.pathags;
       }
       this.$store.dispatch(
         'utils/notify', {
@@ -86,10 +86,13 @@ export default {
       }).then(() => {
         this.path = '';
         this.tags = '';
+        this.pathags = '';
         this.markdown = '';
         return this.$store.dispatch(
           'utils/stash', {});
       }).catch(error => {
+        this.path = '';
+        this.tags = '';
         this.$store.dispatch(
           'utils/notify', {
           status: error.title
