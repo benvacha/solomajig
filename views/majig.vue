@@ -158,16 +158,14 @@
           <template v-else-if="isMode('show')">
             <a @click="toMode('edit')">
               Edit</a> &bull;
-            <a @click="toMode('move')"
-              v-if="majig.path">
+            <a @click="toMode('tag')">
+              Tag</a> &bull;
+            <a @click="toMode('move')">
               Move</a>
-            <a @click="toMode('tag')"
-              v-if="!majig.path">
-              Tag</a>
             <br />
             <span class="bold">
               {{status ||
-                majig.path || majig.tags}}
+                majig.tags || majig.path}}
             </span>
             <br />
             <a @click="publish()"
@@ -398,6 +396,12 @@ export default {
     },
     move () {
       this.status = 'moving';
+      if (this.path &&
+        this.path[0] !== '/') {
+        this.path = '/' + this.path;
+      } else if (!this.path) {
+        this.path = false;
+      }
       return this.$store.dispatch(
         'majig/update', {
         majigId: this.majig.id,

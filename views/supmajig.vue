@@ -85,18 +85,14 @@
         <template v-else-if="isMode('show')">
           <a @click="toMode('edit')">
             Edit</a> &bull;
-          <a @click="toMode('move')"
-            v-if="majig.path">
-            Move</a>
-          <a @click="toMode('tag')"
-            v-if="!majig.path">
+          <a @click="toMode('tag')">
             Tag</a> &bull;
-          <a @click="goto()">
-            GoTo</a>
+          <a @click="toMode('move')">
+            Move</a>
           <br />
           <span class="bold">
             {{status ||
-              majig.path || majig.tags}}
+              majig.tags || majig.path}}
           </span>
           <br />
           <a @click="publish()"
@@ -106,7 +102,9 @@
             v-if="majig.published">
             Conceal</a> &bull;
           <a @click="toMode('delete')">
-            Delete</a>
+            Delete</a> &bull;
+          <a @click="goto()">
+            GoTo</a>
         </template>
         <template v-else-if="isMode('delete')">
           <a @click="remove()">
@@ -290,6 +288,12 @@ export default {
     },
     move () {
       this.status = 'moving';
+      if (this.path &&
+        this.path[0] !== '/') {
+        this.path = '/' + this.path;
+      } else if (!this.path) {
+        this.path = false;
+      }
       return this.$store.dispatch(
         'majigs/update', {
         majigId: this.majig.id,
