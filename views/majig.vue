@@ -354,6 +354,11 @@ export default {
       }).catch((errors) => {
         if(errors[0].status === 404) {
           this.status = '';
+          if (this.signed) {
+            this.mode = 'edit';
+          } else {
+            this.mode = 'show';
+          }
         } else {
           this.status = errors[0].title;
         }
