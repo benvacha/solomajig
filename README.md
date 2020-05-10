@@ -11,7 +11,7 @@ SoloMajig arranges content using URLs. Every unique URL has a unique piece of co
 SoloMajig allows for multiple pieces of content to be listed and sorted on the root. Content can be tagged and filtered using double slash URLs on the root or searched in the toolbar.
 
 #### Blog
-SoloMajig could be viewed as a flexible blog platform with draft on by default. A list of sortable, taggable posts on the root, with stylized URLs pointing to collections based on tags. Static content pages can be created on the fly by visiting the desired URL for the page and clicking edit.
+SoloMajig could be viewed as a flexible blog platform with draft mode by default. A list of sortable, taggable posts on the root, with stylized URLs pointing to collections based on tags. Static content pages can be created on the fly by visiting the desired URL for the page and clicking edit.
 
 #### Thingy
 SoloMajig was designed as yet another attempt to make a personal knowledge storage platform that felt fluid to integrate into everyday life. It's not really meant for anything, so feel free to use it for everything!
