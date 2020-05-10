@@ -1,5 +1,14 @@
 # SoloMajig
-### Solo Wiki Journal Blog
+### Solo Wiki Notebook Blog Thingy
+
+#### Solo
+SoloMajig can be used by a single user and or consumed by many users. A single username / password combination, configured in the environment, is used to sign in. All content can be seen and edited while signed in, only published content can be seen while signed out.
+
+#### Wiki
+SoloMajig arranges content using URLs. Every unique URL has a unique piece of content attached and browsing to that URL can be used to modify or view that content. Published content can be viewed and bookmarked by anyone with the URL.
+
+#### Notebook
+SoloMajig allows for multiple pieces of content to be listed and sorted on the root. Content can be tagged and filtered using double slash URLs on the root or searched in the toolbar.
 
 ---
 
