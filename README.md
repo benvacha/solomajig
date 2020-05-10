@@ -2,13 +2,22 @@
 ### Solo Wiki Notebook Blog Thingy
 
 #### Solo
-SoloMajig can be used by a single user and or consumed by many users. A single username / password combination, configured in the environment, is used to sign in. All content can be seen and edited while signed in, only published content can be seen while signed out.
+SoloMajig can be used by a single user and or consumed by many users. A single username / password combination, configured in the environment, is used to sign in. All content can be seen and edited while signed in; only published content can be seen while signed out.
 
 #### Wiki
 SoloMajig arranges content using URLs. Every unique URL has a unique piece of content attached and browsing to that URL can be used to modify or view that content. Published content can be viewed and bookmarked by anyone with the URL.
 
 #### Notebook
 SoloMajig allows for multiple pieces of content to be listed and sorted on the root. Content can be tagged and filtered using double slash URLs on the root or searched in the toolbar.
+
+#### Blog
+SoloMajig could be viewed as a flexible blog platform with draft on by default. A list of sortable, taggable posts on the root, with stylized URLs pointing to collections based on tags. Static content pages can be created on the fly by visiting the desired URL for the page and clicking edit.
+
+#### Thingy
+SoloMajig was designed as yet another attempt to make a personal knowledge storage platform that felt fluid to integrate into everyday life. It's not really meant for anything, so feel free to use it for everything!
+
+### Learn By Doing
+SoloMajig is maybe a little weird to explain, but it's the doing that matters. For a live demo and extended documentation, go to [solomajig.com](http://www.solomajig.com). Sign in to see concealed content, explore all the features, and test drive the live split screen markdown editor! The username is `username` and the password is `password`.  
 
 ---
 
