@@ -524,7 +524,7 @@ a.descend:hover {
   min-height:0px;
 }
 .bodyer.stack {
-  padding-top:12px;
+  padding-top:8px;
   padding-bottom:8px;
   min-height:0px;
   margin-top:24px;
@@ -557,7 +557,10 @@ a.descend:hover {
   margin:0px 0px;
   width:100%;
   height:auto;
-  padding:20px 12px 8px;
+  padding:16px 12px 8px;
+}
+.bodyer.stack .supstack.tall {
+  padding:32px 12px 8px;
 }
 .bodyer.stack .substack {
   position:absolute;

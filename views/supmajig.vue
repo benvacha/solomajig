@@ -18,7 +18,10 @@
       v-model="markdown">
     </textarea>
   </form>
-  <div class="supstack"><br /></div>
+  <div class="supstack"
+    :class="{tall:signed}">
+    <br />
+  </div>
   <div class="substack horzer dim">
     <div class="rghter thin">
       <span>U &bull;
@@ -50,7 +53,8 @@
           GoTo</a>
         <br />
         <span class="bold">
-          {{majig.path || majig.tags}}
+          {{majig.tags.join(' ') ||
+            majig.path}}
         </span>
       </template>
       <template v-else>

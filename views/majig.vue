@@ -113,7 +113,8 @@
           </template>
           <br />
           <span class="bold">
-            {{majig.path || majig.tags}}
+          {{majig.tags.join(' ') ||
+            majig.path}}
           </span>
         </template>
         <template v-else>
