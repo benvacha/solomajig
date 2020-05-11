@@ -54,6 +54,7 @@
         </span>
       </template>
       <template v-else>
+        <!-- edit -->
         <template v-if="isMode('edit')">
           <a @click="toMode('proof')">
             Proof</a> &bull;
@@ -66,6 +67,7 @@
             {{status}}
           </span>
         </template>
+        <!-- proof -->
         <template v-else-if="isMode('proof')">
           <a @click="toMode('edit')">
             Edit</a> &bull;
@@ -78,10 +80,12 @@
             {{status}}
           </span>
         </template>
+        <!-- unknown -->
         <template v-else-if="!majig.id">
           <a @click="toMode('edit')">
             Edit</a>
         </template>
+        <!-- show -->
         <template v-else-if="isMode('show')">
           <a @click="toMode('edit')">
             Edit</a> &bull;
@@ -96,10 +100,10 @@
               majig.path}}
           </span>
           <br />
-          <a @click="publish()"
+          <a @click="toMode('publish')"
             v-if="!majig.published">
             Publish</a>
-          <a @click="conceal()"
+          <a @click="toMode('publish')"
             v-if="majig.published">
             Conceal</a> &bull;
           <a @click="toMode('delete')">
@@ -107,6 +111,30 @@
           <a @click="goto()">
             GoTo</a>
         </template>
+        <!-- publish -->
+        <template v-else-if="isMode('publish')">
+          <a @click="conceal()">
+            Conceal</a> &bull;
+          <a @click="publish()">
+            Publish</a> &bull;
+          <a @click="cancel()">
+            Cancel</a>
+          <br />
+          <span class="bold">
+            {{status}}
+          </span>
+          <br />
+          <form @submit.prevent>
+            <pre>{{published}}</pre>
+            <input type="text"
+              v-model="published"
+              placeholder="published"
+              inputmode="url"
+              autocorrect="off"
+              autocapitalize="none" />
+          </form>
+        </template>
+        <!-- delete -->
         <template v-else-if="isMode('delete')">
           <a @click="remove()">
             Delete</a> &bull;
@@ -117,6 +145,7 @@
             {{status}}
           </span>
         </template>
+        <!-- move -->
         <template v-else-if="isMode('move')">
           <a @click="move()">
             Move</a> &bull;
@@ -137,6 +166,7 @@
               autocapitalize="none" />
           </form>
         </template>
+        <!-- tag -->
         <template v-else-if="isMode('tag')">
           <a @click="tag()">
             Tag</a> &bull;
@@ -201,6 +231,7 @@ export default {
       mode: 'show',
       path: '',
       tags: '',
+      published: '',
       markdown: '',
     };
   },
@@ -249,6 +280,10 @@ export default {
         this.majig.path || '';
       this.tags =
         this.majig.tags.join(' ') || '';
+      this.published = new Date(
+        this.majig.published || Date.now());
+      this.published =
+        this.published.toLocaleString('sv-SE');
       this.markdown =
         this.majig.markdown || '';
     },
@@ -324,7 +359,7 @@ export default {
       this.$store.dispatch(
         'majigs/update', {
         majigId: this.majig.id,
-        published: new Date(),
+        published: this.published,
       }).then(() => {
         this.cancel();
       }).catch((errors) => {

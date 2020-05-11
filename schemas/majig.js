@@ -147,7 +147,10 @@ schema.query.byFilter = function (filter) {
 schema.query.byToken = function (token) {
   if (token) return this;
   return this.where({
-    published: { $exists: true }
+    published: {
+      $exists: true,
+      $lte: Date.now()
+    }
   });
 };
 
