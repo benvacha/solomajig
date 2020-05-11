@@ -92,7 +92,8 @@
           <br />
           <span class="bold">
             {{status ||
-              majig.tags || majig.path}}
+              majig.tags.join(' ') ||
+              majig.path}}
           </span>
           <br />
           <a @click="publish()"
@@ -247,7 +248,7 @@ export default {
       this.path =
         this.majig.path || '';
       this.tags =
-        this.majig.tags || '';
+        this.majig.tags.join(' ') || '';
       this.markdown =
         this.majig.markdown || '';
     },

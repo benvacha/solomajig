@@ -5,15 +5,36 @@ const Mongoose = require('mongoose');
 const Schema = Mongoose.Schema;
 /* */
 const schema = new Schema({
-  path: { type: String },
-  tags: { type: String, default: '' },
-  markdown: { type: String, default: '' },
-  created: { type: Date, default: Date.now },
-  updated: { type: Date, default: Date.now },
-  published: { type: Date }
+  path: {
+    type: String
+  },
+  tags: [{
+    type: String,
+    index: true,
+    lowercase: true
+  }],
+  markdown: {
+    type: String,
+    default: ''
+  },
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  updated: {
+    type: Date,
+    default: Date.now
+  },
+  published: {
+    type: Date
+  }
 }, {
-  collation: { locale: 'en_US', strength: 1 },
-  toObject: { transform: function (doc, ret) {} },
+  collation: {
+    locale: 'en_US', strength: 1
+  },
+  toObject: {
+    transform: function (doc, ret) {}
+  },
   toJSON: {
     transform: function (doc, ret) {
       ret.id = ret._id.toString();
@@ -105,13 +126,11 @@ schema.query.byTerms = function (terms) {
 //
 /// query || error
 schema.query.byFlags = function (flags) {
-  if (!flags || !flags.length) {
-    return this;
-  }
+  if (!flags || !flags.length) return this;
   const query = { $or: [] };
   flags.forEach((flag) => {
     query.$or.push({
-      tags: new RegExp(flag, 'i')
+      tags: flag
     });
   });
   return this.where(query);

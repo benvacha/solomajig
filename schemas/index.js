@@ -175,7 +175,7 @@ schema.statics.LOCALIZERS = {
     if (required && input === undefined) {
       throw new Error.Code(6018);
     } else if (input === undefined) { return; }
-    res.locals.tags = input;
+    res.locals.tags = input.split(/[ ,]+/);
   },
   terms: function (req, res, input, required) {
     if (required && !input) {
