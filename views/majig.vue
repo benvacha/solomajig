@@ -8,7 +8,8 @@
     <div class="horzer dim thin">
       <div class="lefter">
         {{status || majig.path
-          || majig.tags || $route.path}}
+          || majig.tags.join(' ')
+          || $route.path}}
       </div>
       <div class="rghter" v-if="signed">
         <template v-if="isMode('show')">
@@ -289,9 +290,11 @@ Renderer.link = (href, title, text) => {
 export default {
   filters: {
     datetime: (value) => {
-      if(!value) return '0000-00-00 00:00:00';
+      if(!value) {
+        return '0000-00-00T00:00:00:000Z';
+      }
       const when = new Date(value);
-      return when.toLocaleString('sv-SE');
+      return when.toISOString();
     },
   },
   props: {
@@ -353,7 +356,7 @@ export default {
       this.published = new Date(
         this.majig.published || Date.now());
       this.published =
-        this.published.toLocaleString('sv-SE');
+        this.published.toISOString();
       this.markdown =
         this.majig.markdown || '';
     },
