@@ -68,7 +68,7 @@ export default {
       status: '',
       limit: 100,
       skip: 0,
-      filter: '-updated'
+      filter: '-published'
     };
   },
   created () {
@@ -96,7 +96,7 @@ export default {
     toggleFilter (filter) {
       this.status = 'sorting';
       this.filter = this.filter == filter
-          ? '-' + filter : filter;
+        ? '-' + filter : filter;
       this.$store.dispatch(
         'majigs/load', {
         filter: this.filter,
@@ -118,6 +118,11 @@ export default {
     },
     loadMajigs () {
       this.status = 'loading';
+      if (this.signed) {
+        this.filter = '-updated';
+      } else {
+        this.filter = '-published';
+      }
       this.$store.dispatch(
         'majigs/load', {
         filter: this.filter,
