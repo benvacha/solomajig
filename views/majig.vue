@@ -8,8 +8,7 @@
     <div class="horzer dim thin">
       <div class="lefter">
         {{status || majig.path
-          || majig.tags.join(' ')
-          || $route.path}}
+          || tagged || $route.path}}
       </div>
       <div class="rghter" v-if="signed">
         <template v-if="isMode('show')">
@@ -114,8 +113,7 @@
           </template>
           <br />
           <span class="bold">
-          {{majig.tags.join(' ') ||
-            majig.path}}
+          {{tagged || majig.path}}
           </span>
         </template>
         <template v-else>
@@ -332,6 +330,10 @@ export default {
       } else {
         return all[this.$route.path] || {};
       }
+    },
+    tagged () {
+      return this.majig.tags ?
+        this.majig.tags.join(' ') : '';
     },
     markeddown () {
       return Marked(this.markdown || '',

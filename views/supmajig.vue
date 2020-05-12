@@ -100,8 +100,7 @@
           <br />
           <span class="bold">
             {{status ||
-              majig.tags.join(' ') ||
-              majig.path}}
+              tagged || majig.path}}
           </span>
           <br />
           <a @click="toMode('publish')"
@@ -251,6 +250,10 @@ export default {
     signed () {
       return this.$store.getters[
         'token/signed'];
+    },
+    tagged () {
+      return this.majig.tags ?
+        this.majig.tags.join(' ') : '';
     },
     markeddown () {
       return Marked(this.markdown || '',
