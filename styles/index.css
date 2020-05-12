@@ -2108,6 +2108,7 @@ a.descend:hover {
   /* */
   a:hover,
   a:focus {
+    color:inherit !important;
     text-decoration:none !important;
   }
   a.ascend:hover,
