@@ -35,7 +35,7 @@
         {{ majig.published | subdatetime }}
       </span>
       <br />
-      <span v-if="signed">C &bull;
+      <span>C &bull;
         {{ majig.created | subdatetime }}
       </span>
     </div>
@@ -48,7 +48,7 @@
         {{ majig.published | datetime }}
       </span>
       <br />
-      <span>C &bull;
+      <span v-if="signed">C &bull;
         {{ majig.created | datetime }}
       </span>
     </div>
