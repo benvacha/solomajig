@@ -95,8 +95,14 @@ export default {
   methods: {
     toggleFilter (filter) {
       this.status = 'sorting';
-      this.filter = this.filter == filter
-        ? '-' + filter : filter;
+      if (this.filter === filter) {
+        this.filter = '-' + filter;
+      } else if (
+        this.filter.includes(filter)) {
+        this.filter = filter;
+      } else {
+        this.filter = '-' + filter;
+      }
       this.$store.dispatch(
         'majigs/load', {
         filter: this.filter,
@@ -112,7 +118,8 @@ export default {
     classFilter (filter) {
       if(this.filter == filter) {
         return 'descend';
-      } else if(this.filter == '-' + filter) {
+      } else if(
+        this.filter == '-' + filter) {
         return 'ascend';
       } else { return ''; }
     },
