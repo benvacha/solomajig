@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import SupMajig
-  from 'views/supmajig.vue';
+const SupMajig = () =>
+  import('views/supmajig.vue');
 /* */
 export default {
   components: {

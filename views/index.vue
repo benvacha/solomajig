@@ -58,14 +58,14 @@
 <!-- -->
 
 <script>
-import Utils
-  from 'views/utils.vue';
-import Create
-  from 'views/utils/create.vue';
-import GoTo
-  from 'views/utils/goto.vue';
-import Search
-  from 'views/utils/search.vue';
+const Utils = () =>
+  import('views/utils.vue');
+const Create = () =>
+  import('views/utils/create.vue');
+const GoTo = () =>
+  import('views/utils/goto.vue');
+const Search = () =>
+  import('views/utils/search.vue');
 const UTILS = {
   create: Create,
   goto: GoTo,
