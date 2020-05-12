@@ -29,7 +29,8 @@
             {{majig.markdown
               | previewed(termed)}}
           </span>
-          <h5>{{majig.path}}</h5>
+          <h5>{{majig.tags.join(' ')
+            || majig.path}}</h5>
         </a>
       </li>
     </ul>

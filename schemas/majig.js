@@ -119,7 +119,11 @@ schema.query.byTerms = function (terms) {
     });
   }
   return this.where({
-    markdown: new RegExp(terms, 'i')
+    $or: [
+      { tags: terms },
+      { path: new RegExp(terms, 'i') },
+      { markdown: new RegExp(terms, 'i') }
+    ]
   });
 };
 
