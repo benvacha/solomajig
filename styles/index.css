@@ -1557,8 +1557,9 @@ a.descend:hover {
   display:block;
   margin:0px 0px;
   width:100%;
+  min-width:100px;
   height:auto;
-  min-height:100%;
+  min-height:14px;
   padding:0px 8px;
   line-height:inherit;
   border:none;

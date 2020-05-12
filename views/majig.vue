@@ -85,7 +85,23 @@
   </div>
   <div class="bodyer thin stack">
     <div class="horzer dim">
-      <div class="rghter thin">
+      <div class="rghter thin"
+        v-if="isMode('tag')
+        || isMode('move')
+        || isMode('publish')">
+        <span>U &bull;
+          {{ majig.updated | subdatetime }}
+        </span>
+        <br />
+        <span>P &bull;
+          {{ majig.published | subdatetime }}
+        </span>
+        <br />
+        <span v-if="signed">C &bull;
+          {{ majig.created | subdatetime }}
+        </span>
+      </div>
+      <div class="rghter thin" v-else>
         <span>U &bull;
           {{ majig.updated | datetime }}
         </span>
@@ -94,7 +110,7 @@
           {{ majig.published | datetime }}
         </span>
         <br />
-        <span v-if="signed">C &bull;
+        <span>C &bull;
           {{ majig.created | datetime }}
         </span>
       </div>
@@ -293,6 +309,14 @@ export default {
       }
       const when = new Date(value);
       return when.toISOString();
+    },
+    subdatetime: (value) => {
+      if(!value) {
+        return '0000-00-00';
+      }
+      const when = new Date(value);
+      return when.toISOString()
+        .split('T')[0];
     },
   },
   props: {
