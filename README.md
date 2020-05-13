@@ -17,7 +17,7 @@ SoloMajig could be viewed as a flexible blog platform with draft mode by default
 SoloMajig was designed as yet another attempt to make a personal knowledge storage platform that felt fluid to integrate into everyday life. It's not really meant for anything, so feel free to use it for everything!
 
 ### Learn By Doing
-SoloMajig is maybe a little weird to explain, but it's the doing that matters. For a live demo and extended documentation, go to [solomajig.com](http://www.solomajig.com). Sign in to see concealed content, explore all the features, and test drive the live split screen markdown editor! The username is `username` and the password is `password`.  
+SoloMajig is maybe a little weird to explain, but it's the doing that matters. For a live demo and extended documentation, go to [solomajig.com](https://www.solomajig.com). Sign in to see concealed content, explore all the features, and test drive the live split screen markdown editor! The username is `username` and the password is `password`. Enjoy!
 
 ---
 
@@ -124,7 +124,7 @@ SoloMajig is maybe a little weird to explain, but it's the doing that matters. F
 
 ---
 
-###The MIT License (MIT)
+### The MIT License (MIT)
 
 Copyright (C) 2020 Benjamin J Vacha
 
