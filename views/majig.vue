@@ -360,7 +360,8 @@ export default {
         this.majig.tags.join(' ') : '';
     },
     markeddown () {
-      return Marked(this.markdown || '',
+      return Marked(this.markdown ||
+        '404 Not Found',
         { renderer: Renderer });
     },
   },
@@ -377,8 +378,8 @@ export default {
       this.mode = 'show';
       this.path =
         this.majig.path || '';
-      this.tags =
-        this.majig.tags.join(' ') || '';
+      this.tags = this.majig.tags ?
+        this.majig.tags.join(' ') : '';
       this.published = new Date(
         this.majig.published || Date.now());
       this.published =
@@ -504,6 +505,7 @@ export default {
         majigId: this.majig.id,
       }).then(() => {
         this.cancel();
+        this.mode = 'edit';
       }).catch((errors) => {
         this.status = errors[0].title;
       });
