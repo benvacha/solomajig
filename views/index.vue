@@ -42,7 +42,7 @@
   </div>
   <div class="body">
   <div class="body">
-    <Utils />
+    <Widgets />
     <div class="body">
     <div class="body">
       <router-view />
@@ -58,22 +58,22 @@
 <!-- -->
 
 <script>
-const Utils = () =>
-  import('views/utils.vue');
+const Widgets = () =>
+  import('views/widgets.vue');
 const Create = () =>
-  import('views/utils/create.vue');
+  import('views/widgets/create.vue');
 const GoTo = () =>
-  import('views/utils/goto.vue');
+  import('views/widgets/goto.vue');
 const Search = () =>
-  import('views/utils/search.vue');
-const UTILS = {
+  import('views/widgets/search.vue');
+const WIDGETS = {
   create: Create,
   goto: GoTo,
   search: Search
 };
 export default {
   components: {
-    Utils,
+    Widgets,
   },
   computed: {
     signed () {
@@ -87,7 +87,7 @@ export default {
   methods: {
     goto (path) {
       this.$store.dispatch(
-        'utils/notify', {
+        'widgets/notify', {
         status: 'going'
       }).then(() => {
         return this.$router.push(
@@ -95,18 +95,18 @@ export default {
         ).catch(error => {});
       }).then(() => {
         return this.$store.dispatch(
-          'utils/stash', {});
+          'widgets/stash', {});
       });
     },
-    open (util) {
+    open (widget) {
       this.$store.dispatch(
-        'utils/open', {
-        util: UTILS[util]
+        'widgets/open', {
+        widget: WIDGETS[widget]
       });
     },
     stash () {
       this.$store.dispatch(
-        'utils/stash', {
+        'widgets/stash', {
       });
     },
   },

@@ -19,7 +19,6 @@ module.exports = {
     ],
     resolve: {
       alias: {
-        elements: path.resolve(__dirname, 'elements'),
         routes: path.resolve(__dirname, 'routes'),
         stores: path.resolve(__dirname, 'stores'),
         views: path.resolve(__dirname, 'views')
