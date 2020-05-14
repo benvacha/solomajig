@@ -27,9 +27,9 @@ app.use(BodyParser.urlencoded({ extended: true }));
 
 app.use('/apis', __require('/apis/index'));
 /* */
-app.use('/', __static('/dists'));
+app.use('/', __static('/deploys'));
 app.use(function (req, res, next) {
-  res.sendFile(__path('/dists/index.html'));
+  res.sendFile(__path('/deploys/index.html'));
 });
 /* */
 app.use(function (err, req, res, next) {

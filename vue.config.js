@@ -3,7 +3,7 @@
 var path = require('path');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
-  outputDir: 'dists',
+  outputDir: 'deploys',
   devServer: {
     host: 'localhost',
     proxy: 'http://localhost:3000'
@@ -12,7 +12,7 @@ module.exports = {
     plugins: [
       new CopyWebpackPlugin([{
         from: path.join(__dirname, 'statics'),
-        to: path.join(__dirname, 'dists'),
+        to: path.join(__dirname, 'deploys'),
         toType: 'dir',
         ignore: ['index.html', '.DS_Store']
       }])
