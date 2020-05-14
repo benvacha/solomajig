@@ -27,6 +27,9 @@ app.get('/', (req, res) => {
       res.locals.terms
     ).byFlags(
       res.locals.flags
+    ).byPathed(
+      res.locals.terms,
+      res.locals.flags
     ).byFilter(
       res.locals.filter
     ).byToken(
@@ -44,6 +47,9 @@ app.get('/', (req, res) => {
     ).byTerms(
       res.locals.terms
     ).byFlags(
+      res.locals.flags
+    ).byPathed(
+      res.locals.terms,
       res.locals.flags
     ).byFilter(
       res.locals.filter

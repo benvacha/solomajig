@@ -113,11 +113,7 @@ schema.query.byPage = function (limit, skip) {
 //
 /// query || error
 schema.query.byTerms = function (terms) {
-  if (!terms) {
-    return this.where({
-      path: { $exists: false }
-    });
-  }
+  if (!terms || !terms.length) return this;
   return this.where({
     $or: [
       { tags: terms },
@@ -138,6 +134,18 @@ schema.query.byFlags = function (flags) {
     });
   });
   return this.where(query);
+};
+
+//
+/// query || error
+schema.query.byPathed = function (terms, flags) {
+  if((terms && terms.length) ||
+    (flags && flags.length)) {
+    return this;
+  }
+  return this.where({
+    path: { $exists: false }
+  });
 };
 
 //
