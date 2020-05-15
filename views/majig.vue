@@ -185,9 +185,7 @@
               Move</a>
             <br />
             <span class="bold">
-              {{status ||
-                majig.tags.join(' ') ||
-                majig.path}}
+              {{status || tagged || majig.path}}
             </span>
             <br />
             <a @click="toMode('publish')"

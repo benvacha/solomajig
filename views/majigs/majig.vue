@@ -69,8 +69,7 @@
           GoTo</a>
         <br />
         <span class="bold">
-          {{majig.tags.join(' ') ||
-            majig.path}}
+          {{tagged || majig.path}}
         </span>
       </template>
       <template v-else>
@@ -115,8 +114,7 @@
             Move</a>
           <br />
           <span class="bold">
-            {{status ||
-              tagged || majig.path}}
+            {{status || tagged || majig.path}}
           </span>
           <br />
           <a @click="toMode('publish')"
