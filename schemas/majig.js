@@ -139,7 +139,7 @@ schema.query.byFlags = function (flags) {
 //
 /// query || error
 schema.query.byPathed = function (terms, flags) {
-  if((terms && terms.length) ||
+  if ((terms && terms.length) ||
     (flags && flags.length)) {
     return this;
   }

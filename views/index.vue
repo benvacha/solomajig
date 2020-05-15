@@ -7,8 +7,8 @@
   <div class="prebody tiny togler10">
     <div class="horzer">
       <div class="lefter">
-        <a @click="goto('/')">
-          SoloMajig</a>
+        <a @click="goto('/')"
+          class="logotype"></a>
       </div>
       <div class="rghter">
         <template v-if="signed">
@@ -25,8 +25,8 @@
   <div class="postbody dark togler01">
     <div class="horzer">
       <div class="lefter">
-        <a @click="goto('/')">
-          SoloMajig</a>
+        <a @click="goto('/')"
+          class="logotype"></a>
       </div>
       <div class="rghter">
         <template v-if="signed">

@@ -5,6 +5,11 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400');
 @import url('https://fonts.googleapis.com/css?family=Material+Icons');
 
+/*
+/* */
+.logotype:before {
+  content:'SoloMajig';
+}
 
 /*
 /* */
@@ -1514,10 +1519,9 @@ a.descend:hover {
     float:left;
     min-width:44px;
     padding-right:16px;
-    font-weight:700;
+    font-weight:500;
     text-align:center;
     color:rgba(0,0,0,.75);
-    border-right:1px solid #EEE;
 }
 .horzer a.logomark {
     min-width:48px;
@@ -1635,10 +1639,6 @@ a.descend:hover {
 }
 .horzer.dark a {
     color:rgba(255,255,255,.87);
-}
-.horzer.dark a.logotype,
-.horzer.dark a.logomark {
-    border-right:1px solid #333;
 }
 .horzer.dark a.logomark {
     background-image:url('/statics/images/logomarkDark.svg');
