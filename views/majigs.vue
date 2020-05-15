@@ -27,7 +27,7 @@
     v-if="!majigs.length">
     <p>404 Not Found</p>
   </div>
-  <SupMajig :majig="majig"
+  <Majig :majig="majig"
     v-for="majig in majigs"
     :key="majig.id" />
   <div class="bodyer thin stack">
@@ -43,12 +43,12 @@
 </template>
 
 <script>
-const SupMajig = () =>
-  import('views/supmajig.vue');
+const Majig = () =>
+  import('views/majigs/majig.vue');
 /* */
 export default {
   components: {
-    SupMajig
+    Majig
   },
   filters: {
     datetime: (value) => {
