@@ -14,5 +14,8 @@ BLUEBIRD_DEBUG = 0
 BLUEBIRD_W_FORGOTTEN_RETURN = false
 
 ## MONGODB
-## mongodb://user:password@ds012345.mlab.com:56789/mydb
+## ## Local
+## mongodb://localhost/solomajig
+## ## MongoDB Atlas
+## mongodb+srv://<username>:<password>@<cluster>.mongodb.net/solomajig?retryWrites=true&w=majority
 MONGODB_URI = mongodb://localhost/solomajig

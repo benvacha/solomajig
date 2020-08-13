@@ -63,21 +63,54 @@ SoloMajig is maybe a little weird to explain, but it's the doing that matters. F
   * Artifacts at `/deploys`
 * Enjoy!
 
+### MongoDB Atlas
+* [Sign In/Up for Atlas](https://www.mongodb.com/cloud/atlas)
+* Click `Database Access`
+  * `Add New Database User`
+  * Click `Autogenerate Secure Password`
+  * Copy password into username
+  * Click `Autogenerate Secure Password`
+  * Securely store username & password
+  * `Read and write to any database`
+* Click `Network Access`
+  * `Add IP Address`
+  * `Add Current IP Address`
+  * `Allow Access From Anywhere`
+  * or
+  * Whitelist server IPs
+* Create a new project and or cluster
+* On cluster, click `CONNECT`
+  * `Connect your application`
+  * Copy the connection string
+  * Replace `<username>` from above
+  * Replace `<password>` from above
+  * Replace `<dbname>` as `solomajig`
+* Set `MONGODB_URI` in environment
+
 ### Heroku
 * [Install Heroku Toolbelt](https://toolbelt.heroku.com)
 * Clone source code locally
   * `git clone https://github.com/benvacha/solomajig.git`
 * Enter source code directory
   * `cd solomajig`
-* Add Heroku remote
-  * `heroku git:remote -a appName -r heroku`
+* Create Heroku application
+  * Use Heroku web GUI
+* Add environment to Heroku application
+  * Browse to app in Heroku web GUI
+  * Browse to Settings tab
+  * Scroll to and click `Reveal Config Vars`
+  * Add `MONGODB_URI` / MongoDB Atlas
+  * Add `SOLOMAJIG_ARCHIVED` / `false`
+  * Add `SOLOMAJIG_PASSWORD` / password
+  * Add `SOLOMAJIG_USERNAME` / username
 * Add domain to Heroku application
   * Browse to app in Heroku web GUI
-  * Find more add-ons for MongoDB
   * Browse to Settings tab
   * `add domain` for sub.domain.tld
 * Add CNAME to registar
   * Create a CNAME for sub.domain.tld to DNS Target
+* Add Heroku remote
+  * `heroku git:remote -a appName -r heroku`
 * Push source code to Heroku application
   * `git push heroku master`
 * Open sub.domain.tld in web browser
