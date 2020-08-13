@@ -6,6 +6,9 @@
 ## NPM
 /node_modules
 
+## Databases
+/databases
+
 ## LOGS
 *.log
 

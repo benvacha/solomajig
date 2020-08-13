@@ -39,8 +39,13 @@ SoloMajig is maybe a little weird to explain, but it's the doing that matters. F
     * `SOLOMAJIG_USERNAME`
     * `SOLOMAJIG_PASSWORD`
 * Open 4 terminals / tabs
+  * One for MongoDB demon
+  * One for NodeJS server
+  * One for VueJS server
+  * One for GIT & VueJS build
 * Start MongoDB demon
-  * `sudo mongod`
+  * `mkdir databases`
+  * `npm run mongod`
 * Start the NodeJS server
   * `npm start`
   * or
@@ -55,7 +60,7 @@ SoloMajig is maybe a little weird to explain, but it's the doing that matters. F
 * Enjoy!
 * Build VueJS to NodeJS
   * `npm run vuebuild`
-  * Artifacts at `/dists`
+  * Artifacts at `/deploys`
 * Enjoy!
 
 ### Heroku
@@ -80,46 +85,6 @@ SoloMajig is maybe a little weird to explain, but it's the doing that matters. F
 * Enjoy!
 * Debug
   * `heroku logs --tail`
-* Enjoy!
-
----
-
-## Update
-
-### Engines
-* Install n
-  * `sudo npm install -g n`
-* Clean npm cache
-  * `npm cache clean -f`
-* Update NodeJS and npm
-  * `sudo n lts`
-  * `npm update -g`
-* Check versions
-  * `node -v`
-  * `npm -v`
-* Update engines
-  * `cd ableservice`
-  * `vim package.js`
-  * Edit `engines.node`
-  * Edit `engines.npm`
-* Enjoy!
-
-### Dependencies
-* Find outdated
-  * `npm outdated`
-* Mark for update
-  * `vim package.js`
-  * Edit `dependencies`
-  * Allow patches `~0.0.0`
-  * Allow miner `^0.0.0`
-* Update dependencies
-  * `npm update --save`
-* Double check everything
-  * `npm outdated`
-  * `vim package.js`
-  * `npm start`
-* Push to Heroku application
- * `git push remoteName master`
 * Enjoy!
 
 ---

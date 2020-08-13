@@ -12,6 +12,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "semistandard",
+    "mongod": "mongod --dbpath=./databases",
     "nodemon": "nodemon index.js",
     "semistandard": "semistandard || true",
     "semistandard:fix": "semistandard --fix || true",
