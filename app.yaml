@@ -1,0 +1,9 @@
+runtime: nodejs10
+env: standard
+env_variables:
+  SOLOMAJIG_ARCHIVED: false
+  SOLOMAJIG_USERNAME: username
+  SOLOMAJIG_PASSWORD: password
+  BLUEBIRD_DEBUG: 0
+  BLUEBIRD_W_FORGOTTEN_RETURN: false
+  MONGODB_URI: mongodb+srv://<username>:<password>@<cluster>.mongodb.net/solomajig?retryWrites=true&w=majority

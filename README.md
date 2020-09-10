@@ -79,6 +79,10 @@ SoloMajig is maybe a little weird to explain, but it's the doing that matters. F
   * or
   * Whitelist server IPs
 * Create a new project and or cluster
+  * Select consistent service provider
+    * Heroku uses AWS services
+  * Select consistent service region
+    * GCP Central (Iowa) by default
 * On cluster, click `CONNECT`
   * `Connect your application`
   * Copy the connection string
@@ -118,6 +122,32 @@ SoloMajig is maybe a little weird to explain, but it's the doing that matters. F
 * Enjoy!
 * Debug
   * `heroku logs --tail`
+* Enjoy!
+
+### Google Cloud Platform
+* [Install Google Cloud SDK](https://cloud.google.com/sdk/docs)
+* Clone source code locally
+  * `git clone https://github.com/benvacha/solomajig.git`
+* Enter source code directory
+  * `cd solomajig`
+* Edit `app.yaml`
+  * Set `MONGODB_URI` / MongoDB Atlas
+  * Set `SOLOMAJIG_ARCHIVED` / `false`
+  * Set `SOLOMAJIG_PASSWORD` / password
+  * Set `SOLOMAJIG_USERNAME` / username
+* Create new project
+  * `gcloud projects create solomajig --set-as-default`
+  * Replace `solomajig` with unique name
+* Enable App Engine
+  * `gcloud app create --project=solomajig`
+  * Replace `solomajig` with unique name
+  * Select consistent service region
+    * GCP Central (Iowa) by default
+* Deploy to App Engine
+  * `gcloud app deploy`
+* Enjoy!
+* Open App in web browser
+  * `gcloud app browse`
 * Enjoy!
 
 ---
