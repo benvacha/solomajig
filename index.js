@@ -5,6 +5,7 @@ if (Dotenv.error) console.log('Error dotenv://.env');
 /* /**/
 const Path = require('path');
 const Express = require('express');
+const Helmet = require('helmet');
 const BodyParser = require('body-parser');
 const Mongoose = require('mongoose');
 /* */
@@ -19,6 +20,50 @@ const __static = global.__static = function (path) {
 };
 /* */
 const app = Express();
+//
+app.use(
+  Helmet({
+    contentSecurityPolicy: {
+      directives: {
+        baseUri: "'self'",
+        blockAllMixedContent: [],
+        frameAncestors: ["'self'"],
+        scriptSrcAttr: ["'none'"],
+        defaultSrc: [
+          "'self'"
+        ],
+        fontSrc: [
+          "'self'",
+          "fonts.gstatic.com"
+        ],
+        imgSrc: [
+          "'self'"
+        ],
+        objectSrc: [
+          "'none'"
+        ],
+        scriptSrc: [
+          "'self'",
+          "ajax.googleapis.com",
+          "'unsafe-inline'",
+          "'unsafe-eval'"
+        ],
+        styleSrc: [
+          "'self'",
+          "fonts.googleapis.com"
+        ]
+      },
+    }
+  })
+);
+//
+app.enable('trust proxy');
+app.use(function(req, res, next) {
+  const debug = process.env.NODE_ENV !== 'production';
+  if(req.secure || debug) return next();
+  res.redirect('https://' + req.headers.host + req.url);
+});
+//
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
