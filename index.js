@@ -74,7 +74,9 @@ app.use('/apis', __require('/apis/index'));
 /* */
 app.use('/', __static('/deploys'));
 app.use(function (req, res, next) {
-  res.sendFile(__path('/deploys/index.html'));
+  res.redirect((req.secure ? 'https://' : 'http://')
+    + req.headers.host + '/#' + req.url);
+  // res.sendFile(__path('/deploys/index.html'));
 });
 /* */
 app.use(function (err, req, res, next) {
